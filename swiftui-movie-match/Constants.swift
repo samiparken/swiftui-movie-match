@@ -10,6 +10,8 @@ struct K {
     static let baseUrl = "https://api.themoviedb.org/3"
     static let bearerToken = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxY2M4YzU4MGM5YjliMDlmNzY5YmFkMDU0NGFmYjYxYiIsInN1YiI6IjY2NGEyZjRmYzk4ZTAxZDNjZDU0NDVlMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.SFeoEr5hofgVLDSlprxOXPEbCNI4USjpC3y7ncLfq74"
     
+    static let imageUrlPrefix_w500 = "https://image.tmdb.org/t/p/w500"
+    
     struct Endpoint {
       static let movieListPopular = "/movie/popular"
     }

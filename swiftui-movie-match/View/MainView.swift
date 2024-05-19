@@ -10,19 +10,20 @@ import SwiftData
 
 struct ContentView: View {
   
-  //MARK: - PROPERTIES
-  
+  //MARK: - SwiftUIData
   @Environment(\.modelContext) private var modelContext
   @Query private var items: [Item]
+
+  //MARK: - PROPERTIES
   @StateObject var movieManager = MovieManager()
   
   var body: some View {
     NavigationSplitView {
       List {
         
-        if let movieResponse = movieManager.movieResponse {
-          ForEach(movieResponse.results) { item in
-            Text(item.title)
+        if let movieList = movieManager.movieList {
+          ForEach(movieList) { movie in
+            Text(movie.title)
           }
         } else {
           
@@ -58,6 +59,7 @@ struct ContentView: View {
       }
     }
   }
+  
 }
 
 #Preview {
