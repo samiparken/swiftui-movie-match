@@ -1,9 +1,3 @@
-//
-//  Item.swift
-//  swiftui-movie-match
-//
-//  Created by Han-Saem Park on 2024-05-19.
-//
 
 import Foundation
 import SwiftData
