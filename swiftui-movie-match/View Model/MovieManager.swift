@@ -2,32 +2,52 @@ import SwiftUI
 import Combine
 
 class MovieManager: ObservableObject {
-    
+  
   //MARK: - PROPERTIES
-  @Published var movieList: [Movie] = []
+  @Published var movieCardsToShow: [Movie] = []
+  var movieList: [Movie] = []
   
   init() {
     fetchPopularMovieList()
   }
   
   func fetchPopularMovieList() {
-      Task {
-          do {
-              let movieResponse = try await APIgetPopularMovieList(1)
-              DispatchQueue.main.async {
-                self.movieList.insert(movieResponse.results[1], at:0)
-                self.movieList.insert(movieResponse.results[4], at:0)
-              }
-          } catch {
-              print("Failed to fetch popular movies: \(error)")
-          }
+    Task {
+      do {
+        //+TODO: get movie list dynamically
+        let movieListResponse = try await APIgetPopularMovieList(1)
+        self.movieList = movieListResponse.results
+        self.refreshMovieCardsToShow()
+      } catch {
+        print("Failed to fetch popular movies: \(error)")
       }
+    }
+  }
+  
+  func refreshMovieCardsToShow() {
+    DispatchQueue.main.async {
+      while self.movieCardsToShow.count < 2 {
+        if self.movieList.count == 0 { return }
+        let movieToAdd = self.movieList.removeFirst()
+        self.movieCardsToShow.insert(movieToAdd, at: 0)
+      }
+    }
+  }
+  
+  func AddMovieCardToFavorite(_ movie: Movie) {
+    _ = movieCardsToShow.popLast()
+    refreshMovieCardsToShow()
+  }
+  
+  func RemoveMovieCard(_ movie: Movie) {
+    _ = movieCardsToShow.popLast()
+    refreshMovieCardsToShow()
   }
   
   func isTopMovieCard(_ movie: Movie) -> Bool {
-    guard let index = movieList.firstIndex(where: {$0.id == movie.id}) else {
+    guard let index = movieCardsToShow.firstIndex(where: {$0.id == movie.id}) else {
       return false
     }
-    return index == movieList.count - 1
+    return index == (movieCardsToShow.count - 1)
   }
 }
