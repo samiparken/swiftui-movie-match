@@ -17,6 +17,7 @@ struct MainView: View {
   //MARK: - PROPERTIES
   @StateObject var movieManager = MovieManager()
   
+  @State var showSettingView: Bool = false
   @State var showFavoriteView: Bool = false
 
   //MARK: - PRIVATE PROPERTIES
@@ -30,7 +31,7 @@ struct MainView: View {
     
     VStack {
       
-      FooterView(showFavoriteView: $showFavoriteView)
+      HeaderView(showSettingView: $showSettingView)
         .opacity(dragState.isDragging ? 0.0 : 1.0)
         .animation(.default, value: dragState.isDragging)
 

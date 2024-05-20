@@ -16,5 +16,14 @@ struct K {
       static let movieListPopular = "/movie/popular"
     }
   }
+  
+  
+  struct Image {
+    struct Logo {
+      static let primaryLong = "logo_primary_long"
+      static let altLong = "logo_alt_long"
+      static let altShort = "logo_alt_short"
+    }
+  }
 }
 
