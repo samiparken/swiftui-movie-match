@@ -25,7 +25,7 @@ struct swiftui_movie_matchApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainView()
         }
         .modelContainer(sharedModelContainer)
     }

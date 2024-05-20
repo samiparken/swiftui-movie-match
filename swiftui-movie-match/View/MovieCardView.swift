@@ -1,8 +1,8 @@
 import SwiftUI
 
-struct CardView: View, Identifiable {
+struct MovieCardView: View, Identifiable {
   let id = UUID() //for Identifiable
-  var movie: Movie = Movie()
+  var movie: Movie
   
   var body: some View {
     AsyncImage(
@@ -59,9 +59,26 @@ struct CardView: View, Identifiable {
   }
 }
 
-struct CardView_Previews: PreviewProvider{
-  static var previews: some View {
-    CardView(movie: Movie())
-      .previewLayout(.fixed(width: 375, height: 600))
-  }
+struct CardView_Previews: PreviewProvider {
+    static var previews: some View {
+        let sampleMovie = Movie(
+            id: 1,
+            adult: false,
+            backdropPath: "/piLUbWQ3pgkma1nCyjHLEoMCSsN.jpg",
+            genreIds: [12, 28],
+            originalLanguage: "en",
+            originalTitle: "Godzilla x Kong: The New Empire",
+            overview: "Following their explosive showdown, Godzilla and Kong must reunite against a colossal undiscovered threat hidden within our world, challenging their very existence – and our own.",
+            popularity: 10484.676,
+            posterPath: "/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg",
+            releaseDate: "2024-03-27",
+            title: "Godzilla x Kong: The New Empire",
+            video: false,
+            voteAverage: 7.222,
+            voteCount: 1830
+        )
+        
+        MovieCardView(movie: sampleMovie)
+            .previewLayout(.fixed(width: 375, height: 600))
+    }
 }
