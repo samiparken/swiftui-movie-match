@@ -34,6 +34,7 @@ struct MainView: View {
         } else {
           ForEach(movieManager.movieList) { movie in
             MovieCardView(movie: movie)
+              .zIndex(movieManager.isTopMovieCard(movie) ? 1 : 0)
           }
         }
       }
