@@ -35,7 +35,8 @@ struct MainView: View {
   var body: some View {
     
     VStack {
-      
+      Spacer()
+
       HeaderView(showSettingView: $showSettingView)
         .opacity(dragState.isDragging ? 0.0 : 1.0)
         .animation(.default, value: dragState.isDragging)
@@ -108,7 +109,7 @@ struct MainView: View {
           }
         }
       }
-      .padding(.horizontal)
+      .padding(.horizontal, 13)
       
       Spacer()
       
@@ -117,6 +118,9 @@ struct MainView: View {
         numOfFavoriteMovies: $numOfFavoriteMovies)
         .opacity(dragState.isDragging ? 0.0 : 1.0)
         .animation(.default, value: dragState.isDragging)
+      
+      Spacer()
+
     }
     .onAppear {
       // for SwiftData in MovieManager

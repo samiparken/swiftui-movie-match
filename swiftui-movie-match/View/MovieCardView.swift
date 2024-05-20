@@ -23,34 +23,43 @@ struct MovieCardView: View, Identifiable {
               !isClicked ? nil :
                 ZStack {
                   
-                  Color.black.opacity(0.5).edgesIgnoringSafeArea(.all)
+                  // dark layer
+                  Color.black.opacity(0.6).edgesIgnoringSafeArea(.all)
                     .cornerRadius(24)
                   
-                  VStack(alignment: .center, spacing: 12) {
-                    Text(movie.title.uppercased()) //title
-                      .foregroundColor(Color.white)
-                      .font(.largeTitle)
-                      .fontWeight(.bold)
-                      .shadow(radius: 1)
-                      .padding(.horizontal, 18)
-                      .padding(.vertical, 4)
-                      .overlay(
-                        Rectangle()
-                          .fill(Color.white)
-                          .frame(height: 1),
-                        alignment: .bottom
-                      )
-                    
-                    Text(movie.overview) // overview
-                      .foregroundColor(Color.white)
-                      .font(.footnote)
-                      .fontWeight(.bold)
-                      .frame(minWidth: 85)
-                      .padding(.horizontal, 10)
-                      .padding(.vertical, 5)
+                  ScrollView(.vertical, showsIndicators: true){
+                    VStack(alignment: .center, spacing: 12) {
+                      
+                      // title
+                      Text(movie.title.uppercased()) //title
+                        .foregroundColor(Color.white)
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .shadow(radius: 1)
+                        .padding(.top, 40)
+                        .overlay(
+                          Rectangle()
+                            .fill(Color.white)
+                            .frame(height: 1),
+                          alignment: .bottom
+                        )
+                        .padding(.horizontal, 18)
+                        .padding(.bottom, 10)
+                      
+                      // description
+                      Text(movie.overview) // overview
+                        .foregroundColor(Color.white)
+                        .font(.subheadline)
+                        .fontWeight(.bold)
+                        .frame(minWidth: 85)
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 5)
+                      
+                      Spacer()
+                    }
+                    .frame(minWidth: 280) //VStack frame
+                    .padding(.bottom, 50) //VStack padding
                   }
-                  .frame(minWidth: 280) //VStack frame
-                  .padding(.bottom, 50) //VStack padding
                 }
             )
             .animation(.easeInOut(duration: 0.3), value: isClicked)
@@ -91,6 +100,6 @@ struct CardView_Previews: PreviewProvider {
     @State var isClicked: Bool = true
     
     MovieCardView(movie: sampleMovie, isClicked: $isClicked)
-      .previewLayout(.fixed(width: 375, height: 600))
+      .previewLayout(.fixed(width: 375, height: 700))
   }
 }
