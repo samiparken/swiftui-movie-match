@@ -88,11 +88,12 @@ struct MainView: View {
                   break
                 }
               })
-                       // End of Gesture - action
+               // End of Gesture - Action
                 .onEnded({ (value) in
                   guard case .second(true, let drag?) = value else { return }
-                  if drag.translation.width < -self.dragAreaThreshold
-                      || drag.translation.width > self.dragAreaThreshold {
+                  if drag.translation.width < -self.dragAreaThreshold {
+                    movieManager.RemoveMovieCard(movie)
+                  } else if drag.translation.width > self.dragAreaThreshold {
                     movieManager.AddMovieCardToFavorite(movie)
                   }
                 })
@@ -108,7 +109,6 @@ struct MainView: View {
         .opacity(dragState.isDragging ? 0.0 : 1.0)
         .animation(.default, value: dragState.isDragging)
     }
-    
   }
 }
 
