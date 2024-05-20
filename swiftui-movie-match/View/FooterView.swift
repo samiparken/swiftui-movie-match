@@ -4,6 +4,8 @@ struct FooterView: View {
   //MARK: - PROPERTIES
   
   @Binding var showFavoriteView: Bool
+  @Binding var numOfFavoriteMovies: Int
+  
   let haptics = UINotificationFeedbackGenerator()
   
   var body: some View {
@@ -14,20 +16,32 @@ struct FooterView: View {
       
       Spacer()
       
-      Button(action:{
-        //ACTION
-        self.haptics.notificationOccurred(.success)
-        self.showFavoriteView.toggle()
-      }) {
-        Text("Show Favorites".uppercased())
-          .font(.system(.subheadline, design:.rounded))
-          .fontWeight(.heavy)
-          .padding(.horizontal, 20)
-          .padding(.vertical, 12)
-          .accentColor(Color(UIColor(.primaryColor)))
-          .background(
-            Capsule().stroke(Color(UIColor(.primaryColor)), lineWidth: 2)
-          )
+      ZStack {
+        Button(action:{
+          // ACTION
+          self.haptics.notificationOccurred(.success)
+          self.showFavoriteView.toggle()
+        }) {
+          Text("Show Favorites".uppercased())
+            .font(.system(.subheadline, design:.rounded))
+            .fontWeight(.heavy)
+            .padding(.horizontal, 20)
+            .padding(.vertical, 12)
+            .accentColor(Color(UIColor(.primaryColor)))
+            .background(
+              Capsule().stroke(Color(UIColor(.primaryColor)), lineWidth: 2)
+            )
+        }
+        // Badge
+        if numOfFavoriteMovies > 0 {
+            Text("\(numOfFavoriteMovies)")
+                .font(.caption)
+                .foregroundColor(.white)
+                .padding(6)
+                .background(Color.red)
+                .clipShape(Circle())
+                .offset(x: 80, y: -20)
+        }
       }
       
       Spacer()
@@ -35,17 +49,20 @@ struct FooterView: View {
       Image(systemName: "heart.circle")
         .font(.system(size: 42, weight: .light))
         .foregroundColor(.primaryColor)
-
+      
     }
     .padding()
   }
 }
 
 struct FooterView_Previews: PreviewProvider {
-  @State static var showAlert: Bool = false
+  @State static var showFavoriteView: Bool = false
+  @State static var numOfFavoriteMovies: Int = 10
   
   static var previews: some View {
-    FooterView(showFavoriteView: $showAlert)
-      .previewLayout(.fixed(width: 375, height: 80))
+    FooterView(
+      showFavoriteView: $showFavoriteView,
+      numOfFavoriteMovies: $numOfFavoriteMovies)
+    .previewLayout(.fixed(width: 375, height: 80))
   }
 }

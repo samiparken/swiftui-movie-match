@@ -11,6 +11,7 @@ struct MainView: View {
   @StateObject var movieManager = MovieManager()
   @State var showSettingView: Bool = false
   @State var showFavoriteView: Bool = false
+  @State var numOfFavoriteMovies: Int = 0
   
   //MARK: - PRIVATE PROPERTIES
   @GestureState private var dragState = DragState.inactive
@@ -87,8 +88,8 @@ struct MainView: View {
                   if drag.translation.width < -self.dragAreaThreshold {
                     movieManager.RemoveMovieCard(movie)
                   } else if drag.translation.width > self.dragAreaThreshold {
-                    //self.AddMovieCardToFavorite(movie)
                     movieManager.AddMovieCardToFavorite(movie)
+                    numOfFavoriteMovies = movieManager.numOfFavoriteMovies
                   }
                 })
               )
@@ -99,14 +100,18 @@ struct MainView: View {
       
       Spacer()
       
-      FooterView(showFavoriteView: $showFavoriteView)
+      FooterView(
+        showFavoriteView: $showFavoriteView,
+        numOfFavoriteMovies: $numOfFavoriteMovies)
         .opacity(dragState.isDragging ? 0.0 : 1.0)
         .animation(.default, value: dragState.isDragging)
     }
     .onAppear {
-      // for SwiftData in View Model
+      // for SwiftData in MovieManager
       movieManager.context = context
       movieManager.fetchFavoriteMovies()
+      movieManager.getPopularMovieList()
+      numOfFavoriteMovies = movieManager.numOfFavoriteMovies
     }
     
   }

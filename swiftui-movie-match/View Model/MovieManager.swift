@@ -7,51 +7,20 @@ class MovieManager: ObservableObject {
   //MARK: - SwiftData
   var context: ModelContext? = nil
   var favoriteMovies: [FavoriteMovie] = []
-
+  var numOfFavoriteMovies: Int = 0
+    
   func fetchFavoriteMovies() {
     let fetchDescriptor = FetchDescriptor<FavoriteMovie>(
       predicate: #Predicate {
         $0.title != ""
       },
-      sortBy: [SortDescriptor(\.title)]
+      sortBy: [SortDescriptor(\.savedAt)]
     )
     favoriteMovies = (try? (context?.fetch(fetchDescriptor) ?? [])) ?? []
+    numOfFavoriteMovies = favoriteMovies.count
   }
   
-  //MARK: - PROPERTIES
-  @Published var movieCardsToShow: [Movie] = []
-  var movieList: [Movie] = []
-  
-  init() {
-    getPopularMovieList()
-  }
-  
-  func getPopularMovieList() {
-    Task {
-      do {
-        //+TODO: get movie list dynamically
-        let movieListResponse = try await APIgetPopularMovieList(1)
-        self.movieList = movieListResponse.results
-        self.refreshMovieCardsToShow()
-      } catch {
-        print("Failed to fetch popular movies: \(error)")
-      }
-    }
-  }
-  
-  func refreshMovieCardsToShow() {
-    DispatchQueue.main.async {
-      while self.movieCardsToShow.count < 2 {
-        if self.movieList.count == 0 { return }
-        let movieToAdd = self.movieList.removeFirst()
-        self.movieCardsToShow.insert(movieToAdd, at: 0)
-      }
-    }
-  }
-  
-  func AddMovieCardToFavorite(_ movie: Movie) {
-    
-    // Create a new FavoriteMovie instance
+  func createFavoriteMovie(_ movie: Movie) {
     let favoriteMovie = FavoriteMovie(
       id: movie.id,
       posterPath: movie.posterPath,
@@ -62,15 +31,64 @@ class MovieManager: ObservableObject {
       voteAverage: movie.voteAverage,
       savedAt: Date()
     )
-    
-    // Insert the new FavoriteMovie into the model context
     context?.insert(favoriteMovie)
-    try? context?.save()
+  }
+  
+  //MARK: - PROPERTIES
+  @Published var movieCardsToShow: [Movie] = []
+  var movieCardsToShowTemp: [Movie] = []
+  var movieList: [Movie] = []
+  var popularMoviePage = 3
+  
+  func getPopularMovieList(_ page: Int = 2) {
+    Task {
+      do {        
+        let movieListResponse = try await APIgetPopularMovieList(page)
+        
+        // filter favotireMovies from incoming movies
+        let favoriteMovieIds = favoriteMovies.map { $0.id }
+        let newMovies = movieListResponse.results.filter { !favoriteMovieIds.contains($0.id) }
+        self.movieList.append(contentsOf: newMovies)
+        
+        refreshMovieCardsToShow()
+    } catch {
+      print("Failed to fetch popular movies: \(error)")
+    }
+  }
+}
+  
+  func refreshMovieCardsToShow() {
     
-    //Refresh
+    // add more movies to movieList
+    if movieList.count < 3 {
+      popularMoviePage += 1
+      getPopularMovieList(self.popularMoviePage)
+    }
+    
+    DispatchQueue.main.async {
+      while self.movieCardsToShow.count < 2 {
+        if(self.movieList.count == 0) { break }
+        
+        let movieToAdd = self.movieList.removeFirst()
+
+        // Check if it's already in [FavoriteMovie]
+        let favoriteMovieIds = self.favoriteMovies.map { $0.id }
+        if(favoriteMovieIds.contains(movieToAdd.id)) { continue }
+        
+        self.movieCardsToShow.insert(movieToAdd, at: 0)
+      }
+    }
+  }
+  
+  func AddMovieCardToFavorite(_ movie: Movie) {
+
+    // create FavoriteMovie in SwiftData
+    createFavoriteMovie(movie)
+    
+    // Refresh [FavoriteMovie]
     fetchFavoriteMovies()
     
-    //Refresh movieCardsToShow
+    // Refresh movieCardsToShow
     _ = movieCardsToShow.popLast()
     refreshMovieCardsToShow()
   }

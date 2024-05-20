@@ -2,7 +2,6 @@ import Foundation
 import SwiftUI
 import SwiftData
 
-
 @Model
 class FavoriteMovie {
   @Attribute(.unique) var id: Int
