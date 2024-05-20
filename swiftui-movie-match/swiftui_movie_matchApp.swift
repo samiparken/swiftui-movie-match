@@ -12,7 +12,7 @@ import SwiftData
 struct swiftui_movie_matchApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            Item.self,
+          FavoriteMovie.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 

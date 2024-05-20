@@ -17,9 +17,9 @@
 		3181D1FF2BFB3EDB00C40722 /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3181D1FE2BFB3EDB00C40722 /* FooterView.swift */; };
 		3181D2012BFB43B900C40722 /* Color+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3181D2002BFB43B900C40722 /* Color+Ext.swift */; };
 		3181D2032BFB468B00C40722 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3181D2022BFB468B00C40722 /* HeaderView.swift */; };
+		31E8E3C32BFB7BE500841B95 /* FavoriteMovie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E8E3C22BFB7BE400841B95 /* FavoriteMovie.swift */; };
 		31FD8F9C2BFA694D00F03252 /* swiftui_movie_matchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FD8F9B2BFA694D00F03252 /* swiftui_movie_matchApp.swift */; };
 		31FD8F9E2BFA694D00F03252 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FD8F9D2BFA694D00F03252 /* MainView.swift */; };
-		31FD8FA02BFA694D00F03252 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FD8F9F2BFA694D00F03252 /* Item.swift */; };
 		31FD8FA22BFA694F00F03252 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 31FD8FA12BFA694F00F03252 /* Assets.xcassets */; };
 		31FD8FA52BFA694F00F03252 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 31FD8FA42BFA694F00F03252 /* Preview Assets.xcassets */; };
 		31FD8FAF2BFA694F00F03252 /* swiftui_movie_matchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FD8FAE2BFA694F00F03252 /* swiftui_movie_matchTests.swift */; };
@@ -64,10 +64,10 @@
 		3181D1FE2BFB3EDB00C40722 /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
 		3181D2002BFB43B900C40722 /* Color+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Ext.swift"; sourceTree = "<group>"; };
 		3181D2022BFB468B00C40722 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		31E8E3C22BFB7BE400841B95 /* FavoriteMovie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteMovie.swift; sourceTree = "<group>"; };
 		31FD8F982BFA694D00F03252 /* swiftui-movie-match.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "swiftui-movie-match.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		31FD8F9B2BFA694D00F03252 /* swiftui_movie_matchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swiftui_movie_matchApp.swift; sourceTree = "<group>"; };
 		31FD8F9D2BFA694D00F03252 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
-		31FD8F9F2BFA694D00F03252 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		31FD8FA12BFA694F00F03252 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		31FD8FA42BFA694F00F03252 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		31FD8FAA2BFA694F00F03252 /* swiftui-movie-matchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "swiftui-movie-matchTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -207,8 +207,8 @@
 		31FD8FCA2BFA7F3B00F03252 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				31E8E3C22BFB7BE400841B95 /* FavoriteMovie.swift */,
 				31FD8FDF2BFA870400F03252 /* API Response */,
-				31FD8F9F2BFA694D00F03252 /* Item.swift */,
 				3181D1F82BFB2D9600C40722 /* DragState.swift */,
 			);
 			path = Model;
@@ -397,8 +397,8 @@
 				31036C902BFA9DEC00604902 /* String+Ext.swift in Sources */,
 				3181D1F32BFB2CEC00C40722 /* ButtonModifier.swift in Sources */,
 				3181D1FF2BFB3EDB00C40722 /* FooterView.swift in Sources */,
+				31E8E3C32BFB7BE500841B95 /* FavoriteMovie.swift in Sources */,
 				31FD8FD12BFA801600F03252 /* Request.swift in Sources */,
-				31FD8FA02BFA694D00F03252 /* Item.swift in Sources */,
 				31FD8F9C2BFA694D00F03252 /* swiftui_movie_matchApp.swift in Sources */,
 				31FD8FC82BFA771E00F03252 /* Constants.swift in Sources */,
 				31FD8FCF2BFA800500F03252 /* Endpoint.swift in Sources */,
