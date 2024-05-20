@@ -16,6 +16,10 @@ struct MainView: View {
 
   //MARK: - PROPERTIES
   @StateObject var movieManager = MovieManager()
+  
+  @State var showFavoriteView: Bool = false
+
+  //MARK: - PRIVATE PROPERTIES
   @GestureState private var dragState = DragState.inactive
   private var dragAreaThreshold: CGFloat = 65.0 // if it's less than 65 points, the card snaps back to its origianl place.
   @State private var lastCardIndex: Int = 1
@@ -26,6 +30,10 @@ struct MainView: View {
     
     VStack {
       
+      FooterView(showFavoriteView: $showFavoriteView)
+        .opacity(dragState.isDragging ? 0.0 : 1.0)
+        .animation(.default, value: dragState.isDragging)
+
       Spacer()
       
       ZStack{
@@ -82,14 +90,17 @@ struct MainView: View {
                 }
               }))
             
-            
-            
+                      
           }
         }
       }
       .padding(.horizontal)
       
       Spacer()
+      
+      FooterView(showFavoriteView: $showFavoriteView)
+        .opacity(dragState.isDragging ? 0.0 : 1.0)
+        .animation(.default, value: dragState.isDragging)
     }
 
   }

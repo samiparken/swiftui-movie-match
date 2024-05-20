@@ -10,7 +10,7 @@ struct MovieCardView: View, Identifiable {
         switch phase {
         case .empty:
           // Placeholder view while loading
-          Text("empty")
+          Text("Loading...")
         case .success(let image):
           // Success: Show the image
           image
