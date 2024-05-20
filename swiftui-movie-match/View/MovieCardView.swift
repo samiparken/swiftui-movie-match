@@ -18,6 +18,7 @@ struct MovieCardView: View, Identifiable {
             .cornerRadius(24)
             .scaledToFit()
             .frame(minWidth: 0, maxWidth: .infinity)
+            /*
             .overlay(
               VStack(alignment: .center, spacing: 12) {
                 Text(movie.title.uppercased()) //title
@@ -48,6 +49,7 @@ struct MovieCardView: View, Identifiable {
                 .padding(.bottom, 50), //VStack padding
               alignment: .bottom //VStack alignment
             )
+             */
         case .failure:
           // Error: Show placeholder or error message
           Text("Failed to load image")

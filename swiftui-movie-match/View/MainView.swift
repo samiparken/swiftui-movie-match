@@ -34,7 +34,40 @@ struct MainView: View {
         } else {
           ForEach(movieManager.movieList) { movie in
             MovieCardView(movie: movie)
+            //zIndex
               .zIndex(movieManager.isTopMovieCard(movie) ? 1 : 0)
+            // Drag offset
+              .offset(x: movieManager.isTopMovieCard(movie)
+                      ? self.dragState.translation.width : 0,
+                      y: movieManager.isTopMovieCard(movie)
+                      ? self.dragState.translation.height : 0)
+            // Scale (before animation)
+              .scaleEffect(movieManager.isTopMovieCard(movie)
+                           && self.dragState.isDragging ? 0.85 : 1.0)
+            //Rotation (before animation)
+              .rotationEffect(Angle(degrees:
+                                      movieManager.isTopMovieCard(movie)
+                                    ? Double(self.dragState.translation.width / 12)
+                                    : 0))
+            //Animation (spring effect)
+              .animation(.interpolatingSpring(stiffness: 120, damping: 120), value: dragState.isDragging)
+            //Gesture
+              .gesture(LongPressGesture(minimumDuration: 0.01)
+                .sequenced(before: DragGesture())
+                .updating(self.$dragState,
+                          body: { (value, state, transaction) in
+                switch value {
+                case .first(true):
+                  state = .pressing
+                case .second(true, let drag):
+                  state = .dragging(transition: drag?.translation ?? .zero)
+                default:
+                  break
+                }
+              }))
+            
+            
+            
           }
         }
       }

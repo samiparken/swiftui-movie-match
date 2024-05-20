@@ -15,8 +15,8 @@ class MovieManager: ObservableObject {
           do {
               let movieResponse = try await APIgetPopularMovieList(1)
               DispatchQueue.main.async {
-                self.movieList.insert(movieResponse.results[2], at:0)
-                self.movieList.insert(movieResponse.results[7], at:0)
+                self.movieList.insert(movieResponse.results[1], at:0)
+                self.movieList.insert(movieResponse.results[4], at:0)
               }
           } catch {
               print("Failed to fetch popular movies: \(error)")
