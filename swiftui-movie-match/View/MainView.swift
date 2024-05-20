@@ -36,6 +36,22 @@ struct MainView: View {
             MovieCardView(movie: movie)
             //zIndex
               .zIndex(movieManager.isTopMovieCard(movie) ? 1 : 0)
+            // Show Symbol
+              .overlay(
+                ZStack {
+                  // X-MARK SYMBOL
+                  Image(systemName: "x.circle")
+                    .modifier(SymbolModifier())
+                    .opacity(self.dragState.translation.width < -self.dragAreaThreshold
+                             && movieManager.isTopMovieCard(movie) ? 1.0 : 0.0)
+                                  
+                  // HEART SYMBOL
+                  Image(systemName: "heart.circle")
+                    .modifier(SymbolModifier())
+                    .opacity(self.dragState.translation.width > self.dragAreaThreshold
+                             && movieManager.isTopMovieCard(movie) ? 1.0 : 0.0)
+                }
+              )
             // Drag offset
               .offset(x: movieManager.isTopMovieCard(movie)
                       ? self.dragState.translation.width : 0,
