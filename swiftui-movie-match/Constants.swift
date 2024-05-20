@@ -14,6 +14,7 @@ struct K {
     
     struct Endpoint {
       static let movieListPopular = "/movie/popular"
+      static let movieDetail = "/movie/{id}"
     }
   }
   

@@ -14,7 +14,11 @@ extension Endpoint {
   var url: String {
     switch httpMethod {
     case "GET":
-      return K.API.baseUrl + path + "?" + params!.queryString
+      if let params = params, !params.isEmpty {
+        return K.API.baseUrl + path + "?" + params.queryString
+      } else {
+        return K.API.baseUrl + path
+      }
     case "POST":
       return K.API.baseUrl + path
     default:
@@ -25,11 +29,12 @@ extension Endpoint {
 
 enum EndpointCase: Endpoint {
   case movieListPopular(language: String, page: Int, region: String)
-    
+  case movieDetail(id: Int)
+  
   var httpMethod: String {
     switch self {
-    //case .login .resetPassword, .postProtocol:
-    //  return "POST"
+      //case .login .resetPassword, .postProtocol:
+      //  return "POST"
     default:
       return "GET"
     }
@@ -39,6 +44,8 @@ enum EndpointCase: Endpoint {
     switch self {
     case .movieListPopular:
       return K.API.Endpoint.movieListPopular
+    case .movieDetail(let id):
+      return K.API.Endpoint.movieDetail.replacingOccurrences(of: "{id}", with: "\(id)")
     }
   }
   
