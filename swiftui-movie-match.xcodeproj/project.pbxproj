@@ -207,8 +207,8 @@
 		31FD8FCA2BFA7F3B00F03252 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				31E8E3C22BFB7BE400841B95 /* FavoriteMovie.swift */,
 				31FD8FDF2BFA870400F03252 /* API Response */,
+				31E8E3C22BFB7BE400841B95 /* FavoriteMovie.swift */,
 				3181D1F82BFB2D9600C40722 /* DragState.swift */,
 			);
 			path = Model;

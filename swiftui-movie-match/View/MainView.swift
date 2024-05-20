@@ -1,18 +1,11 @@
-//
-//  ContentView.swift
-//  swiftui-movie-match
-//
-//  Created by Han-Saem Park on 2024-05-19.
-//
-
 import SwiftUI
 import SwiftData
 
 struct MainView: View {
   
-  //MARK: - SwiftUIData
-  //@Environment(\.modelContext) private var modelContext
-  //@Query private var items: [Item]
+  // MARK: - SwiftData
+  @Environment(\.modelContext) private var context
+  @Query private var favoriteMovies: [FavoriteMovie]
   
   //MARK: - PROPERTIES
   @StateObject var movieManager = MovieManager()
@@ -24,7 +17,7 @@ struct MainView: View {
   private var dragAreaThreshold: CGFloat = 65.0 // if it's less than 65 points, the card snaps back to its origianl place.
   @State private var lastCardIndex: Int = 1
   @State private var cardRemovalTransition = AnyTransition.trailingBottom
-  
+    
   //MARK: - BODY
   var body: some View {
     
@@ -94,6 +87,7 @@ struct MainView: View {
                   if drag.translation.width < -self.dragAreaThreshold {
                     movieManager.RemoveMovieCard(movie)
                   } else if drag.translation.width > self.dragAreaThreshold {
+                    //self.AddMovieCardToFavorite(movie)
                     movieManager.AddMovieCardToFavorite(movie)
                   }
                 })
@@ -109,9 +103,16 @@ struct MainView: View {
         .opacity(dragState.isDragging ? 0.0 : 1.0)
         .animation(.default, value: dragState.isDragging)
     }
+    .onAppear {
+      // for SwiftData in View Model
+      movieManager.context = context
+      movieManager.fetchFavoriteMovies()
+    }
+    
   }
 }
 
 #Preview {
   MainView()
+    .modelContainer(for: FavoriteMovie.self, inMemory: true)
 }
