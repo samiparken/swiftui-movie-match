@@ -18,17 +18,15 @@ struct MainView: View {
   private var dragAreaThreshold: CGFloat = 65.0 // if it's less than 65 points, the card snaps back to its origianl place.
   @State private var lastCardIndex: Int = 1
   @State private var cardRemovalTransition = AnyTransition.trailingBottom
-  @State private var isMovieCardClicked: Bool = false
-  
+  @State private var isClicked: [Int: Bool] = [:]
+
   //MARK: - METHOD
   func addMovieCardToFavorite(_ movie: Movie) {
     movieManager.AddMovieCardToFavorite(movie)
     numOfFavoriteMovies = movieManager.numOfFavoriteMovies
-    isMovieCardClicked = false
   }
   func removeMovieCard(_ movie: Movie) {
     movieManager.RemoveMovieCard(movie)
-    isMovieCardClicked = false
   }
   
   //MARK: - BODY
@@ -45,11 +43,20 @@ struct MainView: View {
       
       ZStack{
         if movieManager.movieCardsToShow.isEmpty {
-          Text("Loading...")
+          VStack {
+            Spacer()
+            Text("Loading...")
+            Spacer()
+          }
         } else {
           ForEach(movieManager.movieCardsToShow) { movie in
-            
-            MovieCardView(movie: movie, isClicked: $isMovieCardClicked)
+            MovieCardView(
+              movie: movie,
+              isClicked: Binding(
+                get: { isClicked[movie.id] ?? false },
+                set: { isClicked[movie.id] = $0 }
+              )
+            )
             //zIndex
               .zIndex(movieManager.isTopMovieCard(movie) ? 1 : 0)
             // Show Symbol

@@ -36,7 +36,6 @@ class MovieManager: ObservableObject {
   
   //MARK: - PROPERTIES
   @Published var movieCardsToShow: [Movie] = []
-  var movieCardsToShowTemp: [Movie] = []
   var movieList: [Movie] = []
   var popularMoviePage = 3
   

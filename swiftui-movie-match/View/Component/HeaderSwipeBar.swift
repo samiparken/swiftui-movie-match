@@ -7,7 +7,7 @@ struct HeaderSwipeBar: View {
       .frame(width:120, height:6)
       .foregroundColor(Color.secondary)
       .opacity(0.2)
-      .padding(.top, 20)
+      .padding(.vertical, 20)
   }
 }
 
