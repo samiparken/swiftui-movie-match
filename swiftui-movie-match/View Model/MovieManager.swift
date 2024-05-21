@@ -63,7 +63,9 @@ class MovieManager: ObservableObject {
           self.movieCardDeck.append(contentsOf: newMovies)
 
           if movieCardDeck.count > 2 {
-            updateMovieCardsToShow()
+            DispatchQueue.main.async {
+              self.reloadMovieCardsToShow()
+            }
           } else {
             popularMoviePage += 1
           }
@@ -86,21 +88,19 @@ class MovieManager: ObservableObject {
     }
   }
   
-  func updateMovieCardsToShow() {
+  func reloadMovieCardsToShow() {
     // Always show 2 movie cards on the screen
     movieCardDeck.shuffle()
-    DispatchQueue.main.async {
-      while self.movieCardsToShow.count < 2 {
-        if(self.movieCardDeck.count == 0) { break }
-        
-        let movieToAdd = self.movieCardDeck.removeFirst()
-                
-        self.movieCardsToShow.insert(movieToAdd, at: 0)
-      }
+    while self.movieCardsToShow.count < 2 {
+      if(self.movieCardDeck.count == 0) { break }
+      
+      let movieToAdd = self.movieCardDeck.removeFirst()
+      
+      self.movieCardsToShow.insert(movieToAdd, at: 0)
     }
   }
   
-  func AddMovieCardToFavorite(_ movie: Movie) {
+  func addMovieCardToFavorite(_ movie: Movie) {
     // create FavoriteMovie in SwiftData
     createFavoriteMovie(movie)
     
@@ -111,14 +111,15 @@ class MovieManager: ObservableObject {
     movieCardDeck.removeAll { $0.id == movie.id }
         
     // Refresh movieCardsToShow
-    _ = movieCardsToShow.popLast()
-    updateMovieCardsToShow()
+    removeTopMovieCardAndReload()
   }
   
-  func RemoveMovieCard(_ movie: Movie) {
+  func removeTopMovieCardAndReload() {
     // Refresh movieCardsToShow
     _ = movieCardsToShow.popLast()
-    updateMovieCardsToShow()
+    DispatchQueue.main.async {
+      self.reloadMovieCardsToShow()
+    }
   }
   
   func isTopMovieCard(_ movie: Movie) -> Bool {

@@ -110,9 +110,9 @@ struct MainView: View {
               .onEnded({ (value) in
                 guard case .second(true, let drag?) = value else { return }
                 if drag.translation.width < -self.dragAreaThreshold {
-                  movieManager.RemoveMovieCard(movie)
+                  movieManager.removeTopMovieCardAndReload()
                 } else if drag.translation.width > self.dragAreaThreshold {
-                  movieManager.AddMovieCardToFavorite(movie)
+                  movieManager.addMovieCardToFavorite(movie)
                 }
               })
             )
