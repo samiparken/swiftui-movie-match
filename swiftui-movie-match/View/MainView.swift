@@ -6,13 +6,14 @@ struct MainView: View {
   // MARK: - SwiftData
   @Environment(\.modelContext) private var context
   @Query private var favoriteMovies: [FavoriteMovie]
+  @AppStorage(K.AppStorageKey.appearanceMode) private var storedAppearanceMode: AppearanceMode = .system
   
   //MARK: - PROPERTIES
   @StateObject var movieManager = MovieManager()
   @State var showSettingView: Bool = false
   @State var showFavoriteView: Bool = false
   @State var showMovieDetailView: Bool = false
-  @State var colorScheme: ColorScheme? = .light
+  @State var colorScheme: ColorScheme?
   
   //MARK: - PRIVATE PROPERTIES
   @GestureState private var dragState = DragState.inactive
@@ -21,20 +22,35 @@ struct MainView: View {
   @State private var cardRemovalTransition = AnyTransition.trailingBottom
   @State private var isClicked: [Int: Bool] = [:]
   
+  //MARK: - METHOD
+  private func updateColorScheme(for mode: AppearanceMode) {
+    switch mode {
+    case .system:
+      colorScheme = .light //+TODO: get system colorScheme
+    case .light:
+      colorScheme = .light
+    case .dark:
+      colorScheme = .dark
+    }
+  }
+  
   //MARK: - BODY
   var body: some View {
     
     VStack {
       Spacer()
       
+      //MARK: - HEADER VIEW
       MainHeaderView(
         movieManager: movieManager,
-        showSettingView: $showSettingView)
+        showSettingView: $showSettingView,
+        colorScheme: $colorScheme)
       .opacity(dragState.isDragging ? 0.0 : 1.0)
       .animation(.default, value: dragState.isDragging)
       
       Spacer()
       
+      //MARK: - MOVIE CARD VIEW
       ZStack{
         if movieManager.movieCardsToShow.isEmpty {
           VStack {
@@ -44,6 +60,7 @@ struct MainView: View {
             Spacer()
           }
         } else {
+          
           ForEach(movieManager.movieCardsToShow) { movie in
             MainCardView(
               movie: movie,
@@ -119,7 +136,7 @@ struct MainView: View {
             )
             // transition after the gesture
             .transition(self.cardRemovalTransition)
-
+            
           }
         }
       }
@@ -127,6 +144,7 @@ struct MainView: View {
       
       Spacer()
       
+      //MARK: - FOOTER VIEW
       MainFooterView(
         showFavoriteView: $showFavoriteView,
         showMovieDetailView: $showMovieDetailView)
@@ -142,6 +160,8 @@ struct MainView: View {
       movieManager.context = context
       movieManager.fetchFavoriteMovies()
       movieManager.getPopularMovieList()
+      // apply appearanceMode
+      updateColorScheme(for: storedAppearanceMode)
     }
   }
 }

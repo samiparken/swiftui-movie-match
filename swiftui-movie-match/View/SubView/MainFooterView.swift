@@ -17,7 +17,7 @@ struct MainFooterView: View {
     HStack {
       Image(systemName: "xmark.circle")
         .font(.system(size:42, weight: .light))
-        .foregroundColor(colorScheme.isDarkMode()
+        .foregroundColor(colorScheme == .dark
                          ? .tertiaryColor
                          : .primaryColor)
       
@@ -34,11 +34,11 @@ struct MainFooterView: View {
             .fontWeight(.heavy)
             .padding(.horizontal, 20)
             .padding(.vertical, 12)
-            .accentColor(Color(UIColor(colorScheme.isDarkMode()
+            .accentColor(Color(UIColor(colorScheme == .dark
                                        ? .tertiaryColor
                                        : .primaryColor)))
             .background(
-              Capsule().stroke(Color(UIColor(colorScheme.isDarkMode()
+              Capsule().stroke(Color(UIColor(colorScheme == .dark
                                              ? .tertiaryColor
                                              : .primaryColor)), lineWidth: 2)
             )
@@ -62,7 +62,7 @@ struct MainFooterView: View {
       
       Image(systemName: "heart.circle")
         .font(.system(size: 42, weight: .light))
-        .foregroundColor(colorScheme.isDarkMode()
+        .foregroundColor(colorScheme == .dark
                          ? .tertiaryColor
                          : .primaryColor)
       

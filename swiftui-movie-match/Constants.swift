@@ -4,7 +4,11 @@ struct K {
   struct AppStorageKey {
     static let region = "region"
     static let language = "language"
-    static let isDarkMode = "isDarkMode"
+    static let appearanceMode = "appearanceMode"
+  }
+  
+  struct SettingsView {
+    static let languageList = ["English", "Svenska", "한국어"]
   }
     
   struct API {

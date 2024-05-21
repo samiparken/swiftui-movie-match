@@ -40,11 +40,12 @@ struct DetailView: View {
           Text("Failed to load movie detail")
         } else if let movieDetail = movieDetail {
           
+          //MARK: - DETAILED CARD VIEW
           DetailCardView(movieDetail: movieDetail, isClicked: $isClicked)
           
           Spacer()
           
-          // REMOVE Button
+          //MARK: - REMOVE BUTTON
           Button(action:{
             guard let indexToDelete = favoriteMovies.firstIndex(where: {$0.id == movieId}) else {
               self.presentationMode.wrappedValue.dismiss()
@@ -57,17 +58,18 @@ struct DetailView: View {
               .modifier(RemoveButtonModifier())
               .padding(.horizontal, 20)
           }
-          // CLOSE Button
+          
+          //MARK: - CLOSE BUTTON
           Button(action:{
             self.presentationMode.wrappedValue.dismiss()
           }) {
             Text("Close".uppercased())
               .modifier(CloseButtonModifier())
-              .accentColor(Color(UIColor(colorScheme.isDarkMode()
+              .accentColor(Color(UIColor(colorScheme == .dark
                                          ? .tertiaryColor
                                          : .primaryColor)))
               .background(
-                Capsule().stroke(Color(UIColor(colorScheme.isDarkMode()
+                Capsule().stroke(Color(UIColor(colorScheme == .dark
                                                ? .tertiaryColor
                                                : .primaryColor)), lineWidth: 2)
               )

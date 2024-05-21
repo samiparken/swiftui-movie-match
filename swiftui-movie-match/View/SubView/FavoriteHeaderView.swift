@@ -15,7 +15,7 @@ struct FavoriteHeaderView: View {
       Text("Favorites".uppercased())
         .font(.title2)
         .fontWeight(.bold)
-        .foregroundColor(colorScheme.isDarkMode()
+        .foregroundColor(colorScheme == .dark
                          ? .tertiaryColor
                          : .primaryColor)
 

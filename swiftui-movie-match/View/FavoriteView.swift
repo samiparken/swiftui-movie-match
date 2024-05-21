@@ -17,6 +17,7 @@ struct FavoriteView: View {
     GridItem(.flexible())
   ]
   
+  //MARK: - BODY
   var body: some View {
     
     VStack {
@@ -42,6 +43,7 @@ struct FavoriteView: View {
   }
 }
 
+//MARK: - PREVIEW
 struct FavoriteView_Previews: PreviewProvider {
   static var previews: some View {
     @State var showMovieDetailView: Bool = true

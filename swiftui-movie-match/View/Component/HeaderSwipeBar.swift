@@ -6,7 +6,7 @@ struct HeaderSwipeBar: View {
   var body: some View {
     Capsule()
       .frame(width:120, height:6)
-      .foregroundColor(colorScheme.isDarkMode()
+      .foregroundColor(colorScheme == .dark
                        ? Color.white
                        : Color.secondary)
       .opacity(0.3)

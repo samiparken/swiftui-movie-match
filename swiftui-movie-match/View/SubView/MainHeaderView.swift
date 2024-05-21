@@ -1,11 +1,11 @@
 import SwiftUI
 
 struct MainHeaderView: View {
-
+  
   //MARK: - PROPERTIES
-  @Environment(\.colorScheme) var colorScheme
   @ObservedObject var movieManager: MovieManager
   @Binding var showSettingView: Bool
+  @Binding var colorScheme: ColorScheme?
   
   let haptics = UINotificationFeedbackGenerator()
   
@@ -20,7 +20,7 @@ struct MainHeaderView: View {
         Image(systemName: "arrow.clockwise")
           .font(.system(size: 24, weight: .regular))
       }
-      .accentColor(Color(UIColor(colorScheme.isDarkMode()
+      .accentColor(Color(UIColor(colorScheme == .dark
                                  ? .tertiaryColor
                                  : .primaryColor)))
       
@@ -41,13 +41,13 @@ struct MainHeaderView: View {
         Image(systemName: "gearshape")
           .font(.system(size: 24, weight: .regular))
       }
-      .accentColor(Color(UIColor(colorScheme.isDarkMode()
+      .accentColor(Color(UIColor(colorScheme == .dark
                                  ?.tertiaryColor
                                  : .primaryColor)))
       .sheet(isPresented: $showSettingView) {
-        SettingsView()
+        SettingsView(colorScheme: $colorScheme)
       }
-
+      
     }
     .padding()
   }
@@ -56,9 +56,13 @@ struct MainHeaderView: View {
 struct HeaderView_Previews: PreviewProvider {
   @State static var movieManager = MovieManager()
   @State static var showSettingView: Bool = false
+  @State static var colorScheme: ColorScheme? = nil
   
   static var previews: some View {
-    MainHeaderView(movieManager: movieManager, showSettingView: $showSettingView)
-      .previewLayout(.fixed(width: 375, height: 80))
+    MainHeaderView(
+      movieManager: movieManager,
+      showSettingView: $showSettingView,
+      colorScheme: $colorScheme)
+    .previewLayout(.fixed(width: 375, height: 80))
   }
 }

@@ -32,7 +32,7 @@ struct MiniMovieCardButton: View {
       }
       
       Text(movie.title)
-        .foregroundColor(colorScheme.isDarkMode()
+        .foregroundColor(colorScheme == .dark
                          ? .tertiaryColor
                          : .primaryColor)
         .font(.caption)
