@@ -2,7 +2,7 @@ import SwiftUI
 
 struct HeaderView: View {
   //MARK: - PROPERTIES
-  
+  @StateObject var movieManager = MovieManager()
   @Binding var showSettingView: Bool
   
   let haptics = UINotificationFeedbackGenerator()
@@ -12,17 +12,13 @@ struct HeaderView: View {
       
       //REFRESH BUTTON
       Button(action: {
-        //ACTION
         self.haptics.notificationOccurred(.success)
-        //+TODO: add refresh action
+        movieManager.refreshMovieCardsToShow()
       }) {
         Image(systemName: "arrow.clockwise")
           .font(.system(size: 24, weight: .regular))
       }
       .accentColor(Color(UIColor(.primaryColor)))
-//      .sheet(isPresented: $showInfoView) {
-//        InfoView()
-//      }
       
       Spacer()
       
@@ -35,7 +31,6 @@ struct HeaderView: View {
       
       // SETTINGS BUTTON
       Button(action: {
-        //ACTION
         self.haptics.notificationOccurred(.success)
         self.showSettingView.toggle()
       }){
@@ -43,9 +38,6 @@ struct HeaderView: View {
           .font(.system(size: 24, weight: .regular))
       }
       .accentColor(Color(UIColor(.primaryColor)))
-//      .sheet(isPresented: $showGuideView) {
-//        GuideView()
-//      }
     }
     .padding()
   }

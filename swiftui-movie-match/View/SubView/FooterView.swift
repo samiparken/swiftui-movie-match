@@ -44,7 +44,7 @@ struct FooterView: View {
             Text("\(favoriteMovies.count)")
                 .font(.caption)
                 .foregroundColor(.white)
-                .padding(6)
+                .padding(favoriteMovies.count >= 10 ? 6 : 8)
                 .background(Color.red)
                 .clipShape(Circle())
                 .offset(x: 80, y: -20)

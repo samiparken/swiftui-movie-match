@@ -34,7 +34,7 @@ class MovieManager: ObservableObject {
   
   //MARK: - PROPERTIES
   @Published var movieCardsToShow: [Movie] = []
-  var movieList: [Movie] = []
+  var movieCardDeck: [Movie] = []
   var popularMoviePage = 3
   
   func getMovieDetail(_ id: Int) async -> MovieDetail? {
@@ -47,36 +47,47 @@ class MovieManager: ObservableObject {
     }
   }
   
-  func getPopularMovieList(_ page: Int = 2) {
+  func getPopularMovieList(_ page: Int = 1) {
     Task {
-      do {
-        let movieListResponse = try await APIgetPopularMovieList(page)
-        
-        // filter favotireMovies from incoming movies
-        let favoriteMovieIds = favoriteMovies.map { $0.id }
-        let newMovies = movieListResponse.results.filter { !favoriteMovieIds.contains($0.id) }
-        self.movieList.append(contentsOf: newMovies)
-        
-        refreshMovieCardsToShow()
-      } catch {
-        print("Failed to get popular movies: \(error)")
-      }
+      var currentPage = page
+      var movieListResponse: MovieResponse? = nil
+      var newMovies: [Movie] = []
+      
+      repeat {
+        do {
+          movieListResponse = try await APIgetPopularMovieList(currentPage)
+          
+          // filter favoriteMovies from incoming movies
+          let favoriteMovieIds = favoriteMovies.map { $0.id }
+          newMovies = movieListResponse?.results.filter { !favoriteMovieIds.contains($0.id) } ?? []
+          
+          if newMovies.count > 2 {
+            self.movieCardDeck.append(contentsOf: newMovies)
+            updateMovieCardsToShow()
+          } else {
+            currentPage += 1
+          }
+        } catch {
+          print("Failed to get popular movies: \(error)")
+          break
+        }
+      } while newMovies.count <= 2
     }
   }
   
   func refreshMovieCardsToShow() {
-    
-    // add more movies to movieList
-    if movieList.count < 3 {
-      popularMoviePage += 1
-      getPopularMovieList(self.popularMoviePage)
-    }
-    
+      self.movieCardsToShow = []
+      self.movieCardDeck = []
+      self.popularMoviePage += 1
+      self.getPopularMovieList(self.popularMoviePage)
+  }
+  
+  func updateMovieCardsToShow() {
     DispatchQueue.main.async {
       while self.movieCardsToShow.count < 2 {
-        if(self.movieList.count == 0) { break }
+        if(self.movieCardDeck.count == 0) { break }
         
-        let movieToAdd = self.movieList.removeFirst()
+        let movieToAdd = self.movieCardDeck.removeFirst()
         
         // Check if it's already in [FavoriteMovie]
         let favoriteMovieIds = self.favoriteMovies.map { $0.id }
@@ -97,12 +108,12 @@ class MovieManager: ObservableObject {
     
     // Refresh movieCardsToShow
     _ = movieCardsToShow.popLast()
-    refreshMovieCardsToShow()
+    updateMovieCardsToShow()
   }
   
   func RemoveMovieCard(_ movie: Movie) {
     _ = movieCardsToShow.popLast()
-    refreshMovieCardsToShow()
+    updateMovieCardsToShow()
   }
   
   func isTopMovieCard(_ movie: Movie) -> Bool {

@@ -20,14 +20,6 @@ struct MainView: View {
   @State private var cardRemovalTransition = AnyTransition.trailingBottom
   @State private var isClicked: [Int: Bool] = [:]
 
-  //MARK: - METHOD
-  func addMovieCardToFavorite(_ movie: Movie) {
-    movieManager.AddMovieCardToFavorite(movie)
-  }
-  func removeMovieCard(_ movie: Movie) {
-    movieManager.RemoveMovieCard(movie)
-  }
-  
   //MARK: - BODY
   var body: some View {
     
@@ -106,9 +98,9 @@ struct MainView: View {
                 .onEnded({ (value) in
                   guard case .second(true, let drag?) = value else { return }
                   if drag.translation.width < -self.dragAreaThreshold {
-                    removeMovieCard(movie)
+                    movieManager.RemoveMovieCard(movie)
                   } else if drag.translation.width > self.dragAreaThreshold {
-                    addMovieCardToFavorite(movie)
+                    movieManager.AddMovieCardToFavorite(movie)
                   }
                 })
               )
@@ -133,8 +125,7 @@ struct MainView: View {
       movieManager.context = context
       movieManager.fetchFavoriteMovies()
       movieManager.getPopularMovieList()
-    }
-    
+    }    
   }
 }
 
