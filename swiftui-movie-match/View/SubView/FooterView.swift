@@ -31,6 +31,9 @@ struct FooterView: View {
             .background(
               Capsule().stroke(Color(UIColor(.primaryColor)), lineWidth: 2)
             )
+            .sheet(isPresented: $showFavoriteView) {
+              FavoriteView()
+            }
         }
         // Badge
         if numOfFavoriteMovies > 0 {

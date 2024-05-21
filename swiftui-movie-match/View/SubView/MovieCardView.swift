@@ -27,6 +27,7 @@ struct MovieCardView: View, Identifiable {
                   Color.black.opacity(0.6).edgesIgnoringSafeArea(.all)
                     .cornerRadius(24)
                   
+                  // Scroll for movie detail
                   ScrollView(.vertical, showsIndicators: true){
                     VStack(alignment: .center, spacing: 12) {
                       
