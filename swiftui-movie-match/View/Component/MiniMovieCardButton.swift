@@ -11,30 +11,36 @@ struct MiniMovieCardButton: View {
       print("Favorite Movie Clicked")
       isClicked.toggle()
     }) {
-      AsyncImage(
-        url: URL(string: movie.posterPath!.toImageUrl())) { phase in
-          switch phase {
-          case .empty:
-            // Placeholder view while loading
-            Text("Loading...")
-          case .success(let image):
-            // Success: Show the image
-            image
-              .resizable()
-              .cornerRadius(24)
-              .scaledToFit()
-              .frame(minWidth: 0, maxWidth: .infinity)
-          case .failure:
-            // Error: Show placeholder or error message
-            Text("Failed to load image")
-          @unknown default:
-            // Placeholder view while loading
-            Text("Placeholder")
+      VStack {
+        AsyncImage(
+          url: URL(string: movie.posterPath!.toImageUrl())) { phase in
+            switch phase {
+            case .empty:
+              // Placeholder view while loading
+              Text("Loading...")
+            case .success(let image):
+              // Success: Show the image
+              image
+                .resizable()
+                .cornerRadius(24)
+                .scaledToFit()
+                .frame(minWidth: 0, maxWidth: .infinity)
+            case .failure:
+              // Error: Show placeholder or error message
+              Text("Failed to load image")
+            @unknown default:
+              // Placeholder view while loading
+              Text("Placeholder")
+            }
           }
-        }
-        .sheet(isPresented: $isClicked) {
-          DetailView(movieId: movie.id)
-        }
+          .sheet(isPresented: $isClicked) {
+            DetailView(movieId: movie.id)
+          }
+        
+        Text(movie.title)
+          .font(.footnote)
+          .foregroundColor(.primaryColor)
+      }
     }
   }
 }
