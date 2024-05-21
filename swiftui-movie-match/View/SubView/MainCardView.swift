@@ -11,7 +11,12 @@ struct MainCardView: View, Identifiable {
         switch phase {
         case .empty:
           // Placeholder view while loading
-          Text("Loading...")
+          VStack {
+            Spacer()
+            ProgressView() // A spinner or loading indicator
+              .frame(minWidth: 20, maxWidth: .infinity)
+            Spacer()
+          }
         case .success(let image):
           // Success: Show the image
           image

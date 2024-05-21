@@ -39,7 +39,8 @@ struct MainView: View {
         if movieManager.movieCardsToShow.isEmpty {
           VStack {
             Spacer()
-            Text("Loading...")
+            ProgressView() // A spinner or loading indicator
+              .frame(minWidth: 20, maxWidth: .infinity)
             Spacer()
           }
         } else {
