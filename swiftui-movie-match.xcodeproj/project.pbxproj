@@ -24,6 +24,7 @@
 		31B677462BFC9BA5005223DC /* DetailCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B677452BFC9BA5005223DC /* DetailCardView.swift */; };
 		31B677482BFCC8FE005223DC /* FavoriteHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B677472BFCC8FE005223DC /* FavoriteHeaderView.swift */; };
 		31B6774A2BFCD5E2005223DC /* ColorScheme+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B677492BFCD5E2005223DC /* ColorScheme+Ext.swift */; };
+		31B6774C2BFCE13A005223DC /* MovieManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B6774B2BFCE13A005223DC /* MovieManagerTests.swift */; };
 		31D718432BFBEDCB00C00DC7 /* MovieDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D718422BFBEDCB00C00DC7 /* MovieDetail.swift */; };
 		31E8E3C32BFB7BE500841B95 /* FavoriteMovie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E8E3C22BFB7BE400841B95 /* FavoriteMovie.swift */; };
 		31FD8F9C2BFA694D00F03252 /* swiftui_movie_matchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FD8F9B2BFA694D00F03252 /* swiftui_movie_matchApp.swift */; };
@@ -79,6 +80,7 @@
 		31B677452BFC9BA5005223DC /* DetailCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCardView.swift; sourceTree = "<group>"; };
 		31B677472BFCC8FE005223DC /* FavoriteHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteHeaderView.swift; sourceTree = "<group>"; };
 		31B677492BFCD5E2005223DC /* ColorScheme+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ColorScheme+Ext.swift"; sourceTree = "<group>"; };
+		31B6774B2BFCE13A005223DC /* MovieManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieManagerTests.swift; sourceTree = "<group>"; };
 		31D718422BFBEDCB00C00DC7 /* MovieDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetail.swift; sourceTree = "<group>"; };
 		31E8E3C22BFB7BE400841B95 /* FavoriteMovie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteMovie.swift; sourceTree = "<group>"; };
 		31FD8F982BFA694D00F03252 /* swiftui-movie-match.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "swiftui-movie-match.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -217,6 +219,7 @@
 			isa = PBXGroup;
 			children = (
 				31FD8FAE2BFA694F00F03252 /* swiftui_movie_matchTests.swift */,
+				31B6774B2BFCE13A005223DC /* MovieManagerTests.swift */,
 			);
 			path = "swiftui-movie-matchTests";
 			sourceTree = "<group>";
@@ -458,6 +461,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31B6774C2BFCE13A005223DC /* MovieManagerTests.swift in Sources */,
 				31FD8FAF2BFA694F00F03252 /* swiftui_movie_matchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -667,17 +671,24 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6E66L27LG6;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.samiparken.swiftui-movie-matchTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.samiparken.swiftui-movie-match";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/swiftui-movie-match.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/swiftui-movie-match";
 			};
 			name = Debug;
@@ -687,17 +698,24 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6E66L27LG6;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.samiparken.swiftui-movie-matchTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.samiparken.swiftui-movie-match";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/swiftui-movie-match.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/swiftui-movie-match";
 			};
 			name = Release;
@@ -706,16 +724,21 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6E66L27LG6;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.samiparken.swiftui-movie-matchUITests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.samiparken.swiftui-movie-match";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_TARGET_NAME = "swiftui-movie-match";
 			};
 			name = Debug;
@@ -724,16 +747,21 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6E66L27LG6;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.samiparken.swiftui-movie-matchUITests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.samiparken.swiftui-movie-match";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_TARGET_NAME = "swiftui-movie-match";
 			};
 			name = Release;

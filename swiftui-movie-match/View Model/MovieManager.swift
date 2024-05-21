@@ -101,7 +101,6 @@ class MovieManager: ObservableObject {
   }
   
   func AddMovieCardToFavorite(_ movie: Movie) {
-    
     // create FavoriteMovie in SwiftData
     createFavoriteMovie(movie)
     
