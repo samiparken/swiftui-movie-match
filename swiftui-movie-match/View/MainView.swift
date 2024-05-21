@@ -49,7 +49,7 @@ struct MainView: View {
           }
         } else {
           ForEach(movieManager.movieCardsToShow) { movie in
-            MovieCardView(
+            MainCardView(
               movie: movie,
               isClicked: Binding(
                 get: { isClicked[movie.id] ?? false },

@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct FavoriteMovieCardView: View {
+struct MiniMovieCardButton: View {
   let id = UUID() //for Identifiable
   var movie: FavoriteMovie
   @Binding var isClicked: Bool
@@ -33,7 +33,7 @@ struct FavoriteMovieCardView: View {
           }
         }
         .sheet(isPresented: $isClicked) {
-          MovieDetailView(movieId: movie.id)
+          DetailView(movieId: movie.id)
         }
     }
   }
@@ -54,6 +54,6 @@ struct FavoriteMovieCardView_Previews: PreviewProvider {
         
     @State var isClicked: Bool = false
 
-    FavoriteMovieCardView(movie: sampleFavoriteMovie, isClicked: $isClicked)
+    MiniMovieCardButton(movie: sampleFavoriteMovie, isClicked: $isClicked)
   }
 }

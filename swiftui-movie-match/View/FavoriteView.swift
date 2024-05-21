@@ -25,7 +25,7 @@ struct FavoriteView: View {
       ScrollView {
         LazyVGrid(columns: columns, spacing: 15) {
           ForEach(favoriteMovies) { movie in
-            FavoriteMovieCardView(
+            MiniMovieCardButton(
               movie: movie,
               isClicked: Binding(
                 get: { isClicked[movie.id] ?? false },

@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct MovieCardView: View, Identifiable {
+struct MainCardView: View, Identifiable {
   let id = UUID() //for Identifiable
   var movie: Movie
   @Binding var isClicked: Bool // Use Binding for isClicked
@@ -52,7 +52,8 @@ struct MovieCardView: View, Identifiable {
                         .foregroundColor(Color.white)
                         .font(.subheadline)
                         .fontWeight(.bold)
-                        .frame(minWidth: 85)
+                        .frame(minWidth: 85, alignment: .leading)
+                        .multilineTextAlignment(.leading)
                         .padding(.horizontal, 20)
                         .padding(.vertical, 5)
                       
@@ -100,7 +101,7 @@ struct CardView_Previews: PreviewProvider {
     
     @State var isClicked: Bool = true
     
-    MovieCardView(movie: sampleMovie, isClicked: $isClicked)
+    MainCardView(movie: sampleMovie, isClicked: $isClicked)
       .previewLayout(.fixed(width: 375, height: 700))
   }
 }
