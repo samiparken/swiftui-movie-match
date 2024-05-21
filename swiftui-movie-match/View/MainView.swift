@@ -26,7 +26,9 @@ struct MainView: View {
     VStack {
       Spacer()
 
-      HeaderView(showSettingView: $showSettingView)
+      HeaderView(
+        movieManager: movieManager,
+        showSettingView: $showSettingView)
         .opacity(dragState.isDragging ? 0.0 : 1.0)
         .animation(.default, value: dragState.isDragging)
       

@@ -2,7 +2,7 @@ import SwiftUI
 
 struct HeaderView: View {
   //MARK: - PROPERTIES
-  @StateObject var movieManager = MovieManager()
+  @ObservedObject var movieManager: MovieManager
   @Binding var showSettingView: Bool
   
   let haptics = UINotificationFeedbackGenerator()
@@ -12,8 +12,8 @@ struct HeaderView: View {
       
       //REFRESH BUTTON
       Button(action: {
-        self.haptics.notificationOccurred(.success)
-        movieManager.refreshMovieCardsToShow()
+        //self.haptics.notificationOccurred(.success)
+        movieManager.refreshPopularMovieList()
       }) {
         Image(systemName: "arrow.clockwise")
           .font(.system(size: 24, weight: .regular))
@@ -44,10 +44,11 @@ struct HeaderView: View {
 }
 
 struct HeaderView_Previews: PreviewProvider {
+  @State static var movieManager = MovieManager()
   @State static var showSettingView: Bool = false
   
   static var previews: some View {
-    HeaderView(showSettingView: $showSettingView)
+    HeaderView(movieManager: movieManager, showSettingView: $showSettingView)
       .previewLayout(.fixed(width: 375, height: 80))
   }
 }
