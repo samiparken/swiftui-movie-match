@@ -9,6 +9,7 @@ final class MovieManagerTests: XCTestCase {
   var movie4: Movie!
   var movie5: Movie!
   
+//MARK: - SETUP
   override func setUp() {
     super.setUp()
     movieManager = MovieManager()
@@ -98,11 +99,13 @@ final class MovieManagerTests: XCTestCase {
     )
   }
   
+  //MARK: - TEAR DOWN
   override func tearDown() {
     movieManager = nil
     super.tearDown()
   }
   
+  //MARK: - TESTS
   func testIsTopMovieCard() {
     // Given
     // movie1, movie2
@@ -121,10 +124,12 @@ final class MovieManagerTests: XCTestCase {
     movieManager.movieCardDeck = [movie3,movie4,movie5]
 
     // When
+    // removeTopMovieCardAndReload() {
     _ = movieManager.movieCardsToShow.popLast()
-    movieManager.reloadMovieCardsToShow() //async
+    movieManager.reloadMovieCardsToShow() //async to update view
+    // }
     
-    // Verify that the top movie card is removed
+    // Then
     XCTAssertFalse(movieManager.movieCardsToShow.map{$0.id}.contains(movie2.id), "Top movie card should be removed")
     XCTAssertEqual(movieManager.movieCardsToShow.count, 2, "Always reloaded to 2")
   }
@@ -135,9 +140,9 @@ final class MovieManagerTests: XCTestCase {
     movieManager.movieCardDeck = [movie3,movie4,movie5]
 
     // When
-    movieManager.reloadMovieCardsToShow() //async
+    movieManager.reloadMovieCardsToShow()
     
-    // Verify that the top movie card is removed
+    // Then
     XCTAssertEqual(movieManager.movieCardsToShow.count, 2, "Always reloaded to 2")
   }
 }
