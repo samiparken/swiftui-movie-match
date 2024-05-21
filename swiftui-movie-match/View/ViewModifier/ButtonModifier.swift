@@ -1,4 +1,3 @@
-
 import SwiftUI
 
 struct RemoveButtonModifier: ViewModifier {
@@ -19,10 +18,5 @@ struct CloseButtonModifier: ViewModifier {
       .padding()
       .fontWeight(.heavy)
       .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxWidth: .infinity)
-      .accentColor(Color(UIColor(.primaryColor)))
-      .background(
-        Capsule().stroke(Color(UIColor(.primaryColor)), lineWidth: 2)
-      )
-    
   }
 }

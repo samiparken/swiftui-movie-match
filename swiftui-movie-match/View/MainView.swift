@@ -12,6 +12,7 @@ struct MainView: View {
   @State var showSettingView: Bool = false
   @State var showFavoriteView: Bool = false
   @State var showMovieDetailView: Bool = false
+  @State var colorScheme: ColorScheme? = .dark
   
   //MARK: - PRIVATE PROPERTIES
   @GestureState private var dragState = DragState.inactive
@@ -19,18 +20,18 @@ struct MainView: View {
   @State private var lastCardIndex: Int = 1
   @State private var cardRemovalTransition = AnyTransition.trailingBottom
   @State private var isClicked: [Int: Bool] = [:]
-
+  
   //MARK: - BODY
   var body: some View {
     
     VStack {
       Spacer()
-
+      
       MainHeaderView(
         movieManager: movieManager,
         showSettingView: $showSettingView)
-        .opacity(dragState.isDragging ? 0.0 : 1.0)
-        .animation(.default, value: dragState.isDragging)
+      .opacity(dragState.isDragging ? 0.0 : 1.0)
+      .animation(.default, value: dragState.isDragging)
       
       Spacer()
       
@@ -51,61 +52,73 @@ struct MainView: View {
               )
             )
             //zIndex
-              .zIndex(movieManager.isTopMovieCard(movie) ? 1 : 0)
+            .zIndex(movieManager.isTopMovieCard(movie) ? 1 : 0)
             // Show Symbol
-              .overlay(
-                ZStack {
-                  // X-MARK SYMBOL
-                  Image(systemName: "x.circle")
-                    .modifier(SymbolModifier())
-                    .opacity(self.dragState.translation.width < -self.dragAreaThreshold
-                             && movieManager.isTopMovieCard(movie) ? 1.0 : 0.0)
-                  // HEART SYMBOL
-                  Image(systemName: "heart.circle")
-                    .modifier(SymbolModifier())
-                    .opacity(self.dragState.translation.width > self.dragAreaThreshold
-                             && movieManager.isTopMovieCard(movie) ? 1.0 : 0.0)
-                }
-              )
+            .overlay(
+              ZStack {
+                // X-MARK SYMBOL
+                Image(systemName: "x.circle")
+                  .modifier(SymbolModifier())
+                  .opacity(self.dragState.translation.width < -self.dragAreaThreshold
+                           && movieManager.isTopMovieCard(movie) ? 1.0 : 0.0)
+                // HEART SYMBOL
+                Image(systemName: "heart.circle")
+                  .modifier(SymbolModifier())
+                  .opacity(self.dragState.translation.width > self.dragAreaThreshold
+                           && movieManager.isTopMovieCard(movie) ? 1.0 : 0.0)
+              }
+            )
             // Drag offset
-              .offset(x: movieManager.isTopMovieCard(movie)
-                      ? self.dragState.translation.width : 0,
-                      y: movieManager.isTopMovieCard(movie)
-                      ? self.dragState.translation.height : 0)
+            .offset(x: movieManager.isTopMovieCard(movie)
+                    ? self.dragState.translation.width : 0,
+                    y: movieManager.isTopMovieCard(movie)
+                    ? self.dragState.translation.height : 0)
             // Scale (before animation)
-              .scaleEffect(movieManager.isTopMovieCard(movie)
-                           && self.dragState.isDragging ? 0.85 : 1.0)
+            .scaleEffect(movieManager.isTopMovieCard(movie)
+                         && self.dragState.isDragging ? 0.85 : 1.0)
             //Rotation (before animation)
-              .rotationEffect(Angle(degrees:
-                                      movieManager.isTopMovieCard(movie)
-                                    ? Double(self.dragState.translation.width / 12)
-                                    : 0))
+            .rotationEffect(Angle(degrees:
+                                    movieManager.isTopMovieCard(movie)
+                                  ? Double(self.dragState.translation.width / 12)
+                                  : 0))
             //Animation (spring effect)
-              .animation(.interpolatingSpring(stiffness: 120, damping: 120), value: dragState.isDragging)
+            .animation(.interpolatingSpring(stiffness: 120, damping: 120), value: dragState.isDragging)
             //Gesture
-              .gesture(LongPressGesture(minimumDuration: 0.01)
-                .sequenced(before: DragGesture())
-                .updating(self.$dragState,
-                          body: { (value, state, transaction) in
-                switch value {
-                case .first(true):
-                  state = .pressing
-                case .second(true, let drag):
-                  state = .dragging(transition: drag?.translation ?? .zero)
-                default:
-                  break
+            .gesture(LongPressGesture(minimumDuration: 0.01)
+              .sequenced(before: DragGesture())
+              .updating(self.$dragState,
+                        body: { (value, state, transaction) in
+              switch value {
+              case .first(true):
+                state = .pressing
+              case .second(true, let drag):
+                state = .dragging(transition: drag?.translation ?? .zero)
+              default:
+                break
+              }
+            })
+                     // While doing gesture
+              .onChanged({(value) in
+                guard case .second(true, let drag?) = value else { return }
+                if drag.translation.width < -self.dragAreaThreshold {
+                  self.cardRemovalTransition = .leadingBottom
+                } else if drag.translation.width > self.dragAreaThreshold {
+                  self.cardRemovalTransition = .trailingBottom
                 }
               })
-               // End of Gesture - Action
-                .onEnded({ (value) in
-                  guard case .second(true, let drag?) = value else { return }
-                  if drag.translation.width < -self.dragAreaThreshold {
-                    movieManager.RemoveMovieCard(movie)
-                  } else if drag.translation.width > self.dragAreaThreshold {
-                    movieManager.AddMovieCardToFavorite(movie)
-                  }
-                })
-              )
+                     // End of Gesture - Action
+              .onEnded({ (value) in
+                guard case .second(true, let drag?) = value else { return }
+                if drag.translation.width < -self.dragAreaThreshold {
+                  movieManager.RemoveMovieCard(movie)
+                } else if drag.translation.width > self.dragAreaThreshold {
+                  movieManager.AddMovieCardToFavorite(movie)
+                }
+              })
+            )
+            // transition after the gesture
+            .transition(self.cardRemovalTransition)
+
           }
         }
       }
@@ -116,18 +129,19 @@ struct MainView: View {
       MainFooterView(
         showFavoriteView: $showFavoriteView,
         showMovieDetailView: $showMovieDetailView)
-        .opacity(dragState.isDragging ? 0.0 : 1.0)
-        .animation(.default, value: dragState.isDragging)
+      .opacity(dragState.isDragging ? 0.0 : 1.0)
+      .animation(.default, value: dragState.isDragging)
       
       Spacer()
-
+      
     }
+    .preferredColorScheme(colorScheme)
     .onAppear {
       // for SwiftData in MovieManager
       movieManager.context = context
       movieManager.fetchFavoriteMovies()
       movieManager.getPopularMovieList()
-    }    
+    }
   }
 }
 

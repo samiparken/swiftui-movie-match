@@ -5,6 +5,7 @@ struct DetailView: View {
   // MARK: - SwiftData
   @Environment(\.modelContext) private var context
   @Query private var favoriteMovies: [FavoriteMovie]
+  @Environment(\.colorScheme) var colorScheme
   
   //MARK: - PROPERTIES
   @Environment(\.presentationMode) var presentationMode
@@ -40,9 +41,9 @@ struct DetailView: View {
         } else if let movieDetail = movieDetail {
           
           DetailCardView(movieDetail: movieDetail, isClicked: $isClicked)
-                    
+          
           Spacer()
-
+          
           // REMOVE Button
           Button(action:{
             guard let indexToDelete = favoriteMovies.firstIndex(where: {$0.id == movieId}) else {
@@ -62,9 +63,17 @@ struct DetailView: View {
           }) {
             Text("Close".uppercased())
               .modifier(CloseButtonModifier())
+              .accentColor(Color(UIColor(colorScheme.isDarkMode()
+                                         ? .tertiaryColor
+                                         : .primaryColor)))
+              .background(
+                Capsule().stroke(Color(UIColor(colorScheme.isDarkMode()
+                                               ? .tertiaryColor
+                                               : .primaryColor)), lineWidth: 2)
+              )
               .padding(.horizontal, 20)
           }
-                  
+          
           Spacer()
         }
       }

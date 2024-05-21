@@ -23,6 +23,7 @@
 		31B677442BFC81BC005223DC /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B677432BFC81BC005223DC /* DetailView.swift */; };
 		31B677462BFC9BA5005223DC /* DetailCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B677452BFC9BA5005223DC /* DetailCardView.swift */; };
 		31B677482BFCC8FE005223DC /* FavoriteHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B677472BFCC8FE005223DC /* FavoriteHeaderView.swift */; };
+		31B6774A2BFCD5E2005223DC /* ColorScheme+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B677492BFCD5E2005223DC /* ColorScheme+Ext.swift */; };
 		31D718432BFBEDCB00C00DC7 /* MovieDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D718422BFBEDCB00C00DC7 /* MovieDetail.swift */; };
 		31E8E3C32BFB7BE500841B95 /* FavoriteMovie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E8E3C22BFB7BE400841B95 /* FavoriteMovie.swift */; };
 		31FD8F9C2BFA694D00F03252 /* swiftui_movie_matchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FD8F9B2BFA694D00F03252 /* swiftui_movie_matchApp.swift */; };
@@ -77,6 +78,7 @@
 		31B677432BFC81BC005223DC /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		31B677452BFC9BA5005223DC /* DetailCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCardView.swift; sourceTree = "<group>"; };
 		31B677472BFCC8FE005223DC /* FavoriteHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteHeaderView.swift; sourceTree = "<group>"; };
+		31B677492BFCD5E2005223DC /* ColorScheme+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ColorScheme+Ext.swift"; sourceTree = "<group>"; };
 		31D718422BFBEDCB00C00DC7 /* MovieDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetail.swift; sourceTree = "<group>"; };
 		31E8E3C22BFB7BE400841B95 /* FavoriteMovie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteMovie.swift; sourceTree = "<group>"; };
 		31FD8F982BFA694D00F03252 /* swiftui-movie-match.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "swiftui-movie-match.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -131,6 +133,7 @@
 				31036C8F2BFA9DEC00604902 /* String+Ext.swift */,
 				3181D1F62BFB2D4E00C40722 /* AnyTransition+Ext.swift */,
 				3181D2002BFB43B900C40722 /* Color+Ext.swift */,
+				31B677492BFCD5E2005223DC /* ColorScheme+Ext.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -430,6 +433,7 @@
 				31FD8FE12BFA8EA800F03252 /* MovieManager.swift in Sources */,
 				3181D2012BFB43B900C40722 /* Color+Ext.swift in Sources */,
 				31FD8FD32BFA802200F03252 /* APIs.swift in Sources */,
+				31B6774A2BFCD5E2005223DC /* ColorScheme+Ext.swift in Sources */,
 				31FD8FDC2BFA86CA00F03252 /* Movie.swift in Sources */,
 				31B677442BFC81BC005223DC /* DetailView.swift in Sources */,
 				31B677402BFC761F005223DC /* HeaderSwipeBar.swift in Sources */,

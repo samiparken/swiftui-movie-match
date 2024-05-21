@@ -2,7 +2,8 @@ import SwiftUI
 
 struct FavoriteHeaderView: View {
   //MARK: - PROPERTIES
-  var numOfFavorites: Int = 10
+  @Environment(\.colorScheme) var colorScheme
+  var numOfFavorites: Int = 0
   
   var body: some View {
     HStack(alignment:.center, spacing:20) {
@@ -12,9 +13,11 @@ struct FavoriteHeaderView: View {
       Spacer()
       
       Text("Favorites".uppercased())
-        .font(.title)
+        .font(.title2)
         .fontWeight(.bold)
-        .foregroundColor(.primaryColor)
+        .foregroundColor(colorScheme.isDarkMode()
+                         ? .tertiaryColor
+                         : .primaryColor)
 
       Spacer()
       Text(String(numOfFavorites))

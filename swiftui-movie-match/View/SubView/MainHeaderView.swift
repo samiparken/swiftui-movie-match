@@ -1,7 +1,9 @@
 import SwiftUI
 
 struct MainHeaderView: View {
+
   //MARK: - PROPERTIES
+  @Environment(\.colorScheme) var colorScheme
   @ObservedObject var movieManager: MovieManager
   @Binding var showSettingView: Bool
   
@@ -18,7 +20,9 @@ struct MainHeaderView: View {
         Image(systemName: "arrow.clockwise")
           .font(.system(size: 24, weight: .regular))
       }
-      .accentColor(Color(UIColor(.primaryColor)))
+      .accentColor(Color(UIColor(colorScheme.isDarkMode()
+                                 ? .tertiaryColor
+                                 : .primaryColor)))
       
       Spacer()
       
@@ -37,7 +41,9 @@ struct MainHeaderView: View {
         Image(systemName: "gearshape")
           .font(.system(size: 24, weight: .regular))
       }
-      .accentColor(Color(UIColor(.primaryColor)))
+      .accentColor(Color(UIColor(colorScheme.isDarkMode()
+                                 ?.tertiaryColor
+                                 : .primaryColor)))
     }
     .padding()
   }

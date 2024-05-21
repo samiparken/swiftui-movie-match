@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct MiniMovieCardButton: View {
+  @Environment(\.colorScheme) var colorScheme
+
   let id = UUID() //for Identifiable
   var movie: FavoriteMovie
   @Binding var isClicked: Bool
@@ -30,7 +32,9 @@ struct MiniMovieCardButton: View {
       }
       
       Text(movie.title)
-        .foregroundColor(.primaryColor)
+        .foregroundColor(colorScheme.isDarkMode()
+                         ? .tertiaryColor
+                         : .primaryColor)
         .font(.caption)
         .lineLimit(2)
     }
