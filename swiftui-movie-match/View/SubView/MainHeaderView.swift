@@ -44,6 +44,10 @@ struct MainHeaderView: View {
       .accentColor(Color(UIColor(colorScheme.isDarkMode()
                                  ?.tertiaryColor
                                  : .primaryColor)))
+      .sheet(isPresented: $showSettingView) {
+        SettingsView()
+      }
+
     }
     .padding()
   }

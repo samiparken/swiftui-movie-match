@@ -12,7 +12,7 @@ struct MainView: View {
   @State var showSettingView: Bool = false
   @State var showFavoriteView: Bool = false
   @State var showMovieDetailView: Bool = false
-  @State var colorScheme: ColorScheme? = .dark
+  @State var colorScheme: ColorScheme? = .light
   
   //MARK: - PRIVATE PROPERTIES
   @GestureState private var dragState = DragState.inactive

@@ -1,9 +1,10 @@
 import Foundation
 
 struct K {
-  struct UserDefaultsKeys {
+  struct AppStorageKey {
     static let region = "region"
     static let language = "language"
+    static let isDarkMode = "isDarkMode"
   }
     
   struct API {
