@@ -7,11 +7,12 @@ struct MovieDetailView: View {
   @Query private var favoriteMovies: [FavoriteMovie]
   
   //MARK: - PROPERTIES
+  @Environment(\.presentationMode) var presentationMode
   @StateObject var movieManager = MovieManager()
   @State private var movieDetail: MovieDetail?
   @State private var isLoading = true
   @State private var isError = false
-  @State private var isClicked = false
+  @State private var isClicked = true
   let movieId: Int
   
   //MARK: - METHOD
@@ -29,6 +30,7 @@ struct MovieDetailView: View {
   var body: some View {
     VStack {
       HeaderSwipeBar()
+      Spacer()
       
       VStack {
         if isLoading {
@@ -55,7 +57,7 @@ struct MovieDetailView: View {
                       ZStack {
                         
                         // dark layer
-                        Color.black.opacity(0.6).edgesIgnoringSafeArea(.all)
+                        Color.black.opacity(0.7).edgesIgnoringSafeArea(.all)
                           .cornerRadius(24)
                         
                         // Scroll for movie detail
@@ -108,8 +110,30 @@ struct MovieDetailView: View {
             }
             .padding(.horizontal)
                     
-          //+TODO: button to remove from favorite
-          
+          Spacer()
+
+          // REMOVE Button
+          Button(action:{
+            guard let indexToDelete = favoriteMovies.firstIndex(where: {$0.id == movieId}) else {
+              self.presentationMode.wrappedValue.dismiss()
+              return
+            }
+            context.delete(favoriteMovies[indexToDelete])
+            self.presentationMode.wrappedValue.dismiss()
+          }) {
+            Text("Remove".uppercased())
+              .modifier(RemoveButtonModifier())
+              .padding(.horizontal, 20)
+          }
+          // CLOSE Button
+          Button(action:{
+            self.presentationMode.wrappedValue.dismiss()
+          }) {
+            Text("Close".uppercased())
+              .modifier(CloseButtonModifier())
+              .padding(.horizontal, 20)
+          }
+                  
           Spacer()
         }
       }
@@ -122,13 +146,10 @@ struct MovieDetailView: View {
   }
 }
 
-
 //MARK: - PREVIEW
 struct MovieDetailView_Previews: PreviewProvider {
   static var previews: some View {
-    let movieId = 1
-    
+    let movieId = 823464
     MovieDetailView(movieId: movieId)
-    
   }
 }
