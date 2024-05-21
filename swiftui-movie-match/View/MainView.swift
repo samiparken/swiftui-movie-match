@@ -11,6 +11,7 @@ struct MainView: View {
   @StateObject var movieManager = MovieManager()
   @State var showSettingView: Bool = false
   @State var showFavoriteView: Bool = false
+  @State var showMovieDetailView: Bool = false
   @State var numOfFavoriteMovies: Int = 0
   
   //MARK: - PRIVATE PROPERTIES
@@ -122,6 +123,7 @@ struct MainView: View {
       
       FooterView(
         showFavoriteView: $showFavoriteView,
+        showMovieDetailView: $showMovieDetailView,
         numOfFavoriteMovies: $numOfFavoriteMovies)
         .opacity(dragState.isDragging ? 0.0 : 1.0)
         .animation(.default, value: dragState.isDragging)

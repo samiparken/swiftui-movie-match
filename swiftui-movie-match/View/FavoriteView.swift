@@ -9,6 +9,7 @@ struct FavoriteView: View {
   //MARK: - PROPERTIES
   @Environment(\.presentationMode) var presentationMode
   @StateObject var movieManager = MovieManager()
+  @Binding var showMovieDetailView: Bool
   @State private var isClicked: [Int: Bool] = [:]
   
   let columns = [
@@ -29,8 +30,7 @@ struct FavoriteView: View {
               isClicked: Binding(
                 get: { isClicked[movie.id] ?? false },
                 set: { isClicked[movie.id] = $0 }
-              )
-            )
+              ))
           }
         }
         .padding()
@@ -41,7 +41,11 @@ struct FavoriteView: View {
   }
 }
 
-#Preview {
-  FavoriteView()
-    .modelContainer(for: FavoriteMovie.self, inMemory: true)
+struct FavoriteView_Previews: PreviewProvider {
+  static var previews: some View {
+    @State var showMovieDetailView: Bool = true
+    
+    FavoriteView(showMovieDetailView: $showMovieDetailView)
+      .modelContainer(for: FavoriteMovie.self, inMemory: true)
+  }
 }

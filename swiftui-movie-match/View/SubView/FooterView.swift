@@ -4,6 +4,7 @@ struct FooterView: View {
   //MARK: - PROPERTIES
   
   @Binding var showFavoriteView: Bool
+  @Binding var showMovieDetailView: Bool
   @Binding var numOfFavoriteMovies: Int
   
   let haptics = UINotificationFeedbackGenerator()
@@ -32,7 +33,7 @@ struct FooterView: View {
               Capsule().stroke(Color(UIColor(.primaryColor)), lineWidth: 2)
             )
             .sheet(isPresented: $showFavoriteView) {
-              FavoriteView()
+              FavoriteView(showMovieDetailView: $showMovieDetailView)
             }
         }
         // Badge
@@ -60,11 +61,13 @@ struct FooterView: View {
 
 struct FooterView_Previews: PreviewProvider {
   @State static var showFavoriteView: Bool = false
+  @State static var showMovieDetailView: Bool = false
   @State static var numOfFavoriteMovies: Int = 10
   
   static var previews: some View {
     FooterView(
       showFavoriteView: $showFavoriteView,
+      showMovieDetailView: $showMovieDetailView,
       numOfFavoriteMovies: $numOfFavoriteMovies)
     .previewLayout(.fixed(width: 375, height: 80))
   }
