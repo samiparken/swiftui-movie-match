@@ -38,13 +38,11 @@ class MovieManager: ObservableObject {
   var popularMoviePage = 1
   
   func getMovieDetail(_ id: Int) async -> MovieDetail? {
-    do {
-      let movieDetail = try await APIgetMovieDetail(id)
-      return movieDetail
-    } catch {
-      print("Failed to get the movie deail (movieId:\(id)): \(error)")
-      return nil
+    guard let movieDetail = try? await APIgetMovieDetail(id) else {
+        print("Failed to get the movie detail (movieId:\(id))")
+        return nil
     }
+    return movieDetail
   }
   
   func getPopularMovieList() {
