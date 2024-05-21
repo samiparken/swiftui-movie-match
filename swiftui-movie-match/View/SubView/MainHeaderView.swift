@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct HeaderView: View {
+struct MainHeaderView: View {
   //MARK: - PROPERTIES
   @ObservedObject var movieManager: MovieManager
   @Binding var showSettingView: Bool
@@ -48,7 +48,7 @@ struct HeaderView_Previews: PreviewProvider {
   @State static var showSettingView: Bool = false
   
   static var previews: some View {
-    HeaderView(movieManager: movieManager, showSettingView: $showSettingView)
+    MainHeaderView(movieManager: movieManager, showSettingView: $showSettingView)
       .previewLayout(.fixed(width: 375, height: 80))
   }
 }

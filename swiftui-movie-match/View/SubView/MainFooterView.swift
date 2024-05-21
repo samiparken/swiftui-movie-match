@@ -1,7 +1,7 @@
 import SwiftUI
 import SwiftData
 
-struct FooterView: View {
+struct MainFooterView: View {
   @Environment(\.modelContext) private var context
   @Query private var favoriteMovies: [FavoriteMovie]
 
@@ -45,7 +45,7 @@ struct FooterView: View {
                 .font(.caption)
                 .foregroundColor(.white)
                 .padding(favoriteMovies.count >= 10 ? 6 : 8)
-                .background(Color.red)
+                .background(Color.pink)
                 .clipShape(Circle())
                 .offset(x: 80, y: -20)
         }
@@ -67,7 +67,7 @@ struct FooterView_Previews: PreviewProvider {
   @State static var showMovieDetailView: Bool = false
   
   static var previews: some View {
-    FooterView(
+    MainFooterView(
       showFavoriteView: $showFavoriteView,
       showMovieDetailView: $showMovieDetailView)
     .previewLayout(.fixed(width: 375, height: 80))

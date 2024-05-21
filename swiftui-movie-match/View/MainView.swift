@@ -26,7 +26,7 @@ struct MainView: View {
     VStack {
       Spacer()
 
-      HeaderView(
+      MainHeaderView(
         movieManager: movieManager,
         showSettingView: $showSettingView)
         .opacity(dragState.isDragging ? 0.0 : 1.0)
@@ -113,7 +113,7 @@ struct MainView: View {
       
       Spacer()
       
-      FooterView(
+      MainFooterView(
         showFavoriteView: $showFavoriteView,
         showMovieDetailView: $showMovieDetailView)
         .opacity(dragState.isDragging ? 0.0 : 1.0)
