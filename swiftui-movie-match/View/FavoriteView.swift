@@ -4,7 +4,7 @@ import SwiftData
 struct FavoriteView: View {
   // MARK: - SwiftData
   @Environment(\.modelContext) private var context
-  @Query private var favoriteMovies: [FavoriteMovie]
+  @Query (sort: [SortDescriptor(\FavoriteMovie.savedAt, order: .reverse)]) private var favoriteMovies: [FavoriteMovie]
   
   //MARK: - PROPERTIES
   @Environment(\.presentationMode) var presentationMode

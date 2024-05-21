@@ -4,42 +4,64 @@ struct MiniMovieCardButton: View {
   let id = UUID() //for Identifiable
   var movie: FavoriteMovie
   @Binding var isClicked: Bool
+  @State private var uiImage: UIImage? = nil
+  @State private var isLoading = true
   
   var body: some View {
-    Button(action:{
-      // ACTION
-      print("Favorite Movie Clicked")
+    VStack {
+      if let uiImage = uiImage {
+        Image(uiImage: uiImage)
+          .resizable()
+          .cornerRadius(24)
+          .scaledToFit()
+          .frame(minWidth: 0, maxWidth: .infinity)
+      } else {
+        if isLoading {
+          ProgressView() // A spinner or loading indicator
+            .frame(minWidth: 0, maxWidth: .infinity)
+        } else {
+          Image(systemName: "photo")
+            .resizable()
+            .cornerRadius(24)
+            .scaledToFit()
+            .frame(minWidth: 0, maxWidth: .infinity)
+            .foregroundColor(.gray)
+        }
+      }
+      
+      Text(movie.title)
+        .foregroundColor(.primaryColor)
+        .font(.caption)
+        .lineLimit(2)
+    }
+    .onAppear {
+      loadImage(from: movie.posterPath!.toImageUrl())
+    }
+    .onTapGesture {
       isClicked.toggle()
-    }) {
-      VStack {
-        AsyncImage(
-          url: URL(string: movie.posterPath!.toImageUrl())) { phase in
-            switch phase {
-            case .empty:
-              // Placeholder view while loading
-              Text("Loading...")
-            case .success(let image):
-              // Success: Show the image
-              image
-                .resizable()
-                .cornerRadius(24)
-                .scaledToFit()
-                .frame(minWidth: 0, maxWidth: .infinity)
-            case .failure:
-              // Error: Show placeholder or error message
-              Text("Failed to load image")
-            @unknown default:
-              // Placeholder view while loading
-              Text("Placeholder")
-            }
-          }
-          .sheet(isPresented: $isClicked) {
-            DetailView(movieId: movie.id)
-          }
-        
-        Text(movie.title)
-          .font(.footnote)
-          .foregroundColor(.primaryColor)
+    }
+    .sheet(isPresented: $isClicked) {
+      DetailView(movieId: movie.id)
+    }
+  }
+  
+  private func loadImage(from url: String) {
+    guard let imageUrl = URL(string: url) else {
+      isLoading = false
+      return
+    }
+    
+    DispatchQueue.global().async {
+      if let data = try? Data(contentsOf: imageUrl),
+         let image = UIImage(data: data) {
+        DispatchQueue.main.async {
+          self.uiImage = image
+          self.isLoading = false
+        }
+      } else {
+        DispatchQueue.main.async {
+          self.isLoading = false
+        }
       }
     }
   }
@@ -57,9 +79,9 @@ struct FavoriteMovieCardView_Previews: PreviewProvider {
       voteAverage: 7.222,
       savedAt: Date()
     )
-        
+    
     @State var isClicked: Bool = false
-
+    
     MiniMovieCardButton(movie: sampleFavoriteMovie, isClicked: $isClicked)
   }
 }
