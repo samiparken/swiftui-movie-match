@@ -1,11 +1,14 @@
 import SwiftUI
+import SwiftData
 
 struct FooterView: View {
+  @Environment(\.modelContext) private var context
+  @Query private var favoriteMovies: [FavoriteMovie]
+
   //MARK: - PROPERTIES
   
   @Binding var showFavoriteView: Bool
   @Binding var showMovieDetailView: Bool
-  @Binding var numOfFavoriteMovies: Int
   
   let haptics = UINotificationFeedbackGenerator()
   
@@ -37,8 +40,8 @@ struct FooterView: View {
             }
         }
         // Badge
-        if numOfFavoriteMovies > 0 {
-            Text("\(numOfFavoriteMovies)")
+        if favoriteMovies.count > 0 {
+            Text("\(favoriteMovies.count)")
                 .font(.caption)
                 .foregroundColor(.white)
                 .padding(6)
@@ -62,13 +65,11 @@ struct FooterView: View {
 struct FooterView_Previews: PreviewProvider {
   @State static var showFavoriteView: Bool = false
   @State static var showMovieDetailView: Bool = false
-  @State static var numOfFavoriteMovies: Int = 10
   
   static var previews: some View {
     FooterView(
       showFavoriteView: $showFavoriteView,
-      showMovieDetailView: $showMovieDetailView,
-      numOfFavoriteMovies: $numOfFavoriteMovies)
+      showMovieDetailView: $showMovieDetailView)
     .previewLayout(.fixed(width: 375, height: 80))
   }
 }

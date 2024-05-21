@@ -12,7 +12,6 @@ struct MainView: View {
   @State var showSettingView: Bool = false
   @State var showFavoriteView: Bool = false
   @State var showMovieDetailView: Bool = false
-  @State var numOfFavoriteMovies: Int = 0
   
   //MARK: - PRIVATE PROPERTIES
   @GestureState private var dragState = DragState.inactive
@@ -24,7 +23,6 @@ struct MainView: View {
   //MARK: - METHOD
   func addMovieCardToFavorite(_ movie: Movie) {
     movieManager.AddMovieCardToFavorite(movie)
-    numOfFavoriteMovies = movieManager.numOfFavoriteMovies
   }
   func removeMovieCard(_ movie: Movie) {
     movieManager.RemoveMovieCard(movie)
@@ -123,8 +121,7 @@ struct MainView: View {
       
       FooterView(
         showFavoriteView: $showFavoriteView,
-        showMovieDetailView: $showMovieDetailView,
-        numOfFavoriteMovies: $numOfFavoriteMovies)
+        showMovieDetailView: $showMovieDetailView)
         .opacity(dragState.isDragging ? 0.0 : 1.0)
         .animation(.default, value: dragState.isDragging)
       
@@ -136,7 +133,6 @@ struct MainView: View {
       movieManager.context = context
       movieManager.fetchFavoriteMovies()
       movieManager.getPopularMovieList()
-      numOfFavoriteMovies = movieManager.numOfFavoriteMovies
     }
     
   }

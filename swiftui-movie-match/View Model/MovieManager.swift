@@ -7,7 +7,6 @@ class MovieManager: ObservableObject {
   //MARK: - SwiftData
   var context: ModelContext? = nil
   var favoriteMovies: [FavoriteMovie] = []
-  var numOfFavoriteMovies: Int = 0
   
   func fetchFavoriteMovies() {
     let fetchDescriptor = FetchDescriptor<FavoriteMovie>(
@@ -17,7 +16,6 @@ class MovieManager: ObservableObject {
       sortBy: [SortDescriptor(\.savedAt)]
     )
     favoriteMovies = (try? (context?.fetch(fetchDescriptor) ?? [])) ?? []
-    numOfFavoriteMovies = favoriteMovies.count
   }
     
   func createFavoriteMovie(_ movie: Movie) {
