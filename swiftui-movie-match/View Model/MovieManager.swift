@@ -8,7 +8,7 @@ class MovieManager: ObservableObject {
   var context: ModelContext? = nil
   var favoriteMovies: [FavoriteMovie] = []
   var numOfFavoriteMovies: Int = 0
-    
+  
   func fetchFavoriteMovies() {
     let fetchDescriptor = FetchDescriptor<FavoriteMovie>(
       predicate: #Predicate {
@@ -19,7 +19,7 @@ class MovieManager: ObservableObject {
     favoriteMovies = (try? (context?.fetch(fetchDescriptor) ?? [])) ?? []
     numOfFavoriteMovies = favoriteMovies.count
   }
-  
+    
   func createFavoriteMovie(_ movie: Movie) {
     let favoriteMovie = FavoriteMovie(
       id: movie.id,
@@ -39,9 +39,19 @@ class MovieManager: ObservableObject {
   var movieList: [Movie] = []
   var popularMoviePage = 3
   
+  func getMovieDetail(_ id: Int) async -> MovieDetail? {
+    do {
+      let movieDetail = try await APIgetMovieDetail(id)
+      return movieDetail
+    } catch {
+      print("Failed to get the movie deail (movieId:\(id)): \(error)")
+      return nil
+    }
+  }
+  
   func getPopularMovieList(_ page: Int = 2) {
     Task {
-      do {        
+      do {
         let movieListResponse = try await APIgetPopularMovieList(page)
         
         // filter favotireMovies from incoming movies
@@ -50,11 +60,11 @@ class MovieManager: ObservableObject {
         self.movieList.append(contentsOf: newMovies)
         
         refreshMovieCardsToShow()
-    } catch {
-      print("Failed to fetch popular movies: \(error)")
+      } catch {
+        print("Failed to get popular movies: \(error)")
+      }
     }
   }
-}
   
   func refreshMovieCardsToShow() {
     
@@ -69,7 +79,7 @@ class MovieManager: ObservableObject {
         if(self.movieList.count == 0) { break }
         
         let movieToAdd = self.movieList.removeFirst()
-
+        
         // Check if it's already in [FavoriteMovie]
         let favoriteMovieIds = self.favoriteMovies.map { $0.id }
         if(favoriteMovieIds.contains(movieToAdd.id)) { continue }
@@ -80,7 +90,7 @@ class MovieManager: ObservableObject {
   }
   
   func AddMovieCardToFavorite(_ movie: Movie) {
-
+    
     // create FavoriteMovie in SwiftData
     createFavoriteMovie(movie)
     

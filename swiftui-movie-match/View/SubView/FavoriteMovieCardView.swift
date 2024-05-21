@@ -33,7 +33,7 @@ struct FavoriteMovieCardView: View {
           }
         }
         .sheet(isPresented: $isClicked) {
-          MovieDetailView()
+          MovieDetailView(movieId: movie.id)
         }
     }
   }
