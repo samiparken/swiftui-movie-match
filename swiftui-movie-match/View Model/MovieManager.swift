@@ -51,7 +51,8 @@ class MovieManager: ObservableObject {
     Task {
       var movieListResponse: MovieResponse? = nil
       var newMovies: [Movie] = []
-            
+      
+      // Repeat until movieCardDeck size is big enough
       repeat {
         do {
           movieListResponse = try await APIgetPopularMovieList(popularMoviePage)
@@ -78,12 +79,15 @@ class MovieManager: ObservableObject {
   func refreshPopularMovieList() {
     movieCardsToShow = []
     popularMoviePage += 1
-    DispatchQueue.main.async {
-      self.getPopularMovieList()
+    if movieCardDeck.count < 100 {
+      DispatchQueue.main.async {
+        self.getPopularMovieList()
+      }
     }
   }
   
   func updateMovieCardsToShow() {
+    // Always show 2 movie cards on the screen
     movieCardDeck.shuffle()
     DispatchQueue.main.async {
       while self.movieCardsToShow.count < 2 {
@@ -113,6 +117,7 @@ class MovieManager: ObservableObject {
   }
   
   func RemoveMovieCard(_ movie: Movie) {
+    // Refresh movieCardsToShow
     _ = movieCardsToShow.popLast()
     updateMovieCardsToShow()
   }
