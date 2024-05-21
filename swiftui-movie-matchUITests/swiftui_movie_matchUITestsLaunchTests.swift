@@ -1,10 +1,3 @@
-//
-//  swiftui_movie_matchUITestsLaunchTests.swift
-//  swiftui-movie-matchUITests
-//
-//  Created by Han-Saem Park on 2024-05-19.
-//
-
 import XCTest
 
 final class swiftui_movie_matchUITestsLaunchTests: XCTestCase {

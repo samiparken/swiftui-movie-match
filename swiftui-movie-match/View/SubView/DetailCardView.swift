@@ -46,7 +46,7 @@ struct DetailCardView: View, Identifiable {
                         )
                         .padding(.horizontal, 18)
                         .padding(.bottom, 10)
-                      
+
                       // description
                       Text(movieDetail.overview) // overview
                         .foregroundColor(Color.white)
@@ -68,6 +68,7 @@ struct DetailCardView: View, Identifiable {
             .onTapGesture {
               isClicked.toggle()
             }
+
         case .failure:
           // Error: Show placeholder or error message
           Text("Failed to load image")

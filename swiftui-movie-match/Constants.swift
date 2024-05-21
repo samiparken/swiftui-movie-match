@@ -17,14 +17,13 @@ struct K {
       static let movieDetail = "/movie/{id}"
     }
   }
-  
-  
+
   struct Image {
     struct Logo {
       static let primaryLong = "logo_primary_long"
       static let altLong = "logo_alt_long"
       static let altShort = "logo_alt_short"
     }
-  }
+  }  
 }
 
