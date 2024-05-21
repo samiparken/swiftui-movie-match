@@ -9,7 +9,7 @@ final class MovieManagerTests: XCTestCase {
   var movie4: Movie!
   var movie5: Movie!
   
-//MARK: - SETUP
+  //MARK: - SETUP
   override func setUp() {
     super.setUp()
     movieManager = MovieManager()
@@ -57,7 +57,7 @@ final class MovieManagerTests: XCTestCase {
       overview: "Overview 3",
       popularity: 15.0,
       posterPath: "posterPath3",
-      releaseDate: "2023-01-01",
+      releaseDate: "2023-09-01",
       title: "Movie 3",
       video: false,
       voteAverage: 7.5,
@@ -65,37 +65,37 @@ final class MovieManagerTests: XCTestCase {
     )
     
     movie4 = Movie(
-        id: 4,
-        adult: false,
-        backdropPath: "backdropPath4",
-        genreIds: [2, 4],
-        originalLanguage: "en",
-        originalTitle: "Original Title 4",
-        overview: "Overview 4",
-        popularity: 25.0,
-        posterPath: "posterPath4",
-        releaseDate: "2024-01-01",
-        title: "Movie 4",
-        video: false,
-        voteAverage: 7.8,
-        voteCount: 180
+      id: 4,
+      adult: false,
+      backdropPath: "backdropPath4",
+      genreIds: [2, 4],
+      originalLanguage: "en",
+      originalTitle: "Original Title 4",
+      overview: "Overview 4",
+      popularity: 25.0,
+      posterPath: "posterPath4",
+      releaseDate: "2024-11-01",
+      title: "Movie 4",
+      video: false,
+      voteAverage: 7.8,
+      voteCount: 180
     )
-
+    
     movie5 = Movie(
-        id: 5,
-        adult: false,
-        backdropPath: "backdropPath5",
-        genreIds: [3, 5],
-        originalLanguage: "en",
-        originalTitle: "Original Title 5",
-        overview: "Overview 5",
-        popularity: 15.0,
-        posterPath: "posterPath5",
-        releaseDate: "2025-01-01",
-        title: "Movie 5",
-        video: false,
-        voteAverage: 7.0,
-        voteCount: 150
+      id: 5,
+      adult: false,
+      backdropPath: "backdropPath5",
+      genreIds: [3, 5],
+      originalLanguage: "en",
+      originalTitle: "Original Title 5",
+      overview: "Overview 5",
+      popularity: 15.0,
+      posterPath: "posterPath5",
+      releaseDate: "2025-12-01",
+      title: "Movie 5",
+      video: false,
+      voteAverage: 7.0,
+      voteCount: 150
     )
   }
   
@@ -122,7 +122,7 @@ final class MovieManagerTests: XCTestCase {
     // Given
     movieManager.movieCardsToShow = [movie1, movie2]
     movieManager.movieCardDeck = [movie3,movie4,movie5]
-
+    
     // When
     // removeTopMovieCardAndReload() {
     _ = movieManager.movieCardsToShow.popLast()
@@ -138,7 +138,19 @@ final class MovieManagerTests: XCTestCase {
     // Given
     movieManager.movieCardsToShow = [movie1,movie2]
     movieManager.movieCardDeck = [movie3,movie4,movie5]
-
+    
+    // When
+    movieManager.reloadMovieCardsToShow()
+    
+    // Then
+    XCTAssertEqual(movieManager.movieCardsToShow.count, 2, "Always reloaded to 2")
+  }
+  
+  func testWhenMovieCardsToShowIs0ReloadMovieCardsToShow() {
+    // Given
+    movieManager.movieCardsToShow = []
+    movieManager.movieCardDeck = [movie3,movie4,movie5]
+    
     // When
     movieManager.reloadMovieCardsToShow()
     
