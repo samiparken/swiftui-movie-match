@@ -6,22 +6,23 @@ struct MainView: View {
   // MARK: - SwiftData
   @Environment(\.modelContext) private var context
   @Query private var favoriteMovies: [FavoriteMovie]
+  
+  //MARK: - AppStorage
   @AppStorage(K.AppStorageKey.appearanceMode) private var storedAppearanceMode: AppearanceMode = .system
   @AppStorage(K.AppStorageKey.localeIdentifier) private var localeIdentifier: LocaleIdentifier = .English
   
   //MARK: - PROPERTIES
-  @StateObject var movieManager = MovieManager()
-  @State var showSettingView: Bool = false
-  @State var showFavoriteView: Bool = false
-  @State var showMovieDetailView: Bool = false
-  @State var colorScheme: ColorScheme?
+  @StateObject private var movieManager = MovieManager()
+  @State private var showSettingView: Bool = false
+  @State private var showFavoriteView: Bool = false
+  @State private var showMovieDetailView: Bool = false
+  @State private var colorScheme: ColorScheme?
   
-  //MARK: - PRIVATE PROPERTIES
   @GestureState private var dragState = DragState.inactive
-  private var dragAreaThreshold: CGFloat = 65.0 // if it's less than 65 points, the card snaps back to its origianl place.
   @State private var lastCardIndex: Int = 1
   @State private var cardRemovalTransition = AnyTransition.trailingBottom
   @State private var isClicked: [Int: Bool] = [:]
+  private let dragAreaThreshold: CGFloat = 65.0 // if it's less than 65 points, the card snaps back to its origianl place.
   
   //MARK: - METHOD
   private func updateColorScheme(for mode: AppearanceMode) {
@@ -156,6 +157,7 @@ struct MainView: View {
       
     }
     .preferredColorScheme(colorScheme)
+    .environment(\.locale, Locale.init(identifier: localeIdentifier.rawValue))
     .onAppear {
       // for SwiftData in MovieManager
       movieManager.context = context
@@ -163,9 +165,7 @@ struct MainView: View {
       movieManager.getPopularMovieList(localeIdentifier: localeIdentifier)
       // apply appearanceMode
       updateColorScheme(for: storedAppearanceMode)
-      // apply localization
     }
-    .environment(\.locale, Locale.init(identifier: localeIdentifier.rawValue))
   }
 }
 

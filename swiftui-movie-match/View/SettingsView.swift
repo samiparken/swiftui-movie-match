@@ -54,7 +54,6 @@ struct SettingsView: View {
   }
   
   func isSelectedLanguage(_ language: String?) -> Bool {
-    guard let _ = language else { return false }
     return language == selectedLanguage
   }
   
@@ -66,13 +65,21 @@ struct SettingsView: View {
       //MARK: - HEADER
       ZStack {
         // HEADER TITLE
-        Text("settings-string")
-          .textCase(.uppercase)
-          .font(.title2)
-          .fontWeight(.bold)
-          .foregroundColor(colorScheme == .dark
-                           ? .tertiaryColor
-                           : .primaryColor)
+        HStack{
+          Image(systemName: "gearshape")
+            .font(.title2)
+            .foregroundColor(colorScheme == .dark
+                             ? .tertiaryColor
+                             : .primaryColor)
+          Text("settings-string")
+            .textCase(.uppercase)
+            .font(.title2)
+            .fontWeight(.bold)
+            .foregroundColor(colorScheme == .dark
+                             ? .tertiaryColor
+                             : .primaryColor)
+        }
+        
         // CLOSE Button
         HStack{
           Spacer()
