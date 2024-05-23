@@ -4,3 +4,10 @@ Discover and organize your favorite movies effortlessly. Swipe right to save a m
 
 ## Requirement
 iOS 17.0 or later
+
+1. Clone the repository
+   ```sh
+   git clone https://github.com/yourusername/your-repository.git
+   ```
+2. Build and Run
+- Just build and run! It doesn't require any 3rd party libraries and dependencies.
