@@ -54,7 +54,8 @@ struct DetailView: View {
             context.delete(favoriteMovies[indexToDelete])
             self.presentationMode.wrappedValue.dismiss()
           }) {
-            Text("Remove".uppercased())
+            Text("remove-string")
+              .textCase(.uppercase)
               .modifier(RemoveButtonModifier())
               .padding(.horizontal, 20)
           }
@@ -63,7 +64,8 @@ struct DetailView: View {
           Button(action:{
             self.presentationMode.wrappedValue.dismiss()
           }) {
-            Text("Close".uppercased())
+            Text("close-string")
+              .textCase(.uppercase)
               .modifier(CloseButtonModifier())
               .accentColor(Color(UIColor(colorScheme == .dark
                                          ? .tertiaryColor

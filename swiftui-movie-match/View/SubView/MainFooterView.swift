@@ -30,6 +30,7 @@ struct MainFooterView: View {
           self.showFavoriteView.toggle()
         }) {
           Text("showFavorite-string")
+            .textCase(.uppercase)
             .font(.system(.subheadline, design:.rounded))
             .fontWeight(.heavy)
             .padding(.horizontal, 20)

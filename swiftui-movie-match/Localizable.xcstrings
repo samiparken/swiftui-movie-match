@@ -2,7 +2,14 @@
   "sourceLanguage" : "en",
   "strings" : {
     "%lld" : {
-
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
     },
     "appearance-string" : {
       "localizations" : {
@@ -26,12 +33,36 @@
         }
       }
     },
-    "dark-string" : {
+    "close-string" : {
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "DARK"
+            "value" : "Close"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "닫기"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stänga"
+          }
+        }
+      }
+    },
+    "dark-string" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dark"
           }
         },
         "ko" : {
@@ -43,7 +74,7 @@
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "MÖRK"
+            "value" : "Mörk"
           }
         }
       }
@@ -54,6 +85,29 @@
     "Failed to load movie detail" : {
 
     },
+    "favorites-string" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Favorites"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "좋아하는 영화"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Favoriter"
+          }
+        }
+      }
+    },
     "Language" : {
 
     },
@@ -62,7 +116,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "LIGHT"
+            "value" : "Light"
           }
         },
         "ko" : {
@@ -74,7 +128,7 @@
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "LJUS"
+            "value" : "Ljus"
           }
         }
       }
@@ -96,14 +150,44 @@
       }
     },
     "Placeholder" : {
-
+      "localizations" : {
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
+    },
+    "remove-string" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "삭제"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ta bort"
+          }
+        }
+      }
     },
     "settings-string" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "SETTINGS"
+            "value" : "Settings"
           }
         },
         "ko" : {
@@ -115,7 +199,7 @@
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "INSTÄLLNINGAR"
+            "value" : "Inställningar"
           }
         }
       }
@@ -125,7 +209,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "SHOW FAVORITE"
+            "value" : "Show Favorites"
           }
         },
         "ko" : {
@@ -137,7 +221,7 @@
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "VISA FAVORITER"
+            "value" : "Visa Favoriter"
           }
         }
       }

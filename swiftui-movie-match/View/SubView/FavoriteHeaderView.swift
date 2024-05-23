@@ -6,24 +6,29 @@ struct FavoriteHeaderView: View {
   var numOfFavorites: Int = 0
   
   var body: some View {
-    HStack(alignment:.center, spacing:20) {
-      Image(systemName: "heart.circle")
-        .font(.largeTitle)
-        .foregroundColor(Color.pink)
-      Spacer()
+    ZStack(alignment:.center) {
+      HStack{
+        Image(systemName: "heart.circle")
+          .font(.largeTitle)
+          .foregroundColor(Color.pink)
+        Spacer()
+      }
       
-      Text("Favorites".uppercased())
+      Text("favorites-string")
+        .textCase(.uppercase)
         .font(.title2)
         .fontWeight(.bold)
         .foregroundColor(colorScheme == .dark
                          ? .tertiaryColor
                          : .primaryColor)
 
-      Spacer()
-      Text(String(numOfFavorites))
-        .font(.title2)
-        .fontWeight(.heavy)
-        .foregroundStyle(Color.pink)
+      HStack{
+        Spacer()
+        Text(String(numOfFavorites))
+          .font(.title2)
+          .fontWeight(.heavy)
+          .foregroundStyle(Color.pink)
+      }
     }
     .padding(.horizontal)
   }

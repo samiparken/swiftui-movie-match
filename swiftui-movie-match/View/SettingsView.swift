@@ -66,6 +66,7 @@ struct SettingsView: View {
       ZStack {
         // HEADER TITLE
         Text("settings-string")
+          .textCase(.uppercase)
           .font(.title2)
           .fontWeight(.bold)
           .foregroundColor(colorScheme == .dark
@@ -133,6 +134,7 @@ struct SettingsView: View {
                 initColorSet()
               }){
                 Text("dark-string")
+                  .textCase(.uppercase)
                   .modifier(SettingsButtonModifier())
                   .background(
                     Capsule().fill(

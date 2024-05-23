@@ -24,8 +24,9 @@ struct CloseButtonModifier: ViewModifier {
 struct SettingsButtonModifier: ViewModifier {
   func body(content: Content) -> some View {
     content
+      .textCase(.uppercase)
       .font(.system(.subheadline, design:.rounded))
-      .fontWeight(.heavy)
+      .fontWeight(.semibold)
       .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxWidth: .infinity)
       .padding(.horizontal, 20)
       .padding(.vertical, 12)
