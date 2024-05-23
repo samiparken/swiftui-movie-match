@@ -142,10 +142,7 @@ struct SettingsView: View {
                     )
                   )
                   .overlay(
-                    Capsule().stroke(
-                      colorScheme == .light ? selectedColor : Color.clear,
-                      lineWidth: 2
-                    )
+                    Capsule().stroke(colorScheme == .light ? selectedColor : Color.clear, lineWidth: 2)
                   )
                   .foregroundColor(colorScheme == .light ? selectedColor : Color.black)
               }
