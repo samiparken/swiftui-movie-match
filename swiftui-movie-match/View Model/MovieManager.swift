@@ -27,7 +27,8 @@ class MovieManager: ObservableObject {
       originalTitle: movie.originalTitle,
       overview: movie.overview,
       voteAverage: movie.voteAverage,
-      savedAt: Date()
+      savedAt: Date(),
+      language: currentLanguage
     )
     context?.insert(favoriteMovie)
   }
@@ -39,9 +40,8 @@ class MovieManager: ObservableObject {
   var popularMoviePage = 1
   var currentLanguage = LocaleIdentifier.English.rawValue
   
-  func getMovieDetail(id: Int, localeIdentifier: LocaleIdentifier = .English) async -> MovieDetail? {
-    let language = localeIdentifier.rawValue
-    guard let movieDetail = try? await APIgetMovieDetail(id:id, language:language) else {
+  func getMovieDetail(id: Int, languageCode: String) async -> MovieDetail? {
+    guard let movieDetail = try? await APIgetMovieDetail(id:id, language:languageCode) else {
         print("Failed to get the movie detail (movieId:\(id))")
         return nil
     }

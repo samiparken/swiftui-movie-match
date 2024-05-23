@@ -45,7 +45,7 @@ struct MiniMovieCardButton: View {
       isClicked.toggle()
     }
     .sheet(isPresented: $isClicked) {
-      DetailView(movieId: movie.id)
+      DetailView(movieId: movie.id, languageCode: movie.language)
     }
   }
   
@@ -81,7 +81,8 @@ struct FavoriteMovieCardView_Previews: PreviewProvider {
       originalTitle: "Godzilla x Kong: The New Empire",
       overview: "Following their explosive showdown, Godzilla and Kong must reunite against a colossal undiscovered threat hidden within our world, challenging their very existence – and our own.",
       voteAverage: 7.222,
-      savedAt: Date()
+      savedAt: Date(),
+      language: "en"
     )
     
     @State var isClicked: Bool = false

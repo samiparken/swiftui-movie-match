@@ -7,7 +7,6 @@ struct DetailView: View {
   @Query private var favoriteMovies: [FavoriteMovie]
   
   //MARK: - PROPERTIES
-  @AppStorage(K.AppStorageKey.localeIdentifier) private var localeIdentifier: LocaleIdentifier = .English
   @Environment(\.colorScheme) var colorScheme
   @Environment(\.presentationMode) var presentationMode
   @StateObject var movieManager = MovieManager()
@@ -16,10 +15,11 @@ struct DetailView: View {
   @State private var isError = false
   @State private var isClicked = true
   let movieId: Int
+  let languageCode: String
   
   //MARK: - METHOD
   private func getMovieDetail() async {
-    if let movieDetail = await movieManager.getMovieDetail(id: movieId, localeIdentifier: localeIdentifier ) {
+    if let movieDetail = await movieManager.getMovieDetail(id: movieId, languageCode: languageCode ) {
       self.movieDetail = movieDetail
       isLoading = false
     } else {
@@ -95,7 +95,6 @@ struct DetailView: View {
 //MARK: - PREVIEW
 struct MovieDetailView_Previews: PreviewProvider {
   static var previews: some View {
-    let movieId = 823464
-    DetailView(movieId: movieId)
+    DetailView(movieId: 823464, languageCode: "en")
   }
 }
