@@ -71,6 +71,8 @@ struct MainView: View {
                 set: { isClicked[movie.id] = $0 }
               )
             )
+            .accessibility(identifier: "movieCard_\(movieManager.isTopMovieCard(movie) ? 1 : 0)")
+
             //zIndex
             .zIndex(movieManager.isTopMovieCard(movie) ? 1 : 0)
             // Show Symbol
