@@ -1,11 +1,12 @@
 import SwiftUI
 
 struct SettingsView: View {
-  //MARK: - PROPERTIES
-  @Environment(\.presentationMode) var presentationMode
+  //MARK: - AppStorage
   @AppStorage(K.AppStorageKey.localeIdentifier) private var localeIdentifier: LocaleIdentifier = .English
   @AppStorage(K.AppStorageKey.appearanceMode) private var appearanceMode: AppearanceMode = .system
   
+  //MARK: - PROPERTIES
+  @Environment(\.presentationMode) var presentationMode
   @Binding var colorScheme: ColorScheme?
   @State private var selectedLanguage: String?
   @State private var selectedColor: Color = .primaryColor

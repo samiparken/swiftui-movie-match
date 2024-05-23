@@ -2,7 +2,7 @@ import SwiftUI
 
 struct DetailCardView: View, Identifiable {
   let id = UUID() //for Identifiable
-  var movieDetail: MovieDetail
+  let movieDetail: MovieDetail
   @Binding var isClicked: Bool // Use Binding for isClicked
   
   var body: some View {

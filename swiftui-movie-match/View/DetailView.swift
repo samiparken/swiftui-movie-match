@@ -9,7 +9,7 @@ struct DetailView: View {
   //MARK: - PROPERTIES
   @Environment(\.colorScheme) var colorScheme
   @Environment(\.presentationMode) var presentationMode
-  @StateObject var movieManager = MovieManager()
+  @StateObject private var movieManager = MovieManager()
   @State private var movieDetail: MovieDetail?
   @State private var isLoading = true
   @State private var isError = false

@@ -3,9 +3,9 @@ import SwiftUI
 struct MainCardView: View, Identifiable {
   //MARK: - PROPERTIES
   let id = UUID() //for Identifiable
-  var movie: Movie
+  let movie: Movie
   @Binding var isClicked: Bool // Use Binding for isClicked
-  
+
   //MARK: - BODY
   var body: some View {
     AsyncImage(

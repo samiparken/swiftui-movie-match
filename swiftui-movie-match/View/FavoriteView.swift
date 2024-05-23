@@ -8,14 +8,10 @@ struct FavoriteView: View {
   
   //MARK: - PROPERTIES
   @Environment(\.presentationMode) var presentationMode
-  @StateObject var movieManager = MovieManager()
   @Binding var showMovieDetailView: Bool
-  @State private var isClicked: [Int: Bool] = [:]
-  
-  let columns = [
-    GridItem(.flexible()),
-    GridItem(.flexible())
-  ]
+  @StateObject private var movieManager = MovieManager()
+  @State private var isClicked: [Int: Bool] = [:]  
+  let vstackColumnSet = [ GridItem(.flexible()), GridItem(.flexible()) ]
   
   //MARK: - BODY
   var body: some View {
@@ -25,7 +21,7 @@ struct FavoriteView: View {
       FavoriteHeaderView(numOfFavorites: favoriteMovies.count)
       
       ScrollView {
-        LazyVGrid(columns: columns, spacing: 15) {
+        LazyVGrid(columns: vstackColumnSet, spacing: 15) {
           ForEach(favoriteMovies) { movie in
             MiniMovieCardButton(
               movie: movie,
