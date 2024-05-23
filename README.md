@@ -42,7 +42,7 @@ This app is developed using the Model-View-ViewModel (MVVM) design pattern, leve
 - Data Management: Manages movie data and updates the views accordingly.
 
 ### API
-The app utilizes 2 endpoints from The Movie Database (TMDb) API
+The app utilizes only two endpoints from The Movie Database (TMDb) API to meet the assignment requirements. The architecture is scalable, allowing for easy expansion to include additional endpoints in the future.
 - Popular Movies: https://api.themoviedb.org/3/movie/popular
 - Movie Details: https://api.themoviedb.org/3/movie/movie_id
 
@@ -50,11 +50,9 @@ The app utilizes 2 endpoints from The Movie Database (TMDb) API
 - Modularize the app using reusable subviews, view components, modifiers, and extensions for better maintainability and scalability.
 - Simplify the addition of new API endpoints by organizing them in Endpoint.swift.
 
-### AppStorage
-- Persists user preferences for ColorScheme(AppearanceMode) and Language(LocaleIdentifier).
-
-### SwiftData
-- Data Persistence: Uses SwiftData to persist favorite movies, ensuring users can access their saved favorites across app sessions.
+### Data Persistence
+- AppStorage: Persists user preferences for ColorScheme(AppearanceMode) and Language(LocaleIdentifier).
+- SwiftData: persist favorite movies, ensuring users can access their saved favorites across app sessions.
 
 ### Unit Tests
 - MovieManagerTests.swift
