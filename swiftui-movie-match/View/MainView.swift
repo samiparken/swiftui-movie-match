@@ -7,6 +7,7 @@ struct MainView: View {
   @Environment(\.modelContext) private var context
   @Query private var favoriteMovies: [FavoriteMovie]
   @AppStorage(K.AppStorageKey.appearanceMode) private var storedAppearanceMode: AppearanceMode = .system
+  @AppStorage(K.AppStorageKey.localeIdentifier) private var localeIdentifier: LocaleIdentifier = .English
   
   //MARK: - PROPERTIES
   @StateObject var movieManager = MovieManager()
@@ -162,7 +163,9 @@ struct MainView: View {
       movieManager.getPopularMovieList()
       // apply appearanceMode
       updateColorScheme(for: storedAppearanceMode)
+      // apply localization
     }
+    .environment(\.locale, Locale.init(identifier: localeIdentifier.rawValue))
   }
 }
 

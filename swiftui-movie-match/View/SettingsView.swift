@@ -3,7 +3,7 @@ import SwiftUI
 struct SettingsView: View {
   //MARK: - PROPERTIES
   @Environment(\.presentationMode) var presentationMode
-  @AppStorage(K.AppStorageKey.language) private var selectedLanguage = "English"
+  @AppStorage(K.AppStorageKey.localeIdentifier) private var localeIdentifier: LocaleIdentifier = .English
   @AppStorage(K.AppStorageKey.appearanceMode) private var appearanceMode: AppearanceMode = .system
   
   @Binding var colorScheme: ColorScheme?
@@ -16,7 +16,7 @@ struct SettingsView: View {
       //MARK: - HEADER
       ZStack {
         // HEADER TITLE
-        Text("Settings".uppercased())
+        Text("settings-string")
           .font(.title2)
           .fontWeight(.bold)
           .foregroundColor(colorScheme == .dark
@@ -44,7 +44,7 @@ struct SettingsView: View {
         VStack {
           Divider()
           VStack {
-            Text("Appearance")
+            Text("appearance-string")
               .foregroundColor(colorScheme == .dark
                                ? .tertiaryColor
                                : .primaryColor)
@@ -61,7 +61,7 @@ struct SettingsView: View {
                 colorScheme = .light
                 appearanceMode = .light
               }){
-                Text("Light".uppercased())
+                Text("light-string")
                   .modifier(SettingsButtonModifier())
                   .background(
                     Capsule().fill(
@@ -82,7 +82,7 @@ struct SettingsView: View {
                 colorScheme = .dark
                 appearanceMode = .dark
               }){
-                Text("Dark".uppercased())
+                Text("dark-string")
                   .modifier(SettingsButtonModifier())
                   .background(
                     Capsule().fill(
@@ -100,6 +100,7 @@ struct SettingsView: View {
               
             }
           }
+          .padding(.bottom, 10)
           Divider()
         }
       }
@@ -107,8 +108,16 @@ struct SettingsView: View {
       .padding(.vertical,30)
                   
       Spacer()
+      
+      //+TODO: add Language Change
+      
+      
+      
+      
+      
     }
     .preferredColorScheme(colorScheme)
+    .environment(\.locale, Locale.init(identifier: localeIdentifier.rawValue))
   }
 }
 

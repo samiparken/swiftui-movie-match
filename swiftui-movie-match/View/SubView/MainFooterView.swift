@@ -29,7 +29,7 @@ struct MainFooterView: View {
           self.haptics.notificationOccurred(.success)
           self.showFavoriteView.toggle()
         }) {
-          Text("Show Favorites".uppercased())
+          Text("showFavorite-string")
             .font(.system(.subheadline, design:.rounded))
             .fontWeight(.heavy)
             .padding(.horizontal, 20)

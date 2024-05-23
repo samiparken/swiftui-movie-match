@@ -9,12 +9,13 @@ struct MainHeaderView: View {
   
   let haptics = UINotificationFeedbackGenerator()
   
+  //MARK: - BODY
   var body: some View {
     HStack {
       
       //REFRESH BUTTON
       Button(action: {
-        //self.haptics.notificationOccurred(.success)
+        self.haptics.notificationOccurred(.success)
         movieManager.refreshPopularMovieList()
       }) {
         Image(systemName: "arrow.clockwise")
@@ -26,6 +27,7 @@ struct MainHeaderView: View {
       
       Spacer()
       
+      // LOGO
       Image(K.Image.Logo.altShort)
         .resizable()
         .scaledToFit()

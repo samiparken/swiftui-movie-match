@@ -4,6 +4,7 @@ struct K {
   struct AppStorageKey {
     static let region = "region"
     static let language = "language"
+    static let localeIdentifier = "localeIdentifier"
     static let appearanceMode = "appearanceMode"
   }
   
@@ -29,6 +30,5 @@ struct K {
       static let altLong = "logo_alt_long"
       static let altShort = "logo_alt_short"
     }
-  }  
+  }
 }
-
