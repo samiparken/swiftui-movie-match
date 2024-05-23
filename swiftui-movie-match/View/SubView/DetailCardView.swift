@@ -33,27 +33,64 @@ struct DetailCardView: View, Identifiable {
                       
                       // title
                       Text(movieDetail.title.uppercased()) //title
-                        .foregroundColor(Color.white)
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .shadow(radius: 1)
+                        .modifier(TextTitleModifier())
                         .padding(.top, 40)
-                        .overlay(
-                          Rectangle()
-                            .fill(Color.white)
-                            .frame(height: 1),
-                          alignment: .bottom
-                        )
-                        .padding(.horizontal, 18)
+                        .padding(.horizontal, 12)
                         .padding(.bottom, 10)
+                      
+                      // Rated
+                      HStack {
+                        Text("rate-label-string")
+                          .modifier(TextLabelModifier())
 
-                      // description
-                      Text(movieDetail.overview) // overview
+                        Text(String(movieDetail.voteAverage.rounded(toPlaces: 1))+" / 10")
+                          .modifier(TextContentModifier())
+
+                        Spacer()
+                      }
+                      .padding(.horizontal, 24)
+                      .padding(.bottom, -4)
+                      
+                      // Runtime
+                      if let runtime = movieDetail.runtime {
+                        HStack {
+                          Text("runtime-label-string")
+                            .modifier(TextLabelModifier())
+
+                          Text(String(runtime) + " min")
+                            .modifier(TextContentModifier())
+                          
+                          Spacer()
+                        }
+                        .padding(.horizontal, 24)
+                        .padding(.bottom, -4)
+                      }
+                                            
+                      // Release date
+                      HStack {
+                        Text("released-label-string")
+                          .modifier(TextLabelModifier())
+
+                        Text(movieDetail.releaseDate)
+                          .modifier(TextContentModifier())
+                        
+                        Spacer()
+                      }
+                      .padding(.horizontal, 24)
+                                          
+                      // Genres
+                      Text(movieDetail.genres.map{$0.name}.joined(separator: ", "))
                         .foregroundColor(Color.white)
                         .font(.subheadline)
                         .fontWeight(.bold)
                         .frame(minWidth: 85, alignment: .leading)
                         .multilineTextAlignment(.leading)
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 5)
+                      
+                      // Description
+                      Text(movieDetail.overview)
+                        .modifier(TextDescriptionModifier())
                         .padding(.horizontal, 20)
                         .padding(.vertical, 5)
                       

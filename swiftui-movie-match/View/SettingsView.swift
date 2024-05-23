@@ -21,10 +21,7 @@ struct SettingsView: View {
     case .dark:
       selectedColor = .tertiaryColor
       backgroundColor = Color.black
-    case nil:
-      selectedColor = .primaryColor
-      backgroundColor = Color.white
-    case .some(_):
+    default:
       selectedColor = .primaryColor
       backgroundColor = Color.white
     }
@@ -121,7 +118,7 @@ struct SettingsView: View {
                 initColorSet()
               }){
                 Text("light-string")
-                  .modifier(SettingsButtonModifier())
+                  .modifier(ButtonSettingsModifier())
                   .background(
                     Capsule().fill(
                       colorScheme == .light ? selectedColor : Color.clear
@@ -144,7 +141,7 @@ struct SettingsView: View {
               }){
                 Text("dark-string")
                   .textCase(.uppercase)
-                  .modifier(SettingsButtonModifier())
+                  .modifier(ButtonSettingsModifier())
                   .background(
                     Capsule().fill(
                       colorScheme == .light ? Color.clear : selectedColor

@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		31036C8D2BFA9C5F00604902 /* MainCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31036C8C2BFA9C5F00604902 /* MainCardView.swift */; };
 		31036C902BFA9DEC00604902 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31036C8F2BFA9DEC00604902 /* String+Ext.swift */; };
-		3181D1F12BFB2CD800C40722 /* TitleModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3181D1F02BFB2CD800C40722 /* TitleModifier.swift */; };
+		3181D1F12BFB2CD800C40722 /* TextModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3181D1F02BFB2CD800C40722 /* TextModifier.swift */; };
 		3181D1F32BFB2CEC00C40722 /* ButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3181D1F22BFB2CEC00C40722 /* ButtonModifier.swift */; };
 		3181D1F52BFB2D0700C40722 /* SymbolModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3181D1F42BFB2D0700C40722 /* SymbolModifier.swift */; };
 		3181D1F72BFB2D4E00C40722 /* AnyTransition+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3181D1F62BFB2D4E00C40722 /* AnyTransition+Ext.swift */; };
@@ -26,6 +26,7 @@
 		31B6774C2BFCE13A005223DC /* MovieManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B6774B2BFCE13A005223DC /* MovieManagerTests.swift */; };
 		31B677502BFCFCC4005223DC /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B6774F2BFCFCC4005223DC /* SettingsView.swift */; };
 		31B677542BFD0AB2005223DC /* AppearanceMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B677532BFD0AB2005223DC /* AppearanceMode.swift */; };
+		31D2E2872BFF58FC00C0AD63 /* Double+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D2E2862BFF58FC00C0AD63 /* Double+Ext.swift */; };
 		31D718432BFBEDCB00C00DC7 /* MovieDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D718422BFBEDCB00C00DC7 /* MovieDetail.swift */; };
 		31E8E3C32BFB7BE500841B95 /* FavoriteMovie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E8E3C22BFB7BE400841B95 /* FavoriteMovie.swift */; };
 		31F7C8C62BFF1B0700963FF5 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 31F7C8C52BFF1B0600963FF5 /* Localizable.xcstrings */; };
@@ -69,7 +70,7 @@
 /* Begin PBXFileReference section */
 		31036C8C2BFA9C5F00604902 /* MainCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCardView.swift; sourceTree = "<group>"; };
 		31036C8F2BFA9DEC00604902 /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
-		3181D1F02BFB2CD800C40722 /* TitleModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleModifier.swift; sourceTree = "<group>"; };
+		3181D1F02BFB2CD800C40722 /* TextModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextModifier.swift; sourceTree = "<group>"; };
 		3181D1F22BFB2CEC00C40722 /* ButtonModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonModifier.swift; sourceTree = "<group>"; };
 		3181D1F42BFB2D0700C40722 /* SymbolModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolModifier.swift; sourceTree = "<group>"; };
 		3181D1F62BFB2D4E00C40722 /* AnyTransition+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnyTransition+Ext.swift"; sourceTree = "<group>"; };
@@ -86,6 +87,7 @@
 		31B6774B2BFCE13A005223DC /* MovieManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieManagerTests.swift; sourceTree = "<group>"; };
 		31B6774F2BFCFCC4005223DC /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		31B677532BFD0AB2005223DC /* AppearanceMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceMode.swift; sourceTree = "<group>"; };
+		31D2E2862BFF58FC00C0AD63 /* Double+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Ext.swift"; sourceTree = "<group>"; };
 		31D718422BFBEDCB00C00DC7 /* MovieDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetail.swift; sourceTree = "<group>"; };
 		31E8E3C22BFB7BE400841B95 /* FavoriteMovie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteMovie.swift; sourceTree = "<group>"; };
 		31F7C8C52BFF1B0600963FF5 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 				31036C8F2BFA9DEC00604902 /* String+Ext.swift */,
 				3181D1F62BFB2D4E00C40722 /* AnyTransition+Ext.swift */,
 				3181D2002BFB43B900C40722 /* Color+Ext.swift */,
+				31D2E2862BFF58FC00C0AD63 /* Double+Ext.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -150,7 +153,7 @@
 		3181D1EF2BFB2CB800C40722 /* ViewModifier */ = {
 			isa = PBXGroup;
 			children = (
-				3181D1F02BFB2CD800C40722 /* TitleModifier.swift */,
+				3181D1F02BFB2CD800C40722 /* TextModifier.swift */,
 				3181D1F22BFB2CEC00C40722 /* ButtonModifier.swift */,
 				3181D1F42BFB2D0700C40722 /* SymbolModifier.swift */,
 			);
@@ -461,9 +464,10 @@
 				31B677462BFC9BA5005223DC /* DetailCardView.swift in Sources */,
 				31F7C8C82BFF1F6400963FF5 /* LocaleIdentifier.swift in Sources */,
 				31B677542BFD0AB2005223DC /* AppearanceMode.swift in Sources */,
+				31D2E2872BFF58FC00C0AD63 /* Double+Ext.swift in Sources */,
 				3181D1F92BFB2D9600C40722 /* DragState.swift in Sources */,
 				3181D1F72BFB2D4E00C40722 /* AnyTransition+Ext.swift in Sources */,
-				3181D1F12BFB2CD800C40722 /* TitleModifier.swift in Sources */,
+				3181D1F12BFB2CD800C40722 /* TextModifier.swift in Sources */,
 				31FD8FD62BFA813000F03252 /* QueryString+Ext.swift in Sources */,
 				3181D2032BFB468B00C40722 /* MainHeaderView.swift in Sources */,
 				31FD8FE12BFA8EA800F03252 /* MovieManager.swift in Sources */,

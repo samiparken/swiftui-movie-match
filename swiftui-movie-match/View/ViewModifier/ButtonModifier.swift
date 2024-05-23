@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct RemoveButtonModifier: ViewModifier {
+struct ButtonRemoveModifier: ViewModifier {
   func body(content: Content) -> some View {
     content
       .font(.headline)
@@ -11,7 +11,7 @@ struct RemoveButtonModifier: ViewModifier {
   }
 }
 
-struct CloseButtonModifier: ViewModifier {
+struct ButtonCloseModifier: ViewModifier {
   func body(content: Content) -> some View {
     content
       .font(.headline)
@@ -21,7 +21,7 @@ struct CloseButtonModifier: ViewModifier {
   }
 }
 
-struct SettingsButtonModifier: ViewModifier {
+struct ButtonSettingsModifier: ViewModifier {
   func body(content: Content) -> some View {
     content
       .textCase(.uppercase)

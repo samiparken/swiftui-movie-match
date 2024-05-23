@@ -51,7 +51,7 @@
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Stänga"
+            "value" : "Stäng"
           }
         }
       }
@@ -108,6 +108,9 @@
         }
       }
     },
+    "Key" : {
+      "extractionState" : "manual"
+    },
     "Language" : {
 
     },
@@ -159,6 +162,58 @@
         }
       }
     },
+    "rate-label-string" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rage:"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "평점:"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Betyg:"
+          }
+        }
+      }
+    },
+    "Rate:" : {
+
+    },
+    "released-label-string" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Released:"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "개봉:"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Släppt:"
+          }
+        }
+      }
+    },
+    "Released:" : {
+
+    },
     "remove-string" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -178,6 +233,29 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ta bort"
+          }
+        }
+      }
+    },
+    "runtime-label-string" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Runtime:"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "러닝타임:"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Längd:"
           }
         }
       }

@@ -57,7 +57,7 @@ struct DetailView: View {
           }) {
             Text("remove-string")
               .textCase(.uppercase)
-              .modifier(RemoveButtonModifier())
+              .modifier(ButtonRemoveModifier())
               .padding(.horizontal, 20)
           }
           
@@ -67,7 +67,7 @@ struct DetailView: View {
           }) {
             Text("close-string")
               .textCase(.uppercase)
-              .modifier(CloseButtonModifier())
+              .modifier(ButtonCloseModifier())
               .accentColor(Color(UIColor(colorScheme == .dark
                                          ? .tertiaryColor
                                          : .primaryColor)))

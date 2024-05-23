@@ -40,27 +40,39 @@ struct MainCardView: View, Identifiable {
                       
                       // title
                       Text(movie.title.uppercased()) //title
-                        .foregroundColor(Color.white)
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .shadow(radius: 1)
+                        .modifier(TextTitleModifier())
                         .padding(.top, 40)
-                        .overlay(
-                          Rectangle()
-                            .fill(Color.white)
-                            .frame(height: 1),
-                          alignment: .bottom
-                        )
-                        .padding(.horizontal, 18)
+                        .padding(.horizontal, 12)
                         .padding(.bottom, 10)
                       
-                      // description
-                      Text(movie.overview) // overview
-                        .foregroundColor(Color.white)
-                        .font(.subheadline)
-                        .fontWeight(.bold)
-                        .frame(minWidth: 85, alignment: .leading)
-                        .multilineTextAlignment(.leading)
+                      // Rated
+                      HStack {
+                        Text("Rate:")
+                          .modifier(TextLabelModifier())
+
+                        Text(String(movie.voteAverage.rounded(toPlaces: 1)) + " / 10")
+                          .modifier(TextContentModifier())
+
+                        Spacer()
+                      }
+                      .padding(.horizontal, 24)
+                      .padding(.bottom, -4)
+                                                                  
+                      // Release date
+                      HStack {
+                        Text("Released:")
+                          .modifier(TextLabelModifier())
+
+                        Text(movie.releaseDate)
+                          .modifier(TextContentModifier())
+
+                        Spacer()
+                      }
+                      .padding(.horizontal, 24)
+                          
+                      // Description
+                      Text(movie.overview)
+                        .modifier(TextDescriptionModifier())
                         .padding(.horizontal, 20)
                         .padding(.vertical, 5)
                       
