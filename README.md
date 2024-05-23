@@ -10,7 +10,7 @@ iOS 17.0 or later
 ## Installation
 1. Clone the repository
    ```sh
-   git clone https://github.com/yourusername/your-repository.git
+   git clone https://github.com/samiparken/swiftui-movie-match.git
    ```
 2. Build and Run
 - Just build and run! It doesn't require any 3rd party libraries and dependencies.
