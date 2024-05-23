@@ -7,6 +7,32 @@ struct SettingsView: View {
   @AppStorage(K.AppStorageKey.appearanceMode) private var appearanceMode: AppearanceMode = .system
   
   @Binding var colorScheme: ColorScheme?
+  @State private var selectedLanguage: String?
+  
+  //MARK: - METHOD
+  func initLanguageSelector() {
+    switch localeIdentifier {
+    case .English:
+      selectedLanguage = "English"
+    case .Swedish:
+      selectedLanguage = "Svenska"
+    case .Korean:
+      selectedLanguage = "한국어"
+    }
+  }
+  
+  func onLanguageSelected(_ language: String) {
+    switch language {
+    case "English":
+      localeIdentifier = .English
+    case "Svenska":
+      localeIdentifier = .Swedish
+    case "한국어":
+      localeIdentifier = .Korean
+    default:
+      localeIdentifier = .English
+    }
+  }
   
   //MARK: - BODY
   var body: some View {
@@ -43,6 +69,7 @@ struct SettingsView: View {
       VStack(alignment:.leading, spacing: 10) {
         VStack {
           Divider()
+            .padding(.top,20)
           VStack {
             Text("appearance-string")
               .foregroundColor(colorScheme == .dark
@@ -97,7 +124,44 @@ struct SettingsView: View {
                   )
                   .foregroundColor(colorScheme == .light ? Color(UIColor(.primaryColor)) : Color.black)
               }
+            }
+          }
+        }
+      }
+      .padding(.horizontal)
+                  
+      
+      //+TODO: add Language Change
+      
+      VStack(alignment:.leading, spacing: 10) {
+        VStack {
+          Divider()
+          VStack {
+            Text("Language")
+              .foregroundColor(colorScheme == .dark
+                               ? .tertiaryColor
+                               : .primaryColor)
+              .font(.title3)
+              .fontWeight(.bold)
+              .padding(.top, 10)
+              .padding(.bottom, 20)
+            
+            HStack (alignment:.center, spacing: 40) {
+              //+TODO: apply system colorScheme
               
+              List(K.SettingsView.languageList, id: \.self, selection: $selectedLanguage) { language in
+                HStack {
+                  Text(language)
+                  Spacer()
+                  if language == selectedLanguage ?? "English" {
+                      Image(systemName: "checkmark")
+                          .foregroundColor(.blue)
+                  }
+                }
+              }
+              .onChange(of: selectedLanguage) {
+                onLanguageSelected(selectedLanguage ?? "English")
+              }
             }
           }
           .padding(.bottom, 10)
@@ -106,18 +170,15 @@ struct SettingsView: View {
       }
       .padding(.horizontal)
       .padding(.vertical,30)
-                  
+            
       Spacer()
-      
-      //+TODO: add Language Change
-      
-      
-      
-      
-      
+
     }
     .preferredColorScheme(colorScheme)
     .environment(\.locale, Locale.init(identifier: localeIdentifier.rawValue))
+    .onAppear {
+      initLanguageSelector()
+    }
   }
 }
 
