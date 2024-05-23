@@ -38,6 +38,7 @@ class MovieManager: ObservableObject {
   @Published var movieCardsToShow: [Movie] = []
   var movieCardDeck: [Movie] = []
   var currentPopularMoviePage = 1
+  let popularMoviePageLimit = 500
   var currentLanguageCode = LocaleIdentifier.English.rawValue
   
   func getMovieDetail(id: Int, languageCode: String) async -> MovieDetail? {
@@ -76,7 +77,7 @@ class MovieManager: ObservableObject {
               self.reloadMovieCardsToShow()
             }
           } else {
-            currentPopularMoviePage += 1
+            increasePopularMoviePage()
           }
         } catch {
           print("Failed to get popular movies: \(error)")
@@ -89,11 +90,13 @@ class MovieManager: ObservableObject {
   
   func refreshPopularMovieList() {
     movieCardsToShow = []
-    currentPopularMoviePage += 1
     if movieCardDeck.count < 100 {
+      increasePopularMoviePage()
       DispatchQueue.main.async {
         self.getPopularMovieList(languageCode: self.localeIdentifier.rawValue)
       }
+    } else {
+      reloadMovieCardsToShow()
     }
   }
   
@@ -136,5 +139,12 @@ class MovieManager: ObservableObject {
       return false
     }
     return index == (movieCardsToShow.count - 1)
+  }
+  
+  func increasePopularMoviePage() {
+    currentPopularMoviePage += 1
+    if currentPopularMoviePage > popularMoviePageLimit {
+      currentPopularMoviePage = 1
+    }
   }
 }
