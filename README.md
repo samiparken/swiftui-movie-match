@@ -35,9 +35,19 @@ all the movie data from TMDB Open Source API (https://developer.themoviedb.org/d
 
 ## Implementation
 ### MVVM design pattern
-This app is developed using the Model-View-ViewModel (MVVM) design pattern, leveraging SwiftUI for a modern and reactive user interface. One of the key design decisions was to avoid having many controllers, which are common in the Model-View-Controller (MVC) pattern. Instead, MVVM allows for better separation of concerns and more manageable code
+This app is developed using the Model-View-ViewModel (MVVM) design pattern, leveraging SwiftUI for a modern and reactive user interface. One of the key design decisions was to avoid having many controllers for each view, which are common in the Model-View-Controller (MVC) pattern. Instead, MVVM allows for better separation of concerns and more manageable code
+
+#### View Model (MovieManager.swift)
+- API Requests: Handles API calls to fetch movie data.
+- Data Management: Manages movie data and updates the views accordingly.
 
 ### API
-The app utilizes 2 endpoints to organize views.
-- https://api.themoviedb.org/3/movie/popular
-- https://api.themoviedb.org/3/movie/movie_id
+The app utilizes 2 endpoints from The Movie Database (TMDb) API
+- Popular Movies: https://api.themoviedb.org/3/movie/popular
+- Movie Details: https://api.themoviedb.org/3/movie/movie_id
+
+### SwiftData
+- Data Persistence: Uses SwiftData to persist favorite movies, ensuring users can access their saved favorites across app sessions.
+
+### Unit Tests
+- MovieManagerTests.swift
