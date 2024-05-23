@@ -4,8 +4,9 @@ Discover and organize your favorite movies effortlessly. Swipe right to save a m
 
 ## DEMO
 
-## Requirement
-iOS 17.0 or later
+## Specification
+SwiftUI, iOS 17.0 or later
+all the movie data from TMDB Open Source API (https://developer.themoviedb.org/docs/getting-started)
 
 ## Installation
 1. Clone the repository
