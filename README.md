@@ -5,8 +5,8 @@ Discover and organize your favorite movies effortlessly. Swipe right to save a m
 ## DEMO
 
 ## Specification
-SwiftUI, iOS 17.0 or later
-all the movie data from TMDB Open Source API (https://developer.themoviedb.org/docs/getting-started)
+- SwiftUI, SwiftData, iOS 17.0 or later
+- all the movie data from TMDB Open Source API (https://developer.themoviedb.org/docs/getting-started)
 
 ## Installation
 1. Clone the repository
@@ -45,6 +45,13 @@ This app is developed using the Model-View-ViewModel (MVVM) design pattern, leve
 The app utilizes 2 endpoints from The Movie Database (TMDb) API
 - Popular Movies: https://api.themoviedb.org/3/movie/popular
 - Movie Details: https://api.themoviedb.org/3/movie/movie_id
+
+### Modulization
+- Modularize the app using reusable subviews, view components, modifiers, and extensions for better maintainability and scalability.
+- Simplify the addition of new API endpoints by organizing them in Endpoint.swift.
+
+### AppStorage
+- Persists user preferences for ColorScheme(AppearanceMode) and Language(LocaleIdentifier).
 
 ### SwiftData
 - Data Persistence: Uses SwiftData to persist favorite movies, ensuring users can access their saved favorites across app sessions.

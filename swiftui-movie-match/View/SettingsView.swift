@@ -63,27 +63,12 @@ struct SettingsView: View {
       //MARK: - HEADER
       ZStack {
         // HEADER TITLE
-        HStack{
-          Image(systemName: "gearshape")
-            .font(.title2)
-            .foregroundColor(colorScheme.getPrimaryColor())
-          Text("settings-string")
-            .textCase(.uppercase)
-            .font(.title2)
-            .fontWeight(.bold)
-            .foregroundColor(colorScheme.getPrimaryColor())
-        }
+        HeaderTitleText(icon: "gearshape", text: "settings-string")
         
         // CLOSE Button
         HStack{
           Spacer()
-          Button(action:{
-            self.presentationMode.wrappedValue.dismiss()
-          }) {
-            Image(systemName: "xmark")
-              .font(.system(size: 30, weight: .light))
-              .foregroundColor(colorScheme.getPrimaryColor())
-          }
+          HeaderCloseButton()
         }
       }
       .padding(.horizontal)
@@ -213,3 +198,4 @@ struct SettingsView_Previews: PreviewProvider {
     SettingsView(colorScheme: $colorScheme)
   }
 }
+

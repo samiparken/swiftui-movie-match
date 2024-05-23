@@ -21,27 +21,12 @@ struct FavoriteHeaderView: View {
       }
       
       // TITLE
-      HStack{
-        Image(systemName: "heart.circle")
-          .font(.title2)
-          .foregroundColor(colorScheme.getPrimaryColor())
-        Text("favorites-string")
-          .textCase(.uppercase)
-          .font(.title2)
-          .fontWeight(.bold)
-          .foregroundColor(colorScheme.getPrimaryColor())
-      }
+      HeaderTitleText(icon: "heart.circle", text: "favorites-string")
       
       // CLOSE Button
       HStack{
         Spacer()
-        Button(action:{
-          self.presentationMode.wrappedValue.dismiss()
-        }) {
-          Image(systemName: "xmark")
-            .font(.system(size: 30, weight: .light))
-            .foregroundColor(colorScheme.getPrimaryColor())
-        }
+        HeaderCloseButton()
       }
     }
     .padding(.horizontal)
