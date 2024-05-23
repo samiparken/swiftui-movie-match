@@ -32,3 +32,12 @@ all the movie data from TMDB Open Source API (https://developer.themoviedb.org/d
 ### Settings
 - Change Language: Select from 3 supported languages: English, Swedish, and Korean.
 - Change Appearance: Toggle between light and dark mode for a personalized viewing experience.
+
+## Implementation
+### MVVM design pattern
+This app is developed using the Model-View-ViewModel (MVVM) design pattern, leveraging SwiftUI for a modern and reactive user interface. One of the key design decisions was to avoid having many controllers, which are common in the Model-View-Controller (MVC) pattern. Instead, MVVM allows for better separation of concerns and more manageable code
+
+### API
+The app utilizes 2 endpoints to organize views.
+- https://api.themoviedb.org/3/movie/popular
+- https://api.themoviedb.org/3/movie/movie_id
