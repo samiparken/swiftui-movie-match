@@ -8,8 +8,27 @@ struct SettingsView: View {
   
   @Binding var colorScheme: ColorScheme?
   @State private var selectedLanguage: String?
-  
+  @State private var selectedColor: Color = .primaryColor
+  @State private var backgroundColor: Color = Color.white
+    
   //MARK: - METHOD
+  func initColorSet() {
+    switch colorScheme {
+    case .light:
+      selectedColor = .primaryColor
+      backgroundColor = Color.white
+    case .dark:
+      selectedColor = .tertiaryColor
+      backgroundColor = Color.black
+    case nil:
+      selectedColor = .primaryColor
+      backgroundColor = Color.white
+    case .some(_):
+      selectedColor = .primaryColor
+      backgroundColor = Color.white
+    }
+  }
+  
   func initLanguageSelector() {
     switch localeIdentifier {
     case .English:
@@ -21,7 +40,7 @@ struct SettingsView: View {
     }
   }
   
-  func onLanguageSelected(_ language: String) {
+  func onLanguageSelected(_ language: String?) {
     switch language {
     case "English":
       localeIdentifier = .English
@@ -32,6 +51,10 @@ struct SettingsView: View {
     default:
       localeIdentifier = .English
     }
+  }
+  
+  func isSelectedLanguage(_ language: String?) -> Bool {
+    return language == selectedLanguage
   }
   
   //MARK: - BODY
@@ -72,9 +95,7 @@ struct SettingsView: View {
             .padding(.top,20)
           VStack {
             Text("appearance-string")
-              .foregroundColor(colorScheme == .dark
-                               ? .tertiaryColor
-                               : .primaryColor)
+              .foregroundColor(selectedColor)
               .font(.title3)
               .fontWeight(.bold)
               .padding(.top, 10)
@@ -87,97 +108,99 @@ struct SettingsView: View {
               Button(action:{
                 colorScheme = .light
                 appearanceMode = .light
+                initColorSet()
               }){
                 Text("light-string")
                   .modifier(SettingsButtonModifier())
                   .background(
                     Capsule().fill(
-                      colorScheme == .light ? Color(UIColor(.primaryColor)) : Color.clear
+                      colorScheme == .light ? selectedColor : Color.clear
                     )
                   )
                   .overlay(
                     Capsule().stroke(
-                      colorScheme == .light ? Color.clear : Color(UIColor(.tertiaryColor)),
+                      colorScheme == .light ? Color.clear : selectedColor,
                       lineWidth: 2
                     )
                   )
-                  .foregroundColor(colorScheme == .light ? Color.white : Color(UIColor(.tertiaryColor)))
+                  .foregroundColor(colorScheme == .light ? Color.white : selectedColor)
               }
               
               // DARK mode
               Button(action:{
                 colorScheme = .dark
                 appearanceMode = .dark
+                initColorSet()
               }){
                 Text("dark-string")
                   .modifier(SettingsButtonModifier())
                   .background(
                     Capsule().fill(
-                      colorScheme == .light ? Color.clear : Color(UIColor(.tertiaryColor))
-                    )
+                      colorScheme == .light ? Color.clear : selectedColor                    )
                   )
                   .overlay(
                     Capsule().stroke(
-                      colorScheme == .light ? Color(UIColor(.primaryColor)) : Color.clear,
+                      colorScheme == .light ? selectedColor : Color.clear,
                       lineWidth: 2
                     )
                   )
-                  .foregroundColor(colorScheme == .light ? Color(UIColor(.primaryColor)) : Color.black)
+                  .foregroundColor(colorScheme == .light ? selectedColor : Color.black)
               }
             }
           }
         }
       }
       .padding(.horizontal)
-                  
       
-      //+TODO: add Language Change
       
-      VStack(alignment:.leading, spacing: 10) {
-        VStack {
-          Divider()
-          VStack {
-            Text("Language")
-              .foregroundColor(colorScheme == .dark
-                               ? .tertiaryColor
-                               : .primaryColor)
-              .font(.title3)
-              .fontWeight(.bold)
-              .padding(.top, 10)
-              .padding(.bottom, 20)
-            
-            HStack (alignment:.center, spacing: 40) {
-              //+TODO: apply system colorScheme
-              
-              List(K.SettingsView.languageList, id: \.self, selection: $selectedLanguage) { language in
-                HStack {
-                  Text(language)
-                  Spacer()
-                  if language == selectedLanguage ?? "English" {
-                      Image(systemName: "checkmark")
-                          .foregroundColor(.blue)
-                  }
-                }
-              }
-              .onChange(of: selectedLanguage) {
-                onLanguageSelected(selectedLanguage ?? "English")
-              }
+      //MARK: - LANGUAGE SELECTOR
+      VStack(alignment:.center, spacing: 10) {
+        Divider()
+        Text("Language")
+          .foregroundColor(selectedColor)
+          .font(.title3)
+          .fontWeight(.bold)
+          .padding(.top, 10)
+          .padding(.bottom, 20)
+        
+        List(K.SettingsView.languageList, id: \.self, selection: $selectedLanguage) { language in
+          HStack {
+            Text(language)
+              .foregroundColor( isSelectedLanguage(language)
+                                ? backgroundColor
+                                : selectedColor)
+              .fontWeight(.semibold)
+              .padding(.leading, 10)
+            Spacer()
+            if isSelectedLanguage(language) {
+              Image(systemName: "checkmark")
+                .foregroundColor(backgroundColor)
+                .fontWeight(.semibold)
+                .padding(.trailing, 10)
             }
           }
-          .padding(.bottom, 10)
-          Divider()
+          .listRowBackground( 
+            Capsule()
+              .fill(isSelectedLanguage(language) ? selectedColor : Color.clear))
         }
+        .environment(\.defaultMinListRowHeight, 45)
+        .listStyle(PlainListStyle())
+        .listRowBackground(Color.blue)
+        .onChange(of: selectedLanguage) {
+          onLanguageSelected(selectedLanguage)
+        }
+        
       }
       .padding(.horizontal)
-      .padding(.vertical,30)
-            
+      .padding(.top, 30)
+      
       Spacer()
-
     }
     .preferredColorScheme(colorScheme)
     .environment(\.locale, Locale.init(identifier: localeIdentifier.rawValue))
     .onAppear {
       initLanguageSelector()
+      initColorSet()
     }
   }
 }
@@ -185,7 +208,7 @@ struct SettingsView: View {
 //MARK: - PREVIEW
 struct SettingsView_Previews: PreviewProvider {
   static var previews: some View {
-    @State var colorScheme: ColorScheme? = .light
+    @State var colorScheme: ColorScheme? = .dark
     
     SettingsView(colorScheme: $colorScheme)
   }
