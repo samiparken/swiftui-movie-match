@@ -1,10 +1,3 @@
-//
-//  WidgetsLiveActivity.swift
-//  Widgets
-//
-//  Created by Han-Saem Park on 2024-05-23.
-//
-
 import ActivityKit
 import WidgetKit
 import SwiftUI

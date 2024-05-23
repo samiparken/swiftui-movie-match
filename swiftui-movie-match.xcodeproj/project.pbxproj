@@ -35,6 +35,7 @@
 		31D2E29E2BFF780400C0AD63 /* AppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D2E29D2BFF780400C0AD63 /* AppIntent.swift */; };
 		31D2E2A02BFF780500C0AD63 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 31D2E29F2BFF780500C0AD63 /* Assets.xcassets */; };
 		31D2E2A42BFF780500C0AD63 /* WidgetsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 31D2E2902BFF780300C0AD63 /* WidgetsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		31D2E2AA2BFF7A4500C0AD63 /* ColorScheme+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D2E2A92BFF7A4500C0AD63 /* ColorScheme+Ext.swift */; };
 		31D718432BFBEDCB00C00DC7 /* MovieDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D718422BFBEDCB00C00DC7 /* MovieDetail.swift */; };
 		31E8E3C32BFB7BE500841B95 /* FavoriteMovie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E8E3C22BFB7BE400841B95 /* FavoriteMovie.swift */; };
 		31F7C8C62BFF1B0700963FF5 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 31F7C8C52BFF1B0600963FF5 /* Localizable.xcstrings */; };
@@ -126,6 +127,7 @@
 		31D2E29D2BFF780400C0AD63 /* AppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntent.swift; sourceTree = "<group>"; };
 		31D2E29F2BFF780500C0AD63 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		31D2E2A12BFF780500C0AD63 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		31D2E2A92BFF7A4500C0AD63 /* ColorScheme+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ColorScheme+Ext.swift"; sourceTree = "<group>"; };
 		31D718422BFBEDCB00C00DC7 /* MovieDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetail.swift; sourceTree = "<group>"; };
 		31E8E3C22BFB7BE400841B95 /* FavoriteMovie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteMovie.swift; sourceTree = "<group>"; };
 		31F7C8C52BFF1B0600963FF5 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
@@ -193,6 +195,7 @@
 				3181D1F62BFB2D4E00C40722 /* AnyTransition+Ext.swift */,
 				3181D2002BFB43B900C40722 /* Color+Ext.swift */,
 				31D2E2862BFF58FC00C0AD63 /* Double+Ext.swift */,
+				31D2E2A92BFF7A4500C0AD63 /* ColorScheme+Ext.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -589,6 +592,7 @@
 				31FD8FD32BFA802200F03252 /* APIs.swift in Sources */,
 				31FD8FDC2BFA86CA00F03252 /* Movie.swift in Sources */,
 				31B677442BFC81BC005223DC /* DetailView.swift in Sources */,
+				31D2E2AA2BFF7A4500C0AD63 /* ColorScheme+Ext.swift in Sources */,
 				31B677402BFC761F005223DC /* HeaderSwipeBar.swift in Sources */,
 				31B677482BFCC8FE005223DC /* FavoriteHeaderView.swift in Sources */,
 				31036C8D2BFA9C5F00604902 /* MainCardView.swift in Sources */,

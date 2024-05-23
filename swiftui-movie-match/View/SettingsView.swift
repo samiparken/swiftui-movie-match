@@ -7,7 +7,7 @@ struct SettingsView: View {
   
   //MARK: - PROPERTIES
   @Environment(\.presentationMode) var presentationMode
-  @Binding var colorScheme: ColorScheme?
+  @Binding var colorScheme: ColorScheme
   @State private var selectedLanguage: String?
   @State private var selectedColor: Color = .primaryColor
   @State private var backgroundColor: Color = Color.white
@@ -66,16 +66,12 @@ struct SettingsView: View {
         HStack{
           Image(systemName: "gearshape")
             .font(.title2)
-            .foregroundColor(colorScheme == .dark
-                             ? .tertiaryColor
-                             : .primaryColor)
+            .foregroundColor(colorScheme.getPrimaryColor())
           Text("settings-string")
             .textCase(.uppercase)
             .font(.title2)
             .fontWeight(.bold)
-            .foregroundColor(colorScheme == .dark
-                             ? .tertiaryColor
-                             : .primaryColor)
+            .foregroundColor(colorScheme.getPrimaryColor())
         }
         
         // CLOSE Button
@@ -86,9 +82,7 @@ struct SettingsView: View {
           }) {
             Image(systemName: "xmark")
               .font(.system(size: 30, weight: .light))
-              .foregroundColor(colorScheme == .dark
-                               ? .tertiaryColor
-                               : .primaryColor)
+              .foregroundColor(colorScheme.getPrimaryColor())
           }
         }
       }
@@ -217,7 +211,7 @@ struct SettingsView: View {
 //MARK: - PREVIEW
 struct SettingsView_Previews: PreviewProvider {
   static var previews: some View {
-    @State var colorScheme: ColorScheme? = .dark
+    @State var colorScheme: ColorScheme = .dark
     
     SettingsView(colorScheme: $colorScheme)
   }

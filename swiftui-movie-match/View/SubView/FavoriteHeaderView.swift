@@ -15,9 +15,7 @@ struct FavoriteHeaderView: View {
         Text(String(numOfFavorites))
           .font(.title)
           .fontWeight(.heavy)
-          .foregroundColor(colorScheme == .dark
-                           ? .tertiaryColor
-                           : .primaryColor)
+          .foregroundColor(Color.pink)
           .padding(.leading, 5)
         Spacer()
       }
@@ -26,16 +24,12 @@ struct FavoriteHeaderView: View {
       HStack{
         Image(systemName: "heart.circle")
           .font(.title2)
-          .foregroundColor(colorScheme == .dark
-                           ? .tertiaryColor
-                           : .primaryColor)
+          .foregroundColor(colorScheme.getPrimaryColor())
         Text("favorites-string")
           .textCase(.uppercase)
           .font(.title2)
           .fontWeight(.bold)
-          .foregroundColor(colorScheme == .dark
-                           ? .tertiaryColor
-                           : .primaryColor)
+          .foregroundColor(colorScheme.getPrimaryColor())
       }
       
       // CLOSE Button
@@ -46,9 +40,7 @@ struct FavoriteHeaderView: View {
         }) {
           Image(systemName: "xmark")
             .font(.system(size: 30, weight: .light))
-            .foregroundColor(colorScheme == .dark
-                             ? .tertiaryColor
-                             : .primaryColor)
+            .foregroundColor(colorScheme.getPrimaryColor())
         }
       }
     }

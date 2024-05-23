@@ -17,9 +17,7 @@ struct MainFooterView: View {
     HStack {
       Image(systemName: "xmark.circle")
         .font(.system(size:42, weight: .light))
-        .foregroundColor(colorScheme == .dark
-                         ? .tertiaryColor
-                         : .primaryColor)
+        .foregroundColor(colorScheme.getPrimaryColor())
       
       Spacer()
       
@@ -35,13 +33,9 @@ struct MainFooterView: View {
             .fontWeight(.heavy)
             .padding(.horizontal, 20)
             .padding(.vertical, 12)
-            .accentColor(Color(UIColor(colorScheme == .dark
-                                       ? .tertiaryColor
-                                       : .primaryColor)))
+            .accentColor(Color(UIColor(colorScheme.getPrimaryColor())))
             .background(
-              Capsule().stroke(Color(UIColor(colorScheme == .dark
-                                             ? .tertiaryColor
-                                             : .primaryColor)), lineWidth: 2)
+              Capsule().stroke(Color(UIColor(colorScheme.getPrimaryColor())), lineWidth: 2)
             )
             .sheet(isPresented: $showFavoriteView) {
               FavoriteView(showMovieDetailView: $showMovieDetailView)
@@ -63,9 +57,7 @@ struct MainFooterView: View {
       
       Image(systemName: "heart.circle")
         .font(.system(size: 42, weight: .light))
-        .foregroundColor(colorScheme == .dark
-                         ? .tertiaryColor
-                         : .primaryColor)
+        .foregroundColor(colorScheme.getPrimaryColor())
       
     }
     .padding()

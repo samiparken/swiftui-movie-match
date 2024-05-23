@@ -16,7 +16,7 @@ struct MainView: View {
   @State private var showSettingView: Bool = false
   @State private var showFavoriteView: Bool = false
   @State private var showMovieDetailView: Bool = false
-  @State private var colorScheme: ColorScheme?
+  @State private var colorScheme: ColorScheme = .light
   
   @GestureState private var dragState = DragState.inactive
   @State private var lastCardIndex: Int = 1
