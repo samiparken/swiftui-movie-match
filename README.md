@@ -15,14 +15,6 @@ iOS 17.0 or later
 2. Build and Run
 - Just build and run! It doesn't require any 3rd party libraries and dependencies.
 
-- Swipe right on a movie card to save it to your favorites.
-- Swipe left on a movie card to pass.
-- Tap the refresh button to reload the movie cards in the main view.
-- Tap on a movie card to view detailed information about the movie.
-- Remove the favorite cards from the list.
-- Change language in the settings view. It supports 3 languages(English, Swedish, and Korean)
-- Change appearance (light and dark mode)
-
 ## Usage
 ###  Main View
 - Swipe Right: Save a movie to your favorites.
