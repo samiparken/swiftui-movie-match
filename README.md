@@ -3,6 +3,10 @@
 Discover and organize your favorite movies effortlessly. Swipe right to save a movie, swipe left to pass. Access detailed movie information with a simple tap. Enjoy support for 3 languages (English, Swedish, and Korean) and a sleek dark mode.
 
 ## DEMO
+.              |.|
+:-------------------------:|:-------------------------:
+![](/README/demo1.GIF)  |  ![](README/demo2.GIF)
+![](/README/demo3.GIF)  |![](/README/demo4.GIF)  
 
 ## Specification
 - SwiftUI, SwiftData, iOS 17.0 or later
