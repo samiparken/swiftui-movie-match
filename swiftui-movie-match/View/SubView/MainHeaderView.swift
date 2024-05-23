@@ -5,7 +5,7 @@ struct MainHeaderView: View {
   @AppStorage(K.AppStorageKey.localeIdentifier) private var localeIdentifier: LocaleIdentifier = .English
   
   //MARK: - PROPERTIES
-  @StateObject private var movieManager: MovieManager
+  @StateObject var movieManager: MovieManager
   @Binding var showSettingView: Bool
   @Binding var colorScheme: ColorScheme?
   let haptics = UINotificationFeedbackGenerator()
