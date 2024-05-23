@@ -2,15 +2,15 @@
 
 Discover and organize your favorite movies effortlessly. Swipe right to save a movie, swipe left to pass. Access detailed movie information with a simple tap. Enjoy support for 3 languages (English, Swedish, and Korean) and a sleek dark mode.
 
+## Specification
+- SwiftUI, SwiftData, iOS 17.0 or later
+- all the movie data from TMDB Open Source API (https://developer.themoviedb.org/docs/getting-started)
+
 ## DEMO
 .              |.|
 :-------------------------:|:-------------------------:
 ![](/README/demo1.GIF)  |  ![](README/demo2.GIF)
 ![](/README/demo3.GIF)  |![](/README/demo4.GIF)  
-
-## Specification
-- SwiftUI, SwiftData, iOS 17.0 or later
-- all the movie data from TMDB Open Source API (https://developer.themoviedb.org/docs/getting-started)
 
 ## Installation
 1. Clone the repository
@@ -58,5 +58,8 @@ The app utilizes only two endpoints from The Movie Database (TMDb) API to meet t
 - AppStorage: Persists user preferences for ColorScheme(AppearanceMode) and Language(LocaleIdentifier).
 - SwiftData: persist favorite movies, ensuring users can access their saved favorites across app sessions.
 
-### Unit Tests
+### Tests
+#### Example of Unit Tests
 - MovieManagerTests.swift
+#### Example of UI Tests
+- MainFooterViewUITests.swift

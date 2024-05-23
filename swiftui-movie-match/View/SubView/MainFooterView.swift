@@ -41,6 +41,8 @@ struct MainFooterView: View {
               FavoriteView(showMovieDetailView: $showMovieDetailView)
             }
         }
+        .accessibility(identifier: K.UITests.Identifier.showFavoriteButton)
+        
         // Badge
         if favoriteMovies.count > 0 {
           Text("\(favoriteMovies.count)")

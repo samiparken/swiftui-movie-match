@@ -31,4 +31,11 @@ struct K {
       static let altShort = "logo_alt_short"
     }
   }
+  
+  struct UITests {
+    struct Identifier {
+      static let favoriteView = "favoriteView"
+      static let showFavoriteButton = "showFavoriteButton"
+    }
+  }
 }

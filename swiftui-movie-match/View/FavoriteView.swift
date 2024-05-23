@@ -10,7 +10,7 @@ struct FavoriteView: View {
   @Environment(\.presentationMode) var presentationMode
   @Binding var showMovieDetailView: Bool
   @StateObject private var movieManager = MovieManager()
-  @State private var isClicked: [Int: Bool] = [:]  
+  @State private var isClicked: [Int: Bool] = [:]
   let vstackColumnSet = [ GridItem(.flexible()), GridItem(.flexible()) ]
   
   //MARK: - BODY
@@ -19,7 +19,8 @@ struct FavoriteView: View {
     VStack {
       HeaderSwipeBar()
       FavoriteHeaderView(numOfFavorites: favoriteMovies.count)
-      
+
+
       ScrollView {
         LazyVGrid(columns: vstackColumnSet, spacing: 15) {
           ForEach(favoriteMovies) { movie in
@@ -33,6 +34,7 @@ struct FavoriteView: View {
         }
         .padding()
       }
+      .accessibility(identifier: K.UITests.Identifier.favoriteView)
       
       Spacer()
     }
