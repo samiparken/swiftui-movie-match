@@ -62,4 +62,5 @@ The app utilizes only two endpoints from The Movie Database (TMDb) API to meet t
 #### Example of Unit Tests
 - MovieManagerTests.swift
 #### Example of UI Tests
+- MainViewUITests.swift
 - MainFooterViewUITests.swift
