@@ -10,7 +10,7 @@ struct SettingsView: View {
   @State private var selectedLanguage: String?
   @State private var selectedColor: Color = .primaryColor
   @State private var backgroundColor: Color = Color.white
-    
+  
   //MARK: - METHOD
   func initColorSet() {
     switch colorScheme {
@@ -54,6 +54,7 @@ struct SettingsView: View {
   }
   
   func isSelectedLanguage(_ language: String?) -> Bool {
+    guard let _ = language else { return false }
     return language == selectedLanguage
   }
   
@@ -138,7 +139,8 @@ struct SettingsView: View {
                   .modifier(SettingsButtonModifier())
                   .background(
                     Capsule().fill(
-                      colorScheme == .light ? Color.clear : selectedColor                    )
+                      colorScheme == .light ? Color.clear : selectedColor
+                    )
                   )
                   .overlay(
                     Capsule().stroke(
@@ -181,7 +183,7 @@ struct SettingsView: View {
                 .padding(.trailing, 10)
             }
           }
-          .listRowBackground( 
+          .listRowBackground(
             Capsule()
               .fill(isSelectedLanguage(language) ? selectedColor : Color.clear))
         }

@@ -29,7 +29,7 @@ extension Endpoint {
 
 enum EndpointCase: Endpoint {
   case movieListPopular(language: String, page: Int, region: String)
-  case movieDetail(id: Int)
+  case movieDetail(id: Int, language: String)
   
   var httpMethod: String {
     switch self {
@@ -44,7 +44,7 @@ enum EndpointCase: Endpoint {
     switch self {
     case .movieListPopular:
       return K.API.Endpoint.movieListPopular
-    case .movieDetail(let id):
+    case .movieDetail(let id, let language):
       return K.API.Endpoint.movieDetail.replacingOccurrences(of: "{id}", with: "\(id)")
     }
   }
@@ -86,6 +86,8 @@ enum EndpointCase: Endpoint {
     switch self {
     case .movieListPopular(let language, let page, let region):
       return ["language" : language, "page" : page, "region" : region]
+    case .movieDetail(let id, let language):
+      return ["language" : language]
     default:
       return [:]
     }

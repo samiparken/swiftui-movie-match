@@ -3,6 +3,7 @@ import SwiftUI
 struct MainHeaderView: View {
   
   //MARK: - PROPERTIES
+  @AppStorage(K.AppStorageKey.localeIdentifier) private var localeIdentifier: LocaleIdentifier = .English
   @ObservedObject var movieManager: MovieManager
   @Binding var showSettingView: Bool
   @Binding var colorScheme: ColorScheme?

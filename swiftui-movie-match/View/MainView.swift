@@ -160,7 +160,7 @@ struct MainView: View {
       // for SwiftData in MovieManager
       movieManager.context = context
       movieManager.fetchFavoriteMovies()
-      movieManager.getPopularMovieList()
+      movieManager.getPopularMovieList(localeIdentifier: localeIdentifier)
       // apply appearanceMode
       updateColorScheme(for: storedAppearanceMode)
       // apply localization

@@ -2,8 +2,8 @@ import Foundation
 
 //MARK: - API Calls
 
-func APIgetPopularMovieList(_ page: Int) async throws -> MovieResponse {
-  let e = EndpointCase.movieListPopular(language: "en-US", page: page, region: "Sweden")
+func APIgetPopularMovieList(page: Int, language: String) async throws -> MovieResponse {
+  let e = EndpointCase.movieListPopular(language: language, page: page, region: "Sweden")
   
   do {
     let (data, response) = try await APIRequest(endpoint: e)
@@ -24,8 +24,8 @@ func APIgetPopularMovieList(_ page: Int) async throws -> MovieResponse {
   }
 }
 
-func APIgetMovieDetail(_ id: Int) async throws -> MovieDetail {
-  let e = EndpointCase.movieDetail(id: id)
+func APIgetMovieDetail(id: Int, language: String) async throws -> MovieDetail {
+  let e = EndpointCase.movieDetail(id: id, language: language)
   
   do {
     let (data, response) = try await APIRequest(endpoint: e)

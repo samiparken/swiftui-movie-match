@@ -5,9 +5,10 @@ struct DetailView: View {
   // MARK: - SwiftData
   @Environment(\.modelContext) private var context
   @Query private var favoriteMovies: [FavoriteMovie]
-  @Environment(\.colorScheme) var colorScheme
   
   //MARK: - PROPERTIES
+  @AppStorage(K.AppStorageKey.localeIdentifier) private var localeIdentifier: LocaleIdentifier = .English
+  @Environment(\.colorScheme) var colorScheme
   @Environment(\.presentationMode) var presentationMode
   @StateObject var movieManager = MovieManager()
   @State private var movieDetail: MovieDetail?
@@ -18,7 +19,7 @@ struct DetailView: View {
   
   //MARK: - METHOD
   private func getMovieDetail() async {
-    if let movieDetail = await movieManager.getMovieDetail(movieId) {
+    if let movieDetail = await movieManager.getMovieDetail(id: movieId, localeIdentifier: localeIdentifier ) {
       self.movieDetail = movieDetail
       isLoading = false
     } else {
@@ -75,6 +76,7 @@ struct DetailView: View {
                                                ? .tertiaryColor
                                                : .primaryColor)), lineWidth: 2)
               )
+              .padding(.top, 5)
               .padding(.horizontal, 20)
           }
           

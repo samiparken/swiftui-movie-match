@@ -33,27 +33,37 @@ class MovieManager: ObservableObject {
   }
   
   //MARK: - PROPERTIES
+  @AppStorage(K.AppStorageKey.localeIdentifier) private var localeIdentifier: LocaleIdentifier = .English
   @Published var movieCardsToShow: [Movie] = []
   var movieCardDeck: [Movie] = []
   var popularMoviePage = 1
+  var currentLanguage = LocaleIdentifier.English.rawValue
   
-  func getMovieDetail(_ id: Int) async -> MovieDetail? {
-    guard let movieDetail = try? await APIgetMovieDetail(id) else {
+  func getMovieDetail(id: Int, localeIdentifier: LocaleIdentifier = .English) async -> MovieDetail? {
+    let language = localeIdentifier.rawValue
+    guard let movieDetail = try? await APIgetMovieDetail(id:id, language:language) else {
         print("Failed to get the movie detail (movieId:\(id))")
         return nil
     }
     return movieDetail
   }
   
-  func getPopularMovieList() {
+  func getPopularMovieList(localeIdentifier: LocaleIdentifier = .English) {
     Task {
+      let language = localeIdentifier.rawValue
+
+      if currentLanguage != language {
+        movieCardDeck = []
+        currentLanguage = language
+      }
+            
       var movieListResponse: MovieResponse? = nil
       var newMovies: [Movie] = []
       
       // Repeat until movieCardDeck size is big enough
       repeat {
         do {
-          movieListResponse = try await APIgetPopularMovieList(popularMoviePage)
+          movieListResponse = try await APIgetPopularMovieList(page: popularMoviePage, language: language)
           
           // filter favoriteMovies from incoming movies
           let favoriteMovieIds = favoriteMovies.map { $0.id }
@@ -81,7 +91,7 @@ class MovieManager: ObservableObject {
     popularMoviePage += 1
     if movieCardDeck.count < 100 {
       DispatchQueue.main.async {
-        self.getPopularMovieList()
+        self.getPopularMovieList(localeIdentifier: self.localeIdentifier)
       }
     }
   }
