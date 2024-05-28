@@ -73,8 +73,8 @@ class MovieManager: ObservableObject {
           self.movieCardDeck.append(contentsOf: newMovies)
 
           if movieCardDeck.count > 2 {
-            DispatchQueue.main.async {
-              self.reloadMovieCardsToShow()
+            DispatchQueue.main.async { [weak self] in
+              self?.reloadMovieCardsToShow()
             }
           } else {
             increasePopularMoviePage()
@@ -92,7 +92,8 @@ class MovieManager: ObservableObject {
     movieCardsToShow = []
     if movieCardDeck.count < 100 {
       increasePopularMoviePage()
-      DispatchQueue.main.async {
+      DispatchQueue.main.async { [weak self] in // to avoid retain cycle
+        guard let self = self else { return }
         self.getPopularMovieList(languageCode: self.localeIdentifier.rawValue)
       }
     } else {
@@ -103,12 +104,12 @@ class MovieManager: ObservableObject {
   func reloadMovieCardsToShow() {
     // Always show 2 movie cards on the screen
     movieCardDeck.shuffle()
-    while self.movieCardsToShow.count < 2 {
-      if(self.movieCardDeck.count == 0) { break }
+    while movieCardsToShow.count < 2 {
+      if(movieCardDeck.count == 0) { break }
       
-      let movieToAdd = self.movieCardDeck.removeFirst()
+      let movieToAdd = movieCardDeck.removeFirst()
       
-      self.movieCardsToShow.insert(movieToAdd, at: 0)
+      movieCardsToShow.insert(movieToAdd, at: 0)
     }
   }
   
@@ -129,8 +130,8 @@ class MovieManager: ObservableObject {
   func removeTopMovieCardAndReload() {
     // Refresh movieCardsToShow
     _ = movieCardsToShow.popLast()
-    DispatchQueue.main.async {
-      self.reloadMovieCardsToShow()
+    DispatchQueue.main.async { [weak self] in // to avoid retain cycle
+      self?.reloadMovieCardsToShow()
     }
   }
   
