@@ -43,11 +43,13 @@ class MovieManager: ObservableObject {
   
   //MARK: - METHOD - GET DATA
   func getMovieDetail(id: Int, languageCode: String) async -> MovieDetail? {
-    guard let movieDetail = try? await APIgetMovieDetail(id:id, language:languageCode) else {
-        print("Failed to get the movie detail (movieId:\(id))")
-        return nil
+    do {
+      let movieDetail = try await APIgetMovieDetail(id:id, language:languageCode)
+      return movieDetail
+    } catch {
+      print("Failed to get the movie detail (movieId:\(id))")
+      return nil
     }
-    return movieDetail
   }
   
   func getPopularMovieList(languageCode: String = LocaleIdentifier.English.rawValue) {

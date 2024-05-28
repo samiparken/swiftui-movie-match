@@ -9,9 +9,7 @@ func APIgetPopularMovieList(page: Int, language: String) async throws -> MovieRe
     let (data, response) = try await APIRequest(endpoint: e)
     
     // Check if the response is valid and the status code is in the 200 range
-    guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
-      throw URLError(.badServerResponse)
-    }
+    guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else { throw URLError(.badServerResponse) }
     
     // Decode the data
     let decoder = JSONDecoder()
@@ -31,9 +29,7 @@ func APIgetMovieDetail(id: Int, language: String) async throws -> MovieDetail {
     let (data, response) = try await APIRequest(endpoint: e)
     
     // Check if the response is valid and the status code is in the 200 range
-    guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
-      throw URLError(.badServerResponse)
-    }
+    guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else { throw URLError(.badServerResponse) }
     
     // Decode the data
     let decoder = JSONDecoder()
