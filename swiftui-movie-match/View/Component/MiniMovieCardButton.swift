@@ -55,7 +55,7 @@ struct MiniMovieCardButton: View {
       return
     }
     
-    DispatchQueue.global().async {
+    Task { //DispatchQueue.global().async
       if let data = try? Data(contentsOf: imageUrl),
          let image = UIImage(data: data) {
         DispatchQueue.main.async {

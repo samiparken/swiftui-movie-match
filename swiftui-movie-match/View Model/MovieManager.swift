@@ -87,7 +87,6 @@ class MovieManager: ObservableObject {
           break
         }
       } while movieCardDeck.count <= 2
-      
     }
   }
   
@@ -134,8 +133,7 @@ class MovieManager: ObservableObject {
     return index == (movieCardsToShow.count - 1)
   }
   
-  //MARK: - PRIVATE METHOD
-  private func reloadMovieCardsToShow() {
+  func reloadMovieCardsToShow() {
     // Always show 2 movie cards on the screen
     movieCardDeck.shuffle()
     while movieCardsToShow.count < 2 {
@@ -146,7 +144,8 @@ class MovieManager: ObservableObject {
       movieCardsToShow.insert(movieToAdd, at: 0)
     }
   }
-  
+
+  //MARK: - PRIVATE METHOD
   private func increasePopularMoviePage() {
     currentPopularMoviePage += 1
     if currentPopularMoviePage > popularMoviePageLimit {
