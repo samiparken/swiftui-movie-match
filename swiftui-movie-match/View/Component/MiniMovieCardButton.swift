@@ -2,7 +2,7 @@ import SwiftUI
 
 struct MiniMovieCardButton: View {
   @Environment(\.colorScheme) var colorScheme
-
+  
   let id = UUID() //for Identifiable
   var movie: FavoriteMovie
   @Binding var isClicked: Bool

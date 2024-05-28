@@ -41,6 +41,7 @@ class MovieManager: ObservableObject {
   let popularMoviePageLimit = 500
   var currentLanguageCode = LocaleIdentifier.English.rawValue
   
+  //MARK: - METHOD - GET DATA
   func getMovieDetail(id: Int, languageCode: String) async -> MovieDetail? {
     guard let movieDetail = try? await APIgetMovieDetail(id:id, language:languageCode) else {
         print("Failed to get the movie detail (movieId:\(id))")
@@ -88,6 +89,7 @@ class MovieManager: ObservableObject {
     }
   }
   
+  //MARK: - METHOD
   func refreshPopularMovieList() {
     movieCardsToShow = []
     if movieCardDeck.count < 100 {
@@ -98,18 +100,6 @@ class MovieManager: ObservableObject {
       }
     } else {
       reloadMovieCardsToShow()
-    }
-  }
-  
-  func reloadMovieCardsToShow() {
-    // Always show 2 movie cards on the screen
-    movieCardDeck.shuffle()
-    while movieCardsToShow.count < 2 {
-      if(movieCardDeck.count == 0) { break }
-      
-      let movieToAdd = movieCardDeck.removeFirst()
-      
-      movieCardsToShow.insert(movieToAdd, at: 0)
     }
   }
   
@@ -142,7 +132,20 @@ class MovieManager: ObservableObject {
     return index == (movieCardsToShow.count - 1)
   }
   
-  func increasePopularMoviePage() {
+  //MARK: - PRIVATE METHOD
+  private func reloadMovieCardsToShow() {
+    // Always show 2 movie cards on the screen
+    movieCardDeck.shuffle()
+    while movieCardsToShow.count < 2 {
+      if(movieCardDeck.count == 0) { break }
+      
+      let movieToAdd = movieCardDeck.removeFirst()
+      
+      movieCardsToShow.insert(movieToAdd, at: 0)
+    }
+  }
+  
+  private func increasePopularMoviePage() {
     currentPopularMoviePage += 1
     if currentPopularMoviePage > popularMoviePageLimit {
       currentPopularMoviePage = 1
