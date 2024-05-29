@@ -44,8 +44,8 @@ class MovieManager: ObservableObject {
   //MARK: - METHOD - GET DATA
   func getMovieDetail(id: Int, languageCode: String) async -> MovieDetail? {
     do {
-      let movieDetail = try await APIgetMovieDetail(id:id, language:languageCode)
-      return movieDetail
+      async let movieDetail = APIgetMovieDetail(id:id, language:languageCode)
+      return try await movieDetail
     } catch {
       print("Failed to get the movie detail (movieId:\(id))")
       return nil
@@ -54,11 +54,7 @@ class MovieManager: ObservableObject {
   
   func getPopularMovieList(languageCode: String = LocaleIdentifier.English.rawValue) {
     Task {
-                  
-      // Prep
-      var movieListResponse: MovieResponse? = nil
-      var newMovies: [Movie] = []
-      
+                        
       // Refresh CardDeck if language changed
       if currentLanguageCode != languageCode {
         movieCardDeck = []
@@ -68,11 +64,11 @@ class MovieManager: ObservableObject {
       // Repeat until movieCardDeck size is big enough
       repeat {
         do {
-          movieListResponse = try await APIgetPopularMovieList(page: currentPopularMoviePage, language: languageCode)
+          async let movieListResponse = APIgetPopularMovieList(page: currentPopularMoviePage, language: languageCode)
           
           // filter favoriteMovies from incoming movies
           let favoriteMovieIds = favoriteMovies.map { $0.id }
-          newMovies = movieListResponse?.results.filter { !favoriteMovieIds.contains($0.id) } ?? []
+          let newMovies = try await movieListResponse.results.filter { !favoriteMovieIds.contains($0.id) }
           self.movieCardDeck.append(contentsOf: newMovies)
 
           if movieCardDeck.count > 2 {
