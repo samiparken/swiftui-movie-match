@@ -47,7 +47,7 @@ struct MainCardView: View, Identifiable {
                       
                       // Rated
                       HStack {
-                        Text("Rate:")
+                        Text("rate-label-string")
                           .modifier(TextLabelModifier())
 
                         Text(String(movie.voteAverage.rounded(toPlaces: 1)) + " / 10")
@@ -60,7 +60,7 @@ struct MainCardView: View, Identifiable {
                                                                   
                       // Release date
                       HStack {
-                        Text("Released:")
+                        Text("released-label-string")
                           .modifier(TextLabelModifier())
 
                         Text(movie.releaseDate)

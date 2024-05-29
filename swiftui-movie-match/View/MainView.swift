@@ -12,7 +12,7 @@ struct MainView: View {
   @AppStorage(K.AppStorageKey.localeIdentifier) private var localeIdentifier: LocaleIdentifier = .English
   
   //MARK: - PROPERTIES
-  @StateObject private var movieManager = MovieManager()
+  @ObservedObject private var movieManager = MovieManager()
   @State private var colorScheme: ColorScheme = .light
   
   @GestureState private var dragState = DragState.inactive

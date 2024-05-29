@@ -168,25 +168,22 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Rage:"
+            "value" : "Rate:"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "평점:"
           }
         },
         "sv" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Betyg:"
           }
         }
       }
-    },
-    "Rate:" : {
-
     },
     "released-label-string" : {
       "extractionState" : "manual",
@@ -210,9 +207,6 @@
           }
         }
       }
-    },
-    "Released:" : {
-
     },
     "remove-string" : {
       "extractionState" : "manual",
