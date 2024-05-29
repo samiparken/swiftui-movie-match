@@ -1,6 +1,24 @@
 import Foundation
 
-func APIRequest(endpoint: Endpoint) async throws -> (Data, URLResponse) {
+func makeAPIRequest<T: Decodable>(endpoint: EndpointCase, responseType: T.Type) async throws -> T {
+    do {
+        let (data, response) = try await makeURLRequest(endpoint: endpoint)
+        
+        // Check if the response is valid and the status code is in the 200 range
+        guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else { throw URLError(.badServerResponse) }
+        
+        // Decode the data
+        let decoder = JSONDecoder()
+        let decodedData = try decoder.decode(T.self, from: data)
+        return decodedData
+        
+    } catch {
+        print("Error occurred: \(error)")
+        throw error
+    }
+}
+
+func makeURLRequest(endpoint: Endpoint) async throws -> (Data, URLResponse) {
   return try await withCheckedThrowingContinuation { continuation in
     let url = URL(string: endpoint.url)!
     var urlRequest = URLRequest(url: url)
