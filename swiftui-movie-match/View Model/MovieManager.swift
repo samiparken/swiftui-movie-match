@@ -39,6 +39,7 @@ class MovieManager: ObservableObject {
   var movieCardDeck: [Movie] = []
   var currentPopularMoviePage = 1
   let popularMoviePageLimit = 500
+  let movieCardDeckLimit = 100
   var currentLanguageCode = LocaleIdentifier.English.rawValue
   
   //MARK: - METHOD - GET DATA
@@ -78,6 +79,8 @@ class MovieManager: ObservableObject {
           } else {
             increasePopularMoviePage()
           }
+          
+          if Task.isCancelled { break }
         } catch {
           print("Failed to get popular movies: \(error)")
           break
@@ -89,7 +92,7 @@ class MovieManager: ObservableObject {
   //MARK: - METHOD
   func refreshPopularMovieList() {
     movieCardsToShow = []
-    if movieCardDeck.count < 100 {
+    if movieCardDeck.count < movieCardDeckLimit {
       increasePopularMoviePage()
       DispatchQueue.main.async { [weak self] in // to avoid retain cycle
         guard let self = self else { return }
