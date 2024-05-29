@@ -234,8 +234,8 @@
 			isa = PBXGroup;
 			children = (
 				31B677412BFC7B1D005223DC /* MiniMovieCardButton.swift */,
-				31B6773F2BFC761F005223DC /* HeaderSwipeBar.swift */,
 				31D2E2AB2BFF98DB00C0AD63 /* HeaderCloseButton.swift */,
+				31B6773F2BFC761F005223DC /* HeaderSwipeBar.swift */,
 				31D2E2AD2BFF99B700C0AD63 /* HeaderTitleText.swift */,
 			);
 			path = Component;

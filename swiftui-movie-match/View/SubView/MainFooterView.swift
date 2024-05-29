@@ -7,8 +7,7 @@ struct MainFooterView: View {
   @Environment(\.modelContext) private var context
   @Query private var favoriteMovies: [FavoriteMovie]
   
-  @Binding var showFavoriteView: Bool
-  @Binding var showMovieDetailView: Bool
+  @State var showFavoriteView: Bool = false
   
   let haptics = UINotificationFeedbackGenerator()
   
@@ -38,7 +37,7 @@ struct MainFooterView: View {
               Capsule().stroke(Color(UIColor(colorScheme.getPrimaryColor())), lineWidth: 2)
             )
             .sheet(isPresented: $showFavoriteView) {
-              FavoriteView(showMovieDetailView: $showMovieDetailView)
+              FavoriteView()
             }
         }
         .accessibility(identifier: K.UITests.Identifier.showFavoriteButton)
@@ -71,9 +70,7 @@ struct FooterView_Previews: PreviewProvider {
   @State static var showMovieDetailView: Bool = false
   
   static var previews: some View {
-    MainFooterView(
-      showFavoriteView: $showFavoriteView,
-      showMovieDetailView: $showMovieDetailView)
+    MainFooterView()
     .previewLayout(.fixed(width: 375, height: 80))
   }
 }

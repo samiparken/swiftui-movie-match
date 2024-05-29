@@ -6,8 +6,8 @@ struct MainHeaderView: View {
   
   //MARK: - PROPERTIES
   @StateObject var movieManager: MovieManager
-  @Binding var showSettingView: Bool
   @Binding var colorScheme: ColorScheme
+  @State var showSettingView: Bool = false
   let haptics = UINotificationFeedbackGenerator()
   
   //MARK: - BODY
@@ -54,13 +54,11 @@ struct MainHeaderView: View {
 
 struct HeaderView_Previews: PreviewProvider {
   @State static var movieManager = MovieManager()
-  @State static var showSettingView: Bool = false
   @State static var colorScheme: ColorScheme = .light
   
   static var previews: some View {
     MainHeaderView(
       movieManager: movieManager,
-      showSettingView: $showSettingView,
       colorScheme: $colorScheme)
     .previewLayout(.fixed(width: 375, height: 80))
   }

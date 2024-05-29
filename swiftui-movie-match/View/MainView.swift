@@ -13,9 +13,6 @@ struct MainView: View {
   
   //MARK: - PROPERTIES
   @StateObject private var movieManager = MovieManager()
-  @State private var showSettingView: Bool = false
-  @State private var showFavoriteView: Bool = false
-  @State private var showMovieDetailView: Bool = false
   @State private var colorScheme: ColorScheme = .light
   
   @GestureState private var dragState = DragState.inactive
@@ -45,7 +42,6 @@ struct MainView: View {
       //MARK: - HEADER VIEW
       MainHeaderView(
         movieManager: movieManager,
-        showSettingView: $showSettingView,
         colorScheme: $colorScheme)
       .opacity(dragState.isDragging ? 0.0 : 1.0)
       .animation(.default, value: dragState.isDragging)
@@ -72,7 +68,7 @@ struct MainView: View {
               )
             )
             .accessibility(identifier: "movieCard_\(movieManager.isTopMovieCard(movie) ? 1 : 0)")
-
+            
             //zIndex
             .zIndex(movieManager.isTopMovieCard(movie) ? 1 : 0)
             // Show Symbol
@@ -149,11 +145,9 @@ struct MainView: View {
       Spacer()
       
       //MARK: - FOOTER VIEW
-      MainFooterView(
-        showFavoriteView: $showFavoriteView,
-        showMovieDetailView: $showMovieDetailView)
-      .opacity(dragState.isDragging ? 0.0 : 1.0)
-      .animation(.default, value: dragState.isDragging)
+      MainFooterView()
+        .opacity(dragState.isDragging ? 0.0 : 1.0)
+        .animation(.default, value: dragState.isDragging)
       
       Spacer()
       

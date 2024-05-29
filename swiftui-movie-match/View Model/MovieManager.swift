@@ -73,7 +73,7 @@ class MovieManager: ObservableObject {
           self.movieCardDeck.append(contentsOf: newMovies)
 
           if movieCardDeck.count > 2 {
-            DispatchQueue.main.async { [weak self] in
+            DispatchQueue.main.async { [weak self] in // to avoid retain cycle
               self?.reloadMovieCardsToShow()
             }
           } else {
