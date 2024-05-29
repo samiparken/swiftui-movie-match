@@ -1,6 +1,6 @@
 import Foundation
 
-struct MovieResponse: Codable {
+struct MovieListResponse: Codable {
 
   let page: Int
   let results: [Movie]

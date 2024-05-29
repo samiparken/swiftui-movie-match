@@ -59,7 +59,7 @@
 		31FD8FD62BFA813000F03252 /* QueryString+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FD8FD52BFA813000F03252 /* QueryString+Ext.swift */; };
 		31FD8FD82BFA813D00F03252 /* DecodingKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FD8FD72BFA813D00F03252 /* DecodingKey.swift */; };
 		31FD8FDC2BFA86CA00F03252 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FD8FDB2BFA86CA00F03252 /* Movie.swift */; };
-		31FD8FDE2BFA86E100F03252 /* MovieResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FD8FDD2BFA86E100F03252 /* MovieResponse.swift */; };
+		31FD8FDE2BFA86E100F03252 /* MovieListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FD8FDD2BFA86E100F03252 /* MovieListResponse.swift */; };
 		31FD8FE12BFA8EA800F03252 /* MovieManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FD8FE02BFA8EA800F03252 /* MovieManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -158,7 +158,7 @@
 		31FD8FD52BFA813000F03252 /* QueryString+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QueryString+Ext.swift"; sourceTree = "<group>"; };
 		31FD8FD72BFA813D00F03252 /* DecodingKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodingKey.swift; sourceTree = "<group>"; };
 		31FD8FDB2BFA86CA00F03252 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
-		31FD8FDD2BFA86E100F03252 /* MovieResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieResponse.swift; sourceTree = "<group>"; };
+		31FD8FDD2BFA86E100F03252 /* MovieListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListResponse.swift; sourceTree = "<group>"; };
 		31FD8FE02BFA8EA800F03252 /* MovieManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -406,7 +406,7 @@
 			isa = PBXGroup;
 			children = (
 				31FD8FDB2BFA86CA00F03252 /* Movie.swift */,
-				31FD8FDD2BFA86E100F03252 /* MovieResponse.swift */,
+				31FD8FDD2BFA86E100F03252 /* MovieListResponse.swift */,
 				31D718422BFBEDCB00C00DC7 /* MovieDetail.swift */,
 			);
 			path = "API Response";
@@ -588,7 +588,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				31FD8FD82BFA813D00F03252 /* DecodingKey.swift in Sources */,
-				31FD8FDE2BFA86E100F03252 /* MovieResponse.swift in Sources */,
+				31FD8FDE2BFA86E100F03252 /* MovieListResponse.swift in Sources */,
 				31FD8F9E2BFA694D00F03252 /* MainView.swift in Sources */,
 				31B677462BFC9BA5005223DC /* DetailCardView.swift in Sources */,
 				31F7C8C82BFF1F6400963FF5 /* LocaleIdentifier.swift in Sources */,

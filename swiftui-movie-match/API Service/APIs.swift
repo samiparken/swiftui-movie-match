@@ -2,9 +2,9 @@ import Foundation
 
 //MARK: - API Calls
 
-func APIgetPopularMovieList(page: Int, language: String) async throws -> MovieResponse {
+func APIgetPopularMovieList(page: Int, language: String) async throws -> MovieListResponse {
   let e = EndpointCase.movieListPopular(language: language, page: page, region: "Sweden")
-  async let result = makeAPIRequest(endpoint: e, responseType: MovieResponse.self)
+  async let result = makeAPIRequest(endpoint: e, responseType: MovieListResponse.self)
   return try await result
 }
 
