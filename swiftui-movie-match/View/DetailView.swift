@@ -19,7 +19,9 @@ struct DetailView: View {
   
   //MARK: - METHOD
   private func getMovieDetail() async {
-    if let movieDetail = await movieManager.getMovieDetail(id: movieId, languageCode: languageCode ) {
+    if let movieDetail = await movieManager.getMovieDetail(
+      id: movieId,
+      languageCode: languageCode ) {
       self.movieDetail = movieDetail
       isLoading = false
     } else {
@@ -48,11 +50,9 @@ struct DetailView: View {
           
           //MARK: - REMOVE BUTTON
           Button(action:{
-            guard let indexToDelete = favoriteMovies.firstIndex(where: {$0.id == movieId}) else {
-              self.presentationMode.wrappedValue.dismiss()
-              return
+            if let indexToDelete = favoriteMovies.firstIndex(where: {$0.id == movieId}) {
+              context.delete(favoriteMovies[indexToDelete])
             }
-            context.delete(favoriteMovies[indexToDelete])
             self.presentationMode.wrappedValue.dismiss()
           }) {
             Text("remove-string")
