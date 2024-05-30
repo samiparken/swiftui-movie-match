@@ -1,11 +1,12 @@
 import SwiftUI
+import Observation
 
 struct MainHeaderView: View {
   //MARK: - AppStorage
   @AppStorage(K.AppStorageKey.localeIdentifier) private var localeIdentifier: LocaleIdentifier = .English
   
   //MARK: - PROPERTIES
-  @StateObject var movieManager: MovieManager
+  var movieManager: MovieManager
   @Binding var colorScheme: ColorScheme
   @State var showSettingView: Bool = false
   let haptics = UINotificationFeedbackGenerator()

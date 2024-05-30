@@ -3,7 +3,8 @@ import SwiftUI
 import SwiftData
 import Observation
 
-class MovieManager: ObservableObject {
+@Observable 
+class MovieManager {
   //MARK: - SwiftData
   var context: ModelContext? = nil
   var favoriteMovies: [FavoriteMovie] = []
@@ -34,8 +35,9 @@ class MovieManager: ObservableObject {
   }
   
   //MARK: - PROPERTIES
+  @ObservationIgnored 
   @AppStorage(K.AppStorageKey.localeIdentifier) private var localeIdentifier: LocaleIdentifier = .English
-  @Published var movieCardsToShow: [Movie] = []
+  var movieCardsToShow: [Movie] = []
   var movieCardDeck: [Movie] = []
   var currentPopularMoviePage = 1
   let popularMoviePageLimit = 500

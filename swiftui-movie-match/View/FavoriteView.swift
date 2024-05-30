@@ -8,7 +8,7 @@ struct FavoriteView: View {
   
   //MARK: - PROPERTIES
   @Environment(\.presentationMode) var presentationMode
-  @StateObject private var movieManager = MovieManager()
+  private var movieManager = MovieManager()
   @State var showMovieDetailView: Bool = false
   @State private var isClicked: [Int: Bool] = [:]
   let vstackColumnSet = [ GridItem(.flexible()), GridItem(.flexible()) ]

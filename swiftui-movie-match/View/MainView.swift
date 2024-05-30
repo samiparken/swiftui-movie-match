@@ -1,18 +1,18 @@
 import SwiftUI
 import SwiftData
+import Observation
 
 struct MainView: View {
   
   // MARK: - SwiftData
   @Environment(\.modelContext) private var context
-  @Query private var favoriteMovies: [FavoriteMovie]
   
   //MARK: - AppStorage
   @AppStorage(K.AppStorageKey.appearanceMode) private var storedAppearanceMode: AppearanceMode = .system
   @AppStorage(K.AppStorageKey.localeIdentifier) private var localeIdentifier: LocaleIdentifier = .English
   
   //MARK: - PROPERTIES
-  @ObservedObject private var movieManager = MovieManager()
+  private var movieManager = MovieManager()
   @State private var colorScheme: ColorScheme = .light
   
   @GestureState private var dragState = DragState.inactive

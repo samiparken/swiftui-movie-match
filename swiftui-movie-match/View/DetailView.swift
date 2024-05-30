@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftData
+import Observation
 
 struct DetailView: View {
   // MARK: - SwiftData
@@ -9,11 +10,12 @@ struct DetailView: View {
   //MARK: - PROPERTIES
   @Environment(\.colorScheme) var colorScheme
   @Environment(\.presentationMode) var presentationMode
-  @StateObject private var movieManager = MovieManager()
   @State private var movieDetail: MovieDetail?
   @State private var isLoading = true
   @State private var isError = false
   @State private var isClicked = true
+  var movieManager = MovieManager()
+
   let movieId: Int
   let languageCode: String
   
