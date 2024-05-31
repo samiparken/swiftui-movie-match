@@ -1,12 +1,6 @@
-//
-//  swiftui_movie_matchApp.swift
-//  swiftui-movie-match
-//
-//  Created by Han-Saem Park on 2024-05-19.
-//
-
 import SwiftUI
 import SwiftData
+import ComposableArchitecture
 
 @main
 struct swiftui_movie_matchApp: App {
@@ -25,7 +19,9 @@ struct swiftui_movie_matchApp: App {
 
     var body: some Scene {
         WindowGroup {
-            MainView()
+            MainView(store: Store(initialState: MainFeature.State()) {
+              MainFeature()
+            })
         }
         .modelContainer(sharedModelContainer)
     }

@@ -1,15 +1,41 @@
 import SwiftUI
 import SwiftData
+import ComposableArchitecture
+
+@Reducer
+struct MainFooter {
+  @ObservableState
+  struct State: Equatable {
+    var showFavoriteView: Bool = false
+  }
+  enum Action {
+    case openFavoriteView(Bool)
+  }
+  var body: some Reducer<State, Action> {
+    Reduce { state, action in
+      switch action {
+      case let .openFavoriteView(isOn):
+        state.showFavoriteView = isOn
+        return .none
+      }
+    }
+  }
+}
 
 struct MainFooterView: View {
+  @Bindable var store: StoreOf<MainFooter>
+  
   //MARK: - PROPERTIES
   @Environment(\.colorScheme) var colorScheme
   @Environment(\.modelContext) private var context
   @Query private var favoriteMovies: [FavoriteMovie]
-  
-  @State var showFavoriteView: Bool = false
-  
+    
   let haptics = UINotificationFeedbackGenerator()
+  
+  //MARK: - INIT
+  init(store: StoreOf<MainFooter>) {
+    self.store = store
+  }
   
   //MARK: - BODY
   var body: some View {
@@ -24,7 +50,7 @@ struct MainFooterView: View {
         Button(action:{
           // ACTION
           self.haptics.notificationOccurred(.success)
-          self.showFavoriteView.toggle()
+          store.send(.openFavoriteView(true))
         }) {
           Text("showFavorite-string")
             .textCase(.uppercase)
@@ -36,8 +62,8 @@ struct MainFooterView: View {
             .background(
               Capsule().stroke(Color(UIColor(colorScheme.getPrimaryColor())), lineWidth: 2)
             )
-            .sheet(isPresented: $showFavoriteView) {
-              FavoriteView()
+            .sheet(isPresented: $store.showFavoriteView.sending(\.openFavoriteView))  {
+                FavoriteView()
             }
         }
         .accessibility(identifier: K.UITests.Identifier.showFavoriteButton)
@@ -70,7 +96,9 @@ struct FooterView_Previews: PreviewProvider {
   @State static var showMovieDetailView: Bool = false
   
   static var previews: some View {
-    MainFooterView()
+    MainFooterView(store: Store(initialState: MainFooter.State()) {
+      MainFooter()
+    })
     .previewLayout(.fixed(width: 375, height: 80))
   }
 }

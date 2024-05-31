@@ -1,8 +1,63 @@
 import SwiftUI
 import SwiftData
 import Observation
+import ComposableArchitecture
+
+@Reducer
+struct MainFeature {
+  @ObservableState
+  struct State: Equatable {
+    var count = 0
+    var numberFact: String?
+    var numOfFavoriteMovies = 0
+  }
+  enum Action {
+    case saveMovieToFavorite
+    case passMovie
+    case decrementButtonTapped
+    case incrementButtonTapped
+    case numberFactButtonTapped
+    case numberFactResponse(String)
+  }
+  var body: some Reducer<State, Action> {
+    Reduce { state, action in
+      switch action {
+      case .saveMovieToFavorite:
+        state.numOfFavoriteMovies += 1
+        return .none
+        
+      case .passMovie:
+        return .none
+        
+      case .decrementButtonTapped:
+        state.count -= 1
+        return .none
+        
+      case .incrementButtonTapped:
+        state.count += 1
+        return .none
+        
+      case .numberFactButtonTapped:
+        return .run { [count = state.count] send in
+          let (data, _) = try await URLSession.shared.data(
+            from: URL(string: "http://numbersapi.com/\(count)/trivia")!
+          )
+          await send(
+            .numberFactResponse(String(decoding: data, as: UTF8.self))
+          )
+        }
+        
+      case let .numberFactResponse(fact):
+        state.numberFact = fact
+        return .none
+      }
+    }
+  }
+}
+
 
 struct MainView: View {
+  let store: StoreOf<MainFeature>
   
   // MARK: - SwiftData
   @Environment(\.modelContext) private var context
@@ -20,6 +75,11 @@ struct MainView: View {
   @State private var cardRemovalTransition = AnyTransition.trailingBottom
   @State private var isClicked: [Int: Bool] = [:]
   private let dragAreaThreshold: CGFloat = 65.0 // if it's less than 65 points, the card snaps back to its origianl place.
+  
+  //MARK: - INIT
+  init(store: StoreOf<MainFeature>) {
+    self.store = store
+  }
   
   //MARK: - METHOD
   private func updateColorScheme(for mode: AppearanceMode) {
@@ -145,7 +205,9 @@ struct MainView: View {
       Spacer()
       
       //MARK: - FOOTER VIEW
-      MainFooterView()
+      MainFooterView(store: Store(initialState: MainFooter.State()){
+        MainFooter()
+      })
         .opacity(dragState.isDragging ? 0.0 : 1.0)
         .animation(.default, value: dragState.isDragging)
       
@@ -166,6 +228,8 @@ struct MainView: View {
 }
 
 #Preview {
-  MainView()
-    .modelContainer(for: FavoriteMovie.self, inMemory: true)
+  MainView(store: Store(initialState: MainFeature.State()) {
+    MainFeature()
+  })
+  .modelContainer(for: FavoriteMovie.self, inMemory: true)
 }
