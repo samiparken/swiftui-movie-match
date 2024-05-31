@@ -2,26 +2,30 @@ import SwiftUI
 import SwiftData
 import ComposableArchitecture
 
+//MARK: - REDUCER
 @Reducer
 struct MainFooter {
+  //MARK: - STATE
   @ObservableState
   struct State: Equatable {
-    var showFavoriteView: Bool = false
+    var isFavoriteViewOn: Bool = false
   }
+  //MARK: - ACTION
   enum Action {
-    case openFavoriteView(Bool)
+    case showFavoriteView(Bool)
   }
   var body: some Reducer<State, Action> {
     Reduce { state, action in
       switch action {
-      case let .openFavoriteView(isOn):
-        state.showFavoriteView = isOn
+      case let .showFavoriteView(isOn):
+        state.isFavoriteViewOn = isOn
         return .none
       }
     }
   }
 }
 
+//MARK: - VIEW
 struct MainFooterView: View {
   @Bindable var store: StoreOf<MainFooter>
   
@@ -29,7 +33,7 @@ struct MainFooterView: View {
   @Environment(\.colorScheme) var colorScheme
   @Environment(\.modelContext) private var context
   @Query private var favoriteMovies: [FavoriteMovie]
-    
+  
   let haptics = UINotificationFeedbackGenerator()
   
   //MARK: - INIT
@@ -50,7 +54,7 @@ struct MainFooterView: View {
         Button(action:{
           // ACTION
           self.haptics.notificationOccurred(.success)
-          store.send(.openFavoriteView(true))
+          store.send(.showFavoriteView(true))
         }) {
           Text("showFavorite-string")
             .textCase(.uppercase)
@@ -62,8 +66,8 @@ struct MainFooterView: View {
             .background(
               Capsule().stroke(Color(UIColor(colorScheme.getPrimaryColor())), lineWidth: 2)
             )
-            .sheet(isPresented: $store.showFavoriteView.sending(\.openFavoriteView))  {
-                FavoriteView()
+            .sheet(isPresented: $store.isFavoriteViewOn.sending(\.showFavoriteView)) {
+              FavoriteView()
             }
         }
         .accessibility(identifier: K.UITests.Identifier.showFavoriteButton)
@@ -92,9 +96,6 @@ struct MainFooterView: View {
 }
 
 struct FooterView_Previews: PreviewProvider {
-  @State static var showFavoriteView: Bool = false
-  @State static var showMovieDetailView: Bool = false
-  
   static var previews: some View {
     MainFooterView(store: Store(initialState: MainFooter.State()) {
       MainFooter()
