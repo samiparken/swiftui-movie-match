@@ -55,7 +55,6 @@ struct MainFeature {
   }
 }
 
-
 struct MainView: View {
   let store: StoreOf<MainFeature>
   
@@ -100,7 +99,9 @@ struct MainView: View {
       Spacer()
       
       //MARK: - HEADER VIEW
-      MainHeaderView(
+      MainHeaderView(store: Store(initialState: MainHeader.State()){
+        MainHeader()
+      },
         movieManager: movieManager,
         colorScheme: $colorScheme)
       .opacity(dragState.isDragging ? 0.0 : 1.0)
