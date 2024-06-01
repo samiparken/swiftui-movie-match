@@ -48,7 +48,7 @@ This app is developed using the Model-View-ViewModel (MVVM) design pattern, leve
 - API Requests: Handles API calls to fetch movie data.
 - Data Management: Manages movie data and updates the views accordingly.
   
-### TCA(The Composable Architecture)
+### TCA (The Composable Architecture)
 The Composable Architecture (TCA) is also integrated into this project to manage state, side effects, and application logic in a scalable and predictable manner. TCA complements MVVM by providing a robust structure for managing complex states and side effects.
 
 ### API
