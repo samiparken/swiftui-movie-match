@@ -2,9 +2,12 @@
 
 Discover and organize your favorite movies effortlessly. Swipe right to save a movie, swipe left to pass. Access detailed movie information with a simple tap. Enjoy support for 3 languages (English, Swedish, and Korean) and a sleek dark mode.
 
-## Specification
+## Skills
 - SwiftUI, SwiftData, iOS 17.0 or later
-- all the movie data from TMDB Open Source API (https://developer.themoviedb.org/docs/getting-started)
+- MVVM and TCA(The Composable Architecture)
+- API requests: TMDB Open Source API (https://developer.themoviedb.org/docs/getting-started)
+- Light/Dark mode support, language preference
+- Examples of Unit Tests and UI Tests
 
 ## DEMO
 .              |.|
@@ -44,6 +47,9 @@ This app is developed using the Model-View-ViewModel (MVVM) design pattern, leve
 #### View Model (MovieManager.swift)
 - API Requests: Handles API calls to fetch movie data.
 - Data Management: Manages movie data and updates the views accordingly.
+  
+### TCA(The Composable Architecture)
+The Composable Architecture (TCA) is also integrated into this project to manage state, side effects, and application logic in a scalable and predictable manner. TCA complements MVVM by providing a robust structure for managing complex states and side effects.
 
 ### API
 The app utilizes only two endpoints from The Movie Database (TMDb) API to meet the assignment requirements. The architecture is scalable, allowing for easy expansion to include additional endpoints in the future.
