@@ -231,6 +231,7 @@ struct MainView: View {
 #Preview {
   MainView(store: Store(initialState: MainFeature.State()) {
     MainFeature()
+      ._printChanges()
   })
   .modelContainer(for: FavoriteMovie.self, inMemory: true)
 }

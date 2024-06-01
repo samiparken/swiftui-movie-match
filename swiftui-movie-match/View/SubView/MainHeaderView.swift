@@ -43,44 +43,46 @@ struct MainHeaderView: View {
   
   //MARK: - BODY
   var body: some View {
-    HStack {
-      
-      //REFRESH BUTTON
-      Button(action: {
-        self.haptics.notificationOccurred(.success)
-        movieManager.refreshPopularMovieList()
-      }) {
-        Image(systemName: "arrow.clockwise")
-          .font(.system(size: 24, weight: .regular))
+    
+      HStack {
+        
+        //REFRESH BUTTON
+        Button(action: {
+          self.haptics.notificationOccurred(.success)
+          movieManager.refreshPopularMovieList()
+        }) {
+          Image(systemName: "arrow.clockwise")
+            .font(.system(size: 24, weight: .regular))
+        }
+        .accentColor(Color(UIColor(colorScheme.getPrimaryColor())))
+        
+        Spacer()
+        
+        // LOGO
+        Image(K.Image.Logo.altShort)
+          .resizable()
+          .scaledToFit()
+          .frame(height: 28)
+        
+        Spacer()
+        
+        // SETTINGS BUTTON
+        Button(action: {
+          self.haptics.notificationOccurred(.success)
+          //self.showSettingView.toggle()
+          store.send(.showSettingsView(true))
+        }){
+          Image(systemName: "gearshape")
+            .font(.system(size: 24, weight: .regular))
+        }
+        .accentColor(Color(UIColor(colorScheme.getPrimaryColor())))
+        .sheet(isPresented: $store.isSettingsViewOn.sending(\.showSettingsView)) {
+          SettingsView(colorScheme: $colorScheme)
+        }
+        
       }
-      .accentColor(Color(UIColor(colorScheme.getPrimaryColor())))
-      
-      Spacer()
-      
-      // LOGO
-      Image(K.Image.Logo.altShort)
-        .resizable()
-        .scaledToFit()
-        .frame(height: 28)
-      
-      Spacer()
-      
-      // SETTINGS BUTTON
-      Button(action: {
-        self.haptics.notificationOccurred(.success)
-        //self.showSettingView.toggle()
-        store.send(.showSettingsView(true))
-      }){
-        Image(systemName: "gearshape")
-          .font(.system(size: 24, weight: .regular))
-      }
-      .accentColor(Color(UIColor(colorScheme.getPrimaryColor())))
-      .sheet(isPresented: $store.isSettingsViewOn.sending(\.showSettingsView)) {
-        SettingsView(colorScheme: $colorScheme)
-      }
-      
-    }
-    .padding()
+      .padding()
+    
   }
 }
 
@@ -92,6 +94,7 @@ struct HeaderView_Previews: PreviewProvider {
     MainHeaderView(
       store: Store(initialState: MainHeader.State()) {
         MainHeader()
+          ._printChanges()
       }, movieManager: movieManager,
       colorScheme: $colorScheme)
     .previewLayout(.fixed(width: 375, height: 80))
