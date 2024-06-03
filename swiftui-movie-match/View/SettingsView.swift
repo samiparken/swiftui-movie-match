@@ -1,6 +1,38 @@
 import SwiftUI
+import ComposableArchitecture
+
+@Reducer
+struct SettingsFeature {
+  
+  //MARK: - State
+  @ObservableState
+  struct State: Equatable {
+
+  }
+
+  //MARK: - Action
+  enum Action {
+    case closeSettingsView
+  }
+  
+  @Dependency(\.dismiss) var dismiss //dismiss effect for child
+
+  //MARK: - Reducer
+  var body: some ReducerOf<Self> {
+    Reduce { state, action in
+      switch action {
+      case .closeSettingsView:
+        return .run { _ in await self.dismiss() } //dismiss
+      }
+    }
+  }
+}
+
 
 struct SettingsView: View {
+  //MARK: - Store
+  @Bindable var store: StoreOf<SettingsFeature>
+  
   //MARK: - AppStorage
   @AppStorage(K.AppStorageKey.localeIdentifier) private var localeIdentifier: LocaleIdentifier = .English
   @AppStorage(K.AppStorageKey.appearanceMode) private var appearanceMode: AppearanceMode = .system
@@ -68,7 +100,9 @@ struct SettingsView: View {
         // CLOSE Button
         HStack{
           Spacer()
-          HeaderCloseButton()
+          HeaderCloseButton(){
+            store.send(.closeSettingsView)
+          }
         }
       }
       .padding(.horizontal)
@@ -195,7 +229,8 @@ struct SettingsView_Previews: PreviewProvider {
   static var previews: some View {
     @State var colorScheme: ColorScheme = .dark
     
-    SettingsView(colorScheme: $colorScheme)
+    SettingsView(store: Store(initialState: SettingsFeature.State()) { SettingsFeature() },
+                 colorScheme: $colorScheme)
   }
 }
 

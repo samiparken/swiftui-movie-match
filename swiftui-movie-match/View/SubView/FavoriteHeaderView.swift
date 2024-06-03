@@ -26,7 +26,9 @@ struct FavoriteHeaderView: View {
       // CLOSE Button
       HStack{
         Spacer()
-        HeaderCloseButton()
+        HeaderCloseButton(){
+          self.presentationMode.wrappedValue.dismiss()
+        }
       }
     }
     .padding(.horizontal)

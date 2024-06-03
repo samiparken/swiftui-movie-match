@@ -1,11 +1,12 @@
 import SwiftUI
 
 struct HeaderCloseButton: View {
-  @Environment(\.presentationMode) var presentationMode
   @Environment(\.colorScheme) var colorScheme
+  let action: () -> Void
+
   var body: some View {
     Button(action:{
-      self.presentationMode.wrappedValue.dismiss()
+      action()
     }) {
       Image(systemName: "xmark")
         .font(.system(size: 30, weight: .light))

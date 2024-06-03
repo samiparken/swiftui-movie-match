@@ -4,33 +4,42 @@ import ComposableArchitecture
 
 //MARK: - REDUCER
 @Reducer
-struct MainHeader {
+struct MainHeaderFeature {
+
   //MARK: - STATE
   @ObservableState
   struct State: Equatable {
-    var isSettingsViewOn : Bool = false
+    @Presents var settingsView: SettingsFeature.State?
   }
+
   //MARK: - ACTION
   enum Action {
-    case refreshCardsToShow
-    case showSettingsView(Bool)
+    case settingsView(PresentationAction<SettingsFeature.Action>) //present settingsView (child)
+    case showSettingsView
   }
+
+//MARK: - REDUCER
   var body: some Reducer<State, Action> {
     Reduce { state, action in
       switch action {
-      case let .showSettingsView(isOn):
-        state.isSettingsViewOn = isOn
+        
+      case .settingsView:
         return .none
-      case .refreshCardsToShow:
+      case .showSettingsView:
+        state.settingsView = SettingsFeature.State()
         return .none
+        
       }
     }
+    // child View
+    .ifLet(\.$settingsView, action: \.settingsView) {  SettingsFeature() }
   }
 }
 
 
+//MARK: - VIEW
 struct MainHeaderView: View {
-  @Bindable var store: StoreOf<MainHeader>
+  @Bindable var store: StoreOf<MainHeaderFeature>
 
   //MARK: - AppStorage
   @AppStorage(K.AppStorageKey.localeIdentifier) private var localeIdentifier: LocaleIdentifier = .English
@@ -69,19 +78,21 @@ struct MainHeaderView: View {
         // SETTINGS BUTTON
         Button(action: {
           self.haptics.notificationOccurred(.success)
-          //self.showSettingView.toggle()
-          store.send(.showSettingsView(true))
+          store.send(.showSettingsView)
         }){
           Image(systemName: "gearshape")
             .font(.system(size: 24, weight: .regular))
         }
         .accentColor(Color(UIColor(colorScheme.getPrimaryColor())))
-        .sheet(isPresented: $store.isSettingsViewOn.sending(\.showSettingsView)) {
-          SettingsView(colorScheme: $colorScheme)
-        }
         
       }
       .padding()
+      //present SettingsView (child)
+      .sheet(
+        item: $store.scope(state: \.settingsView, action: \.settingsView)
+      ) { settingsStore in
+        SettingsView(store: settingsStore, colorScheme: $colorScheme)
+      }
     
   }
 }
@@ -92,8 +103,8 @@ struct HeaderView_Previews: PreviewProvider {
   
   static var previews: some View {
     MainHeaderView(
-      store: Store(initialState: MainHeader.State()) {
-        MainHeader()
+      store: Store(initialState: MainHeaderFeature.State()) {
+        MainHeaderFeature()
           ._printChanges()
       }, movieManager: movieManager,
       colorScheme: $colorScheme)

@@ -99,8 +99,8 @@ struct MainView: View {
       Spacer()
       
       //MARK: - HEADER VIEW
-      MainHeaderView(store: Store(initialState: MainHeader.State()){
-        MainHeader()
+      MainHeaderView(store: Store(initialState: MainHeaderFeature.State()){
+        MainHeaderFeature()
       },
         movieManager: movieManager,
         colorScheme: $colorScheme)
