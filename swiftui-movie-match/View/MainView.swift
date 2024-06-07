@@ -5,36 +5,33 @@ import ComposableArchitecture
 
 @Reducer
 struct MainFeature {
+  
+  //MARK: - State
   @ObservableState
   struct State: Equatable {
     var count = 0
     var numberFact: String?
     var numOfFavoriteMovies = 0
   }
+  
+  //MARK: - Action
   enum Action {
     case saveMovieToFavorite
     case passMovie
-    case decrementButtonTapped
-    case incrementButtonTapped
     case numberFactButtonTapped
     case numberFactResponse(String)
   }
+  
+  //MARK: - Reducer
   var body: some Reducer<State, Action> {
     Reduce { state, action in
       switch action {
+        
       case .saveMovieToFavorite:
         state.numOfFavoriteMovies += 1
         return .none
         
       case .passMovie:
-        return .none
-        
-      case .decrementButtonTapped:
-        state.count -= 1
-        return .none
-        
-      case .incrementButtonTapped:
-        state.count += 1
         return .none
         
       case .numberFactButtonTapped:
@@ -50,6 +47,7 @@ struct MainFeature {
       case let .numberFactResponse(fact):
         state.numberFact = fact
         return .none
+        
       }
     }
   }
