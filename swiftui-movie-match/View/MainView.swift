@@ -9,15 +9,18 @@ struct MainFeature {
   //MARK: - State
   @ObservableState
   struct State: Equatable {
+    var numOfFavoriteMovies = 0
+
     var count = 0
     var numberFact: String?
-    var numOfFavoriteMovies = 0
   }
   
   //MARK: - Action
   enum Action {
     case saveMovieToFavorite
     case passMovie
+    
+    // test
     case numberFactButtonTapped
     case numberFactResponse(String)
   }
@@ -34,6 +37,8 @@ struct MainFeature {
       case .passMovie:
         return .none
         
+        
+        //test
       case .numberFactButtonTapped:
         return .run { [count = state.count] send in
           let (data, _) = try await URLSession.shared.data(
