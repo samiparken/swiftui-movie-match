@@ -7,39 +7,39 @@ struct SettingsFeature {
   //MARK: - State
   @ObservableState
   struct State: Equatable {
-    var appearanceMode: AppearanceMode {
-      get {
-        AppearanceMode(rawValue: UserDefaults.standard.string(forKey: K.AppStorageKey.appearanceMode) ?? AppearanceMode.light.rawValue) ?? .light
-      }
-      set {
-        UserDefaults.standard.set(newValue.rawValue, forKey: K.AppStorageKey.appearanceMode)
-      }
-    }
+    //MARK: - AppStorage
+    @Shared(.appStorage(K.AppStorageKey.appearanceMode)) var appearanceMode : AppearanceMode = .system
+    @Shared(.appStorage(K.AppStorageKey.localeIdentifier)) var localeIdentifier: LocaleIdentifier = .English
     
-    var localeIdentifier: LocaleIdentifier {
-      get {
-        LocaleIdentifier(rawValue: UserDefaults.standard.string(forKey: K.AppStorageKey.localeIdentifier) ?? LocaleIdentifier.English.rawValue) ?? .English
-      }
-      set {
-        UserDefaults.standard.set(newValue.rawValue, forKey: K.AppStorageKey.localeIdentifier)
-      }
-    }
-    
+    var colorScheme: ColorScheme = .light
   }
 
   //MARK: - Action
   enum Action {
+    // Init
+    case initColorScheme
+
     case closeSettingsView
     case selectAppearanceMode(AppearanceMode)
     case changeLanguage(String?)
   }
-  
   @Dependency(\.dismiss) var dismiss //dismiss effect for child
-
+  
   //MARK: - Reducer
   var body: some ReducerOf<Self> {
     Reduce { state, action in
       switch action {
+        
+      case .initColorScheme:
+        switch state.appearanceMode {
+        case .system:
+          state.colorScheme = .light //+TODO: get system colorScheme
+        case .light:
+          state.colorScheme = .light
+        case .dark:
+          state.colorScheme = .dark
+        }
+        return .none
         
       case .closeSettingsView:
         return .run { _ in await self.dismiss() } //dismiss
@@ -65,7 +65,6 @@ struct SettingsView: View {
   
   //MARK: - PROPERTIES
   @Environment(\.presentationMode) var presentationMode
-  @Binding var colorScheme: ColorScheme
   @State private var selectedLanguage: String?
   @State private var selectedColor: Color = .primaryColor
   @State private var backgroundColor: Color = Color.white
@@ -140,30 +139,30 @@ struct SettingsView: View {
               
               //LIGHT mode
               Button(action:{
-                colorScheme = .light
                 store.send(.selectAppearanceMode(.light))
+                store.send(.initColorScheme)
                 initColorSet()
               }){
                 Text("light-string")
                   .modifier(ButtonSettingsModifier())
                   .background(
                     Capsule().fill(
-                      colorScheme == .light ? selectedColor : Color.clear
+                      store.colorScheme == .light ? selectedColor : Color.clear
                     )
                   )
                   .overlay(
                     Capsule().stroke(
-                      colorScheme == .light ? Color.clear : selectedColor,
+                      store.colorScheme == .light ? Color.clear : selectedColor,
                       lineWidth: 2
                     )
                   )
-                  .foregroundColor(colorScheme == .light ? Color.white : selectedColor)
+                  .foregroundColor(store.colorScheme == .light ? Color.white : selectedColor)
               }
               
               // DARK mode
               Button(action:{
-                colorScheme = .dark
                 store.send(.selectAppearanceMode(.dark))
+                store.send(.initColorScheme)
                 initColorSet()
               }){
                 Text("dark-string")
@@ -171,13 +170,13 @@ struct SettingsView: View {
                   .modifier(ButtonSettingsModifier())
                   .background(
                     Capsule().fill(
-                      colorScheme == .light ? Color.clear : selectedColor
+                      store.colorScheme == .light ? Color.clear : selectedColor
                     )
                   )
                   .overlay(
-                    Capsule().stroke(colorScheme == .light ? selectedColor : Color.clear, lineWidth: 2)
+                    Capsule().stroke(store.colorScheme == .light ? selectedColor : Color.clear, lineWidth: 2)
                   )
-                  .foregroundColor(colorScheme == .light ? selectedColor : Color.black)
+                  .foregroundColor(store.colorScheme == .light ? selectedColor : Color.black)
               }
             }
           }
@@ -229,7 +228,7 @@ struct SettingsView: View {
       
       Spacer()
     }
-    .preferredColorScheme(colorScheme)
+    .preferredColorScheme(store.colorScheme)
     .environment(\.locale, Locale.init(identifier: store.localeIdentifier.rawValue))
     .onAppear {
       initLanguageSelector()
@@ -243,8 +242,7 @@ struct SettingsView_Previews: PreviewProvider {
   static var previews: some View {
     @State var colorScheme: ColorScheme = .dark
     
-    SettingsView(store: Store(initialState: SettingsFeature.State()) { SettingsFeature() },
-                 colorScheme: $colorScheme)
+    SettingsView(store: Store(initialState: SettingsFeature.State()) { SettingsFeature() })
   }
 }
 

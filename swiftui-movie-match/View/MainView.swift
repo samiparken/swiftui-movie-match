@@ -9,14 +9,24 @@ struct MainFeature {
   //MARK: - State
   @ObservableState
   struct State: Equatable {
-    var numOfFavoriteMovies = 0
+    
+    //MARK: - AppStorage
+    @Shared(.appStorage(K.AppStorageKey.appearanceMode)) var appearanceMode : AppearanceMode = .system
+    @Shared(.appStorage(K.AppStorageKey.localeIdentifier)) var localeIdentifier: LocaleIdentifier = .English
 
+    var colorScheme: ColorScheme = .light
+    var numOfFavoriteMovies = 0
+    
+    //test
     var count = 0
     var numberFact: String?
   }
   
   //MARK: - Action
   enum Action {
+    // Init
+    case initColorScheme
+    
     case saveMovieToFavorite
     case passMovie
     
@@ -24,11 +34,22 @@ struct MainFeature {
     case numberFactButtonTapped
     case numberFactResponse(String)
   }
-  
+   
   //MARK: - Reducer
   var body: some Reducer<State, Action> {
     Reduce { state, action in
       switch action {
+        
+      case .initColorScheme:
+        switch state.appearanceMode {
+        case .system:
+          state.colorScheme = .light //+TODO: get system colorScheme
+        case .light:
+          state.colorScheme = .light
+        case .dark:
+          state.colorScheme = .dark
+        }
+        return .none
         
       case .saveMovieToFavorite:
         state.numOfFavoriteMovies += 1
@@ -47,7 +68,6 @@ struct MainFeature {
             .numberFactResponse(String(decoding: data, as: UTF8.self))
           )
         }
-        
       case let .numberFactResponse(fact):
         state.numberFact = fact
         return .none
@@ -58,14 +78,10 @@ struct MainFeature {
 }
 
 struct MainView: View {
-  let store: StoreOf<MainFeature>
+  @Bindable var store: StoreOf<MainFeature>
   
   // MARK: - SwiftData
   @Environment(\.modelContext) private var context
-  
-  //MARK: - AppStorage
-  @AppStorage(K.AppStorageKey.appearanceMode) private var storedAppearanceMode: AppearanceMode = .system
-  @AppStorage(K.AppStorageKey.localeIdentifier) private var localeIdentifier: LocaleIdentifier = .English
   
   //MARK: - PROPERTIES
   private var movieManager = MovieManager()
@@ -81,19 +97,7 @@ struct MainView: View {
   init(store: StoreOf<MainFeature>) {
     self.store = store
   }
-  
-  //MARK: - METHOD
-  private func updateColorScheme(for mode: AppearanceMode) {
-    switch mode {
-    case .system:
-      colorScheme = .light //+TODO: get system colorScheme
-    case .light:
-      colorScheme = .light
-    case .dark:
-      colorScheme = .dark
-    }
-  }
-  
+    
   //MARK: - BODY
   var body: some View {
     
@@ -217,15 +221,15 @@ struct MainView: View {
       Spacer()
       
     }
-    .preferredColorScheme(colorScheme)
-    .environment(\.locale, Locale.init(identifier: localeIdentifier.rawValue))
+    .preferredColorScheme(store.colorScheme)
+    .environment(\.locale, Locale.init(identifier: store.localeIdentifier.rawValue))
     .onAppear {
       // for SwiftData in MovieManager
       movieManager.context = context
       movieManager.fetchFavoriteMovies()
-      movieManager.getPopularMovieList(languageCode: localeIdentifier.rawValue)
+      movieManager.getPopularMovieList(languageCode: store.localeIdentifier.rawValue)
       // apply appearanceMode
-      updateColorScheme(for: storedAppearanceMode)
+      store.send(.initColorScheme)
     }
   }
 }
