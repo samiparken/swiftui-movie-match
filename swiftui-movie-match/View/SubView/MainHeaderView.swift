@@ -91,7 +91,7 @@ struct MainHeaderView: View {
       .sheet(
         item: $store.scope(state: \.settingsView, action: \.settingsView)
       ) { settingsStore in
-        SettingsView(store: settingsStore, colorScheme: $colorScheme)
+        SettingsView(store: settingsStore)
       }
     
   }

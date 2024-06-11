@@ -7,99 +7,92 @@ struct SettingsFeature {
   //MARK: - State
   @ObservableState
   struct State: Equatable {
-    var appearanceMode: AppearanceMode {
-      get {
-        AppearanceMode(rawValue: UserDefaults.standard.string(forKey: K.AppStorageKey.appearanceMode) ?? AppearanceMode.system.rawValue) ?? .system
-      }
-      set {
-        UserDefaults.standard.set(newValue.rawValue, forKey: K.AppStorageKey.appearanceMode)
-      }
-    }
+    //MARK: - AppStorage
+    @Shared(.appStorage(K.AppStorageKey.appearanceMode)) var appearanceMode : AppearanceMode = .system
+    @Shared(.appStorage(K.AppStorageKey.localeIdentifier)) var localeIdentifier: LocaleIdentifier = .English
     
+    var colorScheme: ColorScheme = .light
+    var selectedLanguage: String?
+    var selectedColor: Color = .primaryColor
+    var backgroundColor: Color = Color.white
   }
 
   //MARK: - Action
   enum Action {
+    case refreshAppearanceMode
+    case refreshLanguage
+    
+    case changeAppearanceMode(AppearanceMode)
+    case changeLanguage(String?)
     case closeSettingsView
-    case selectAppearanceMode(AppearanceMode)
   }
-  
   @Dependency(\.dismiss) var dismiss //dismiss effect for child
-
+  
   //MARK: - Reducer
   var body: some ReducerOf<Self> {
     Reduce { state, action in
       switch action {
-      case .closeSettingsView:
-        return .run { _ in await self.dismiss() } //dismiss
+      case .refreshAppearanceMode:
+        switch state.appearanceMode {
+        case .light:
+          state.colorScheme = .light
+          state.selectedColor = .primaryColor
+          state.backgroundColor = Color.white
+        case .dark:
+          state.colorScheme = .dark
+          state.selectedColor = .tertiaryColor
+          state.backgroundColor = Color.black
+        default:
+          state.colorScheme = .light
+          state.selectedColor = .primaryColor
+          state.backgroundColor = Color.white
+        }
+        return .none
         
-      case let .selectAppearanceMode(selectedMode):
+      case .refreshLanguage:
+        switch state.localeIdentifier {
+        case .English:
+          state.selectedLanguage = K.SettingsView.Language.english
+        case .Swedish:
+          state.selectedLanguage = K.SettingsView.Language.swedish
+        case .Korean:
+          state.selectedLanguage = K.SettingsView.Language.korean
+        }
+        return .none
+        
+      case let .changeAppearanceMode(selectedMode):
         state.appearanceMode = selectedMode
         return .none
+      
+      case let .changeLanguage(selectedLanguage):
+        state.selectedLanguage = selectedLanguage
+//        switch selectedLanguage {
+//        case K.SettingsView.Language.english:
+//          state.localeIdentifier = .English
+//        case K.SettingsView.Language.swedish:
+//          state.localeIdentifier = .Swedish
+//        case K.SettingsView.Language.korean:
+//          state.localeIdentifier = .Korean
+//        default:
+//          state.localeIdentifier = .English
+//        }
+        return .none
+                
+      case .closeSettingsView:
+        return .run { _ in await self.dismiss() } //dismiss
         
       }
     }
   }
 }
 
-
 struct SettingsView: View {
   //MARK: - Store
   @Bindable var store: StoreOf<SettingsFeature>
   
-  //MARK: - AppStorage
-  @AppStorage(K.AppStorageKey.localeIdentifier) private var localeIdentifier: LocaleIdentifier = .English
-  
   //MARK: - PROPERTIES
   @Environment(\.presentationMode) var presentationMode
-  @Binding var colorScheme: ColorScheme
-  @State private var selectedLanguage: String?
-  @State private var selectedColor: Color = .primaryColor
-  @State private var backgroundColor: Color = Color.white
-  
-  //MARK: - METHOD
-  func initColorSet() {
-    switch store.appearanceMode {
-    case .light:
-      selectedColor = .primaryColor
-      backgroundColor = Color.white
-    case .dark:
-      selectedColor = .tertiaryColor
-      backgroundColor = Color.black
-    default:
-      selectedColor = .primaryColor
-      backgroundColor = Color.white
-    }
-  }
-  
-  func initLanguageSelector() {
-    switch localeIdentifier {
-    case .English:
-      selectedLanguage = "English"
-    case .Swedish:
-      selectedLanguage = "Svenska"
-    case .Korean:
-      selectedLanguage = "한국어"
-    }
-  }
-  
-  func onLanguageSelected(_ language: String?) {
-    switch language {
-    case "English":
-      localeIdentifier = .English
-    case "Svenska":
-      localeIdentifier = .Swedish
-    case "한국어":
-      localeIdentifier = .Korean
-    default:
-      localeIdentifier = .English
-    }
-  }
-  
-  func isSelectedLanguage(_ language: String?) -> Bool {
-    return language == selectedLanguage
-  }
-  
+    
   //MARK: - BODY
   var body: some View {
     VStack (alignment:.center, spacing: 0) {
@@ -119,8 +112,7 @@ struct SettingsView: View {
         }
       }
       .padding(.horizontal)
-      
-      
+            
       //MARK: - APPEARANCE
       VStack(alignment:.leading, spacing: 10) {
         VStack {
@@ -128,7 +120,7 @@ struct SettingsView: View {
             .padding(.top,20)
           VStack {
             Text("appearance-string")
-              .foregroundColor(selectedColor)
+              .foregroundColor(store.selectedColor)
               .font(.title3)
               .fontWeight(.bold)
               .padding(.top, 10)
@@ -139,44 +131,52 @@ struct SettingsView: View {
               
               //LIGHT mode
               Button(action:{
-                colorScheme = .light
-                store.send(.selectAppearanceMode(.light))
-                initColorSet()
+                store.send(.changeAppearanceMode(.light))
+                store.send(.refreshAppearanceMode)
               }){
                 Text("light-string")
                   .modifier(ButtonSettingsModifier())
                   .background(
                     Capsule().fill(
-                      colorScheme == .light ? selectedColor : Color.clear
+                      store.colorScheme == .light
+                      ? store.selectedColor
+                      : Color.clear
                     )
                   )
                   .overlay(
                     Capsule().stroke(
-                      colorScheme == .light ? Color.clear : selectedColor,
+                      store.colorScheme == .light
+                      ? Color.clear
+                      : store.selectedColor,
                       lineWidth: 2
                     )
                   )
-                  .foregroundColor(colorScheme == .light ? Color.white : selectedColor)
+                  .foregroundColor(store.colorScheme == .light ? Color.white : store.selectedColor)
               }
               
               // DARK mode
               Button(action:{
-                colorScheme = .dark
-                store.send(.selectAppearanceMode(.dark))
-                initColorSet()
+                store.send(.changeAppearanceMode(.dark))
+                store.send(.refreshAppearanceMode)
               }){
                 Text("dark-string")
                   .textCase(.uppercase)
                   .modifier(ButtonSettingsModifier())
                   .background(
                     Capsule().fill(
-                      colorScheme == .light ? Color.clear : selectedColor
+                      store.colorScheme == .light
+                      ? Color.clear
+                      : store.selectedColor
                     )
                   )
                   .overlay(
-                    Capsule().stroke(colorScheme == .light ? selectedColor : Color.clear, lineWidth: 2)
+                    Capsule().stroke(store.colorScheme == .light
+                                     ? store.selectedColor
+                                     : Color.clear, lineWidth: 2)
                   )
-                  .foregroundColor(colorScheme == .light ? selectedColor : Color.black)
+                  .foregroundColor(store.colorScheme == .light
+                                   ? store.selectedColor
+                                   : Color.black)
               }
             }
           }
@@ -184,55 +184,54 @@ struct SettingsView: View {
       }
       .padding(.horizontal)
       
-      
       //MARK: - LANGUAGE SELECTOR
       VStack(alignment:.center, spacing: 10) {
         Divider()
         Text("Language")
-          .foregroundColor(selectedColor)
+          .foregroundColor(store.selectedColor)
           .font(.title3)
           .fontWeight(.bold)
           .padding(.top, 10)
           .padding(.bottom, 20)
         
-        List(K.SettingsView.languageList, id: \.self, selection: $selectedLanguage) { language in
+        List(K.SettingsView.languageList, 
+             id: \.self,
+             selection: $store.selectedLanguage.sending(\.changeLanguage)) { language in
           HStack {
             Text(language)
-              .foregroundColor( isSelectedLanguage(language)
-                                ? backgroundColor
-                                : selectedColor)
+              .foregroundColor( language == store.selectedLanguage
+                                ? store.backgroundColor
+                                : store.selectedColor)
               .fontWeight(.semibold)
               .padding(.leading, 10)
             Spacer()
-            if isSelectedLanguage(language) {
+            if language == store.selectedLanguage {
               Image(systemName: "checkmark")
-                .foregroundColor(backgroundColor)
+                .foregroundColor(store.backgroundColor)
                 .fontWeight(.semibold)
                 .padding(.trailing, 10)
             }
           }
           .listRowBackground(
             Capsule()
-              .fill(isSelectedLanguage(language) ? selectedColor : Color.clear))
+              .fill( language == store.selectedLanguage
+                    ? store.selectedColor
+                    : Color.clear))
         }
         .environment(\.defaultMinListRowHeight, 45)
         .listStyle(PlainListStyle())
         .listRowBackground(Color.blue)
-        .onChange(of: selectedLanguage) {
-          onLanguageSelected(selectedLanguage)
-        }
-        
       }
       .padding(.horizontal)
       .padding(.top, 30)
       
       Spacer()
     }
-    .preferredColorScheme(colorScheme)
-    .environment(\.locale, Locale.init(identifier: localeIdentifier.rawValue))
+    .preferredColorScheme(store.colorScheme)
+    .environment(\.locale, Locale.init(identifier: store.localeIdentifier.rawValue))
     .onAppear {
-      initLanguageSelector()
-      initColorSet()
+      store.send(.refreshAppearanceMode)
+      store.send(.refreshLanguage)
     }
   }
 }
@@ -240,10 +239,7 @@ struct SettingsView: View {
 //MARK: - PREVIEW
 struct SettingsView_Previews: PreviewProvider {
   static var previews: some View {
-    @State var colorScheme: ColorScheme = .dark
-    
-    SettingsView(store: Store(initialState: SettingsFeature.State()) { SettingsFeature() },
-                 colorScheme: $colorScheme)
+    SettingsView(store: Store(initialState: SettingsFeature.State()) { SettingsFeature() })
   }
 }
 

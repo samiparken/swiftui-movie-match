@@ -25,7 +25,7 @@
 		31B677482BFCC8FE005223DC /* FavoriteHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B677472BFCC8FE005223DC /* FavoriteHeaderView.swift */; };
 		31B6774C2BFCE13A005223DC /* MovieManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B6774B2BFCE13A005223DC /* MovieManagerTests.swift */; };
 		31B677502BFCFCC4005223DC /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B6774F2BFCFCC4005223DC /* SettingsView.swift */; };
-		31B677542BFD0AB2005223DC /* AppearanceMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B677532BFD0AB2005223DC /* AppearanceMode.swift */; };
+		31B677542BFD0AB2005223DC /* AppearanceMode+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B677532BFD0AB2005223DC /* AppearanceMode+Ext.swift */; };
 		31BC1EE42C09C06D00E828F5 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 31BC1EE32C09C06D00E828F5 /* ComposableArchitecture */; };
 		31D2E2872BFF58FC00C0AD63 /* Double+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D2E2862BFF58FC00C0AD63 /* Double+Ext.swift */; };
 		31D2E2932BFF780400C0AD63 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31D2E2922BFF780300C0AD63 /* WidgetKit.framework */; };
@@ -121,7 +121,7 @@
 		31B677472BFCC8FE005223DC /* FavoriteHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteHeaderView.swift; sourceTree = "<group>"; };
 		31B6774B2BFCE13A005223DC /* MovieManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieManagerTests.swift; sourceTree = "<group>"; };
 		31B6774F2BFCFCC4005223DC /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		31B677532BFD0AB2005223DC /* AppearanceMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceMode.swift; sourceTree = "<group>"; };
+		31B677532BFD0AB2005223DC /* AppearanceMode+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppearanceMode+Ext.swift"; sourceTree = "<group>"; };
 		31D2E2862BFF58FC00C0AD63 /* Double+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Ext.swift"; sourceTree = "<group>"; };
 		31D2E2902BFF780300C0AD63 /* WidgetsExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WidgetsExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		31D2E2922BFF780300C0AD63 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -270,7 +270,7 @@
 			children = (
 				3181D1F82BFB2D9600C40722 /* DragState.swift */,
 				31F7C8C72BFF1F6400963FF5 /* LocaleIdentifier.swift */,
-				31B677532BFD0AB2005223DC /* AppearanceMode.swift */,
+				31B677532BFD0AB2005223DC /* AppearanceMode+Ext.swift */,
 				31F7C8C92BFF26AF00963FF5 /* Language.swift */,
 			);
 			path = Enums;
@@ -600,7 +600,7 @@
 				31FD8F9E2BFA694D00F03252 /* MainView.swift in Sources */,
 				31B677462BFC9BA5005223DC /* DetailCardView.swift in Sources */,
 				31F7C8C82BFF1F6400963FF5 /* LocaleIdentifier.swift in Sources */,
-				31B677542BFD0AB2005223DC /* AppearanceMode.swift in Sources */,
+				31B677542BFD0AB2005223DC /* AppearanceMode+Ext.swift in Sources */,
 				31D2E2872BFF58FC00C0AD63 /* Double+Ext.swift in Sources */,
 				3181D1F92BFB2D9600C40722 /* DragState.swift in Sources */,
 				3181D1F72BFB2D4E00C40722 /* AnyTransition+Ext.swift in Sources */,
