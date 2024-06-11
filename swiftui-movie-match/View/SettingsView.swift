@@ -19,13 +19,9 @@ struct SettingsFeature {
 
   //MARK: - Action
   enum Action {
-    // Init
-    case initColorScheme
-    case initLanguage
-
-    case closeSettingsView
-    case selectAppearanceMode(AppearanceMode)
+    case changeAppearanceMode(AppearanceMode)
     case changeLanguage(String?)
+    case closeSettingsView
   }
   @Dependency(\.dismiss) var dismiss //dismiss effect for child
   
@@ -33,32 +29,20 @@ struct SettingsFeature {
   var body: some ReducerOf<Self> {
     Reduce { state, action in
       switch action {
-        
-      case .initColorScheme:
+                                
+      case let .changeAppearanceMode(selectedMode):
+        state.appearanceMode = selectedMode
         switch state.appearanceMode {
-        case .system:
-          state.colorScheme = .light //+TODO: get system colorScheme
         case .light:
           state.colorScheme = .light
-        case .dark:
-          state.colorScheme = .dark
-        }
-        return .none
-        
-      case .initLanguage:
-        state.selectedLanguage = state.localeIdentifier.toLanguageString()
-        return .none
-                
-      case let .selectAppearanceMode(selectedMode):
-        state.appearanceMode = selectedMode
-        switch selectedMode {
-        case .light:
           state.selectedColor = .primaryColor
           state.backgroundColor = Color.white
         case .dark:
+          state.colorScheme = .dark
           state.selectedColor = .tertiaryColor
           state.backgroundColor = Color.black
         default:
+          state.colorScheme = .light
           state.selectedColor = .primaryColor
           state.backgroundColor = Color.white
         }
@@ -70,7 +54,7 @@ struct SettingsFeature {
           state.selectedLanguage = language
         }
         return .none
-        
+                
       case .closeSettingsView:
         return .run { _ in await self.dismiss() } //dismiss
         
@@ -85,15 +69,7 @@ struct SettingsView: View {
   
   //MARK: - PROPERTIES
   @Environment(\.presentationMode) var presentationMode
-  
-  //MARK: - METHOD
-  func initColorSet() {
-      }
-  
-  func isSelectedLanguage(_ language: String?) -> Bool {
-    return language == store.selectedLanguage
-  }
-  
+    
   //MARK: - BODY
   var body: some View {
     VStack (alignment:.center, spacing: 0) {
@@ -132,20 +108,22 @@ struct SettingsView: View {
               
               //LIGHT mode
               Button(action:{
-                store.send(.selectAppearanceMode(.light))
-                store.send(.initColorScheme)
-                initColorSet()
+                store.send(.changeAppearanceMode(.light))
               }){
                 Text("light-string")
                   .modifier(ButtonSettingsModifier())
                   .background(
                     Capsule().fill(
-                      store.colorScheme == .light ? store.selectedColor : Color.clear
+                      store.colorScheme == .light
+                      ? store.selectedColor
+                      : Color.clear
                     )
                   )
                   .overlay(
                     Capsule().stroke(
-                      store.colorScheme == .light ? Color.clear : store.selectedColor,
+                      store.colorScheme == .light
+                      ? Color.clear
+                      : store.selectedColor,
                       lineWidth: 2
                     )
                   )
@@ -154,22 +132,26 @@ struct SettingsView: View {
               
               // DARK mode
               Button(action:{
-                store.send(.selectAppearanceMode(.dark))
-                store.send(.initColorScheme)
-                initColorSet()
+                store.send(.changeAppearanceMode(.dark))
               }){
                 Text("dark-string")
                   .textCase(.uppercase)
                   .modifier(ButtonSettingsModifier())
                   .background(
                     Capsule().fill(
-                      store.colorScheme == .light ? Color.clear : store.selectedColor
+                      store.colorScheme == .light
+                      ? Color.clear
+                      : store.selectedColor
                     )
                   )
                   .overlay(
-                    Capsule().stroke(store.colorScheme == .light ? store.selectedColor : Color.clear, lineWidth: 2)
+                    Capsule().stroke(store.colorScheme == .light
+                                     ? store.selectedColor
+                                     : Color.clear, lineWidth: 2)
                   )
-                  .foregroundColor(store.colorScheme == .light ? store.selectedColor : Color.black)
+                  .foregroundColor(store.colorScheme == .light
+                                   ? store.selectedColor
+                                   : Color.black)
               }
             }
           }
@@ -192,13 +174,13 @@ struct SettingsView: View {
              selection: $store.selectedLanguage.sending(\.changeLanguage)) { language in
           HStack {
             Text(language)
-              .foregroundColor( isSelectedLanguage(language)
+              .foregroundColor( language == store.selectedLanguage
                                 ? store.backgroundColor
                                 : store.selectedColor)
               .fontWeight(.semibold)
               .padding(.leading, 10)
             Spacer()
-            if isSelectedLanguage(language) {
+            if language == store.selectedLanguage {
               Image(systemName: "checkmark")
                 .foregroundColor(store.backgroundColor)
                 .fontWeight(.semibold)
@@ -207,7 +189,9 @@ struct SettingsView: View {
           }
           .listRowBackground(
             Capsule()
-              .fill(isSelectedLanguage(language) ? store.selectedColor : Color.clear))
+              .fill( language == store.selectedLanguage
+                    ? store.selectedColor
+                    : Color.clear))
         }
         .environment(\.defaultMinListRowHeight, 45)
         .listStyle(PlainListStyle())
@@ -221,8 +205,8 @@ struct SettingsView: View {
     .preferredColorScheme(store.colorScheme)
     .environment(\.locale, Locale.init(identifier: store.localeIdentifier.rawValue))
     .onAppear {
-      store.send(.initLanguage)
-      initColorSet()
+      store.send(.changeLanguage(store.localeIdentifier.toLanguageString()))
+      store.send(.changeAppearanceMode(store.appearanceMode))
     }
   }
 }
@@ -230,8 +214,6 @@ struct SettingsView: View {
 //MARK: - PREVIEW
 struct SettingsView_Previews: PreviewProvider {
   static var previews: some View {
-    @State var colorScheme: ColorScheme = .dark
-    
     SettingsView(store: Store(initialState: SettingsFeature.State()) { SettingsFeature() })
   }
 }
