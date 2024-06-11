@@ -35,8 +35,7 @@ struct MainFeature {
         return .none
         
       case .passMovie:
-        return .none
-        
+        return .none        
         
         //test
       case .numberFactButtonTapped:

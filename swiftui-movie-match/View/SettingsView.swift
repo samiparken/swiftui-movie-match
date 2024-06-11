@@ -7,12 +7,21 @@ struct SettingsFeature {
   //MARK: - State
   @ObservableState
   struct State: Equatable {
-
+    var appearanceMode: AppearanceMode {
+      get {
+        AppearanceMode(rawValue: UserDefaults.standard.string(forKey: K.AppStorageKey.appearanceMode) ?? AppearanceMode.system.rawValue) ?? .system
+      }
+      set {
+        UserDefaults.standard.set(newValue.rawValue, forKey: K.AppStorageKey.appearanceMode)
+      }
+    }
+    
   }
 
   //MARK: - Action
   enum Action {
     case closeSettingsView
+    case selectAppearanceMode(AppearanceMode)
   }
   
   @Dependency(\.dismiss) var dismiss //dismiss effect for child
@@ -23,6 +32,11 @@ struct SettingsFeature {
       switch action {
       case .closeSettingsView:
         return .run { _ in await self.dismiss() } //dismiss
+        
+      case let .selectAppearanceMode(selectedMode):
+        state.appearanceMode = selectedMode
+        return .none
+        
       }
     }
   }
@@ -35,7 +49,6 @@ struct SettingsView: View {
   
   //MARK: - AppStorage
   @AppStorage(K.AppStorageKey.localeIdentifier) private var localeIdentifier: LocaleIdentifier = .English
-  @AppStorage(K.AppStorageKey.appearanceMode) private var appearanceMode: AppearanceMode = .system
   
   //MARK: - PROPERTIES
   @Environment(\.presentationMode) var presentationMode
@@ -46,7 +59,7 @@ struct SettingsView: View {
   
   //MARK: - METHOD
   func initColorSet() {
-    switch colorScheme {
+    switch store.appearanceMode {
     case .light:
       selectedColor = .primaryColor
       backgroundColor = Color.white
@@ -127,7 +140,7 @@ struct SettingsView: View {
               //LIGHT mode
               Button(action:{
                 colorScheme = .light
-                appearanceMode = .light
+                store.send(.selectAppearanceMode(.light))
                 initColorSet()
               }){
                 Text("light-string")
@@ -149,7 +162,7 @@ struct SettingsView: View {
               // DARK mode
               Button(action:{
                 colorScheme = .dark
-                appearanceMode = .dark
+                store.send(.selectAppearanceMode(.dark))
                 initColorSet()
               }){
                 Text("dark-string")
