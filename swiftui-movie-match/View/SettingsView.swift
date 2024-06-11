@@ -40,6 +40,7 @@ struct SettingsFeature {
   var body: some ReducerOf<Self> {
     Reduce { state, action in
       switch action {
+        
       case .closeSettingsView:
         return .run { _ in await self.dismiss() } //dismiss
         
@@ -48,15 +49,8 @@ struct SettingsFeature {
         return .none
       
       case let .changeLanguage(selectedLanguage):
-        switch selectedLanguage {
-        case "English":
-          state.localeIdentifier = .English
-        case "Svenska":
-          state.localeIdentifier = .Swedish
-        case "한국어":
-          state.localeIdentifier = .Korean
-        default:
-          state.localeIdentifier = .English
+        if let language = selectedLanguage {
+          state.localeIdentifier = language.toLocaleIdentifier()
         }
         return .none
         
@@ -68,9 +62,6 @@ struct SettingsFeature {
 struct SettingsView: View {
   //MARK: - Store
   @Bindable var store: StoreOf<SettingsFeature>
-  
-  //MARK: - AppStorage
-  @AppStorage(K.AppStorageKey.localeIdentifier) private var localeIdentifier: LocaleIdentifier = .English
   
   //MARK: - PROPERTIES
   @Environment(\.presentationMode) var presentationMode
@@ -95,7 +86,7 @@ struct SettingsView: View {
   }
   
   func initLanguageSelector() {
-    switch localeIdentifier {
+    switch store.localeIdentifier {
     case .English:
       selectedLanguage = "English"
     case .Swedish:
@@ -239,7 +230,7 @@ struct SettingsView: View {
       Spacer()
     }
     .preferredColorScheme(colorScheme)
-    .environment(\.locale, Locale.init(identifier: localeIdentifier.rawValue))
+    .environment(\.locale, Locale.init(identifier: store.localeIdentifier.rawValue))
     .onAppear {
       initLanguageSelector()
       initColorSet()
