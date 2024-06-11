@@ -9,10 +9,19 @@ struct SettingsFeature {
   struct State: Equatable {
     var appearanceMode: AppearanceMode {
       get {
-        AppearanceMode(rawValue: UserDefaults.standard.string(forKey: K.AppStorageKey.appearanceMode) ?? AppearanceMode.system.rawValue) ?? .system
+        AppearanceMode(rawValue: UserDefaults.standard.string(forKey: K.AppStorageKey.appearanceMode) ?? AppearanceMode.light.rawValue) ?? .light
       }
       set {
         UserDefaults.standard.set(newValue.rawValue, forKey: K.AppStorageKey.appearanceMode)
+      }
+    }
+    
+    var localeIdentifier: LocaleIdentifier {
+      get {
+        LocaleIdentifier(rawValue: UserDefaults.standard.string(forKey: K.AppStorageKey.localeIdentifier) ?? LocaleIdentifier.English.rawValue) ?? .English
+      }
+      set {
+        UserDefaults.standard.set(newValue.rawValue, forKey: K.AppStorageKey.localeIdentifier)
       }
     }
     
@@ -22,6 +31,7 @@ struct SettingsFeature {
   enum Action {
     case closeSettingsView
     case selectAppearanceMode(AppearanceMode)
+    case changeLanguage(String?)
   }
   
   @Dependency(\.dismiss) var dismiss //dismiss effect for child
@@ -36,12 +46,24 @@ struct SettingsFeature {
       case let .selectAppearanceMode(selectedMode):
         state.appearanceMode = selectedMode
         return .none
+      
+      case let .changeLanguage(selectedLanguage):
+        switch selectedLanguage {
+        case "English":
+          state.localeIdentifier = .English
+        case "Svenska":
+          state.localeIdentifier = .Swedish
+        case "한국어":
+          state.localeIdentifier = .Korean
+        default:
+          state.localeIdentifier = .English
+        }
+        return .none
         
       }
     }
   }
 }
-
 
 struct SettingsView: View {
   //MARK: - Store
@@ -83,18 +105,6 @@ struct SettingsView: View {
     }
   }
   
-  func onLanguageSelected(_ language: String?) {
-    switch language {
-    case "English":
-      localeIdentifier = .English
-    case "Svenska":
-      localeIdentifier = .Swedish
-    case "한국어":
-      localeIdentifier = .Korean
-    default:
-      localeIdentifier = .English
-    }
-  }
   
   func isSelectedLanguage(_ language: String?) -> Bool {
     return language == selectedLanguage
@@ -219,7 +229,7 @@ struct SettingsView: View {
         .listStyle(PlainListStyle())
         .listRowBackground(Color.blue)
         .onChange(of: selectedLanguage) {
-          onLanguageSelected(selectedLanguage)
+          store.send(.changeLanguage(selectedLanguage))
         }
         
       }
