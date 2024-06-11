@@ -9,7 +9,12 @@ struct K {
   }
   
   struct SettingsView {
-    static let languageList = ["English", "Svenska", "한국어"]
+    static let languageList = [Language.english, Language.swedish, Language.korean]
+    struct Language {
+      static let english = "English"
+      static let swedish = "Svenska"
+      static let korean = "한국어"
+    }
   }
     
   struct API {

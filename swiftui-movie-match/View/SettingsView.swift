@@ -19,6 +19,9 @@ struct SettingsFeature {
 
   //MARK: - Action
   enum Action {
+    case refreshAppearanceMode
+    case refreshLanguage
+    
     case changeAppearanceMode(AppearanceMode)
     case changeLanguage(String?)
     case closeSettingsView
@@ -29,9 +32,7 @@ struct SettingsFeature {
   var body: some ReducerOf<Self> {
     Reduce { state, action in
       switch action {
-                                
-      case let .changeAppearanceMode(selectedMode):
-        state.appearanceMode = selectedMode
+      case .refreshAppearanceMode:
         switch state.appearanceMode {
         case .light:
           state.colorScheme = .light
@@ -47,12 +48,34 @@ struct SettingsFeature {
           state.backgroundColor = Color.white
         }
         return .none
+        
+      case .refreshLanguage:
+        switch state.localeIdentifier {
+        case .English:
+          state.selectedLanguage = K.SettingsView.Language.english
+        case .Swedish:
+          state.selectedLanguage = K.SettingsView.Language.swedish
+        case .Korean:
+          state.selectedLanguage = K.SettingsView.Language.korean
+        }
+        return .none
+        
+      case let .changeAppearanceMode(selectedMode):
+        state.appearanceMode = selectedMode
+        return .none
       
       case let .changeLanguage(selectedLanguage):
-        if let language = selectedLanguage {
-          state.localeIdentifier = language.toLocaleIdentifier()
-          state.selectedLanguage = language
-        }
+        state.selectedLanguage = selectedLanguage
+//        switch selectedLanguage {
+//        case K.SettingsView.Language.english:
+//          state.localeIdentifier = .English
+//        case K.SettingsView.Language.swedish:
+//          state.localeIdentifier = .Swedish
+//        case K.SettingsView.Language.korean:
+//          state.localeIdentifier = .Korean
+//        default:
+//          state.localeIdentifier = .English
+//        }
         return .none
                 
       case .closeSettingsView:
@@ -109,6 +132,7 @@ struct SettingsView: View {
               //LIGHT mode
               Button(action:{
                 store.send(.changeAppearanceMode(.light))
+                store.send(.refreshAppearanceMode)
               }){
                 Text("light-string")
                   .modifier(ButtonSettingsModifier())
@@ -133,6 +157,7 @@ struct SettingsView: View {
               // DARK mode
               Button(action:{
                 store.send(.changeAppearanceMode(.dark))
+                store.send(.refreshAppearanceMode)
               }){
                 Text("dark-string")
                   .textCase(.uppercase)
@@ -205,8 +230,8 @@ struct SettingsView: View {
     .preferredColorScheme(store.colorScheme)
     .environment(\.locale, Locale.init(identifier: store.localeIdentifier.rawValue))
     .onAppear {
-      store.send(.changeLanguage(store.localeIdentifier.toLanguageString()))
-      store.send(.changeAppearanceMode(store.appearanceMode))
+      store.send(.refreshAppearanceMode)
+      store.send(.refreshLanguage)
     }
   }
 }
