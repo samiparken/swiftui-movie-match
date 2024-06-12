@@ -11,7 +11,18 @@ struct SettingsFeature {
     @Shared(.appStorage(K.AppStorageKey.appearanceMode)) var appearanceMode : AppearanceMode = .system
     @Shared(.appStorage(K.AppStorageKey.localeIdentifier)) var localeIdentifier: LocaleIdentifier = .English
     
-    var colorScheme: ColorScheme = .light
+    var colorScheme: ColorScheme {
+      get {
+        switch appearanceMode {
+        case .light:
+          return .light
+        case .dark:
+          return .dark
+        default:
+          return .light
+        }
+      }
+    }
     var selectedLanguage: String?
     var selectedColor: Color = .primaryColor
     var backgroundColor: Color = Color.white
@@ -35,15 +46,15 @@ struct SettingsFeature {
       case .refreshAppearanceMode:
         switch state.appearanceMode {
         case .light:
-          state.colorScheme = .light
+          //state.colorScheme = .light
           state.selectedColor = .primaryColor
           state.backgroundColor = Color.white
         case .dark:
-          state.colorScheme = .dark
+          //state.colorScheme = .dark
           state.selectedColor = .tertiaryColor
           state.backgroundColor = Color.black
         default:
-          state.colorScheme = .light
+          //state.colorScheme = .light
           state.selectedColor = .primaryColor
           state.backgroundColor = Color.white
         }

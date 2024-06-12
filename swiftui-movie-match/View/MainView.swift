@@ -14,7 +14,19 @@ struct MainFeature {
     @Shared(.appStorage(K.AppStorageKey.appearanceMode)) var appearanceMode : AppearanceMode = .system
     @Shared(.appStorage(K.AppStorageKey.localeIdentifier)) var localeIdentifier: LocaleIdentifier = .English
 
-    var colorScheme: ColorScheme = .light
+    var colorScheme: ColorScheme {
+      get {
+        switch appearanceMode {
+        case .light:
+          return .light
+        case .dark:
+          return .dark
+        default:
+          return .light
+        }
+      }
+    }
+
     var numOfFavoriteMovies = 0
     
     //test
@@ -24,9 +36,6 @@ struct MainFeature {
   
   //MARK: - Action
   enum Action {
-    // Init
-    case initColorScheme
-    
     case saveMovieToFavorite
     case passMovie
     
@@ -39,17 +48,6 @@ struct MainFeature {
   var body: some Reducer<State, Action> {
     Reduce { state, action in
       switch action {
-        
-      case .initColorScheme:
-        switch state.appearanceMode {
-        case .system:
-          state.colorScheme = .light //+TODO: get system colorScheme
-        case .light:
-          state.colorScheme = .light
-        case .dark:
-          state.colorScheme = .dark
-        }
-        return .none
         
       case .saveMovieToFavorite:
         state.numOfFavoriteMovies += 1
@@ -85,7 +83,6 @@ struct MainView: View {
   
   //MARK: - PROPERTIES
   private var movieManager = MovieManager()
-  @State private var colorScheme: ColorScheme = .light
   
   @GestureState private var dragState = DragState.inactive
   @State private var lastCardIndex: Int = 1
@@ -107,9 +104,7 @@ struct MainView: View {
       //MARK: - HEADER VIEW
       MainHeaderView(store: Store(initialState: MainHeaderFeature.State()){
         MainHeaderFeature()
-      },
-        movieManager: movieManager,
-        colorScheme: $colorScheme)
+      },movieManager: movieManager)
       .opacity(dragState.isDragging ? 0.0 : 1.0)
       .animation(.default, value: dragState.isDragging)
       
@@ -228,8 +223,6 @@ struct MainView: View {
       movieManager.context = context
       movieManager.fetchFavoriteMovies()
       movieManager.getPopularMovieList(languageCode: store.localeIdentifier.rawValue)
-      // apply appearanceMode
-      store.send(.initColorScheme)
     }
   }
 }
