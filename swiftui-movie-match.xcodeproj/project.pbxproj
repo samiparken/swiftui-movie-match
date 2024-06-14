@@ -42,6 +42,7 @@
 		31D2E2B02BFFA33A00C0AD63 /* MainFooterViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D2E2AF2BFFA33A00C0AD63 /* MainFooterViewUITests.swift */; };
 		31D2E2B22BFFAA2C00C0AD63 /* MainViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D2E2B12BFFAA2C00C0AD63 /* MainViewUITests.swift */; };
 		31D718432BFBEDCB00C00DC7 /* MovieDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D718422BFBEDCB00C00DC7 /* MovieDetail.swift */; };
+		31E0BE212C1CC7C400D26363 /* FavoriteMovie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E8E3C22BFB7BE400841B95 /* FavoriteMovie.swift */; };
 		31E8E3C32BFB7BE500841B95 /* FavoriteMovie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E8E3C22BFB7BE400841B95 /* FavoriteMovie.swift */; };
 		31F7C8C62BFF1B0700963FF5 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 31F7C8C52BFF1B0600963FF5 /* Localizable.xcstrings */; };
 		31F7C8C82BFF1F6400963FF5 /* LocaleIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F7C8C72BFF1F6400963FF5 /* LocaleIdentifier.swift */; };
@@ -590,6 +591,7 @@
 			files = (
 				31D2E29A2BFF780400C0AD63 /* WidgetsLiveActivity.swift in Sources */,
 				31D2E29E2BFF780400C0AD63 /* AppIntent.swift in Sources */,
+				31E0BE212C1CC7C400D26363 /* FavoriteMovie.swift in Sources */,
 				31D2E29C2BFF780400C0AD63 /* Widgets.swift in Sources */,
 				31D2E2982BFF780400C0AD63 /* WidgetsBundle.swift in Sources */,
 			);

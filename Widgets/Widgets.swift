@@ -1,18 +1,37 @@
 import WidgetKit
 import SwiftUI
+import SwiftData
 
 struct Provider: AppIntentTimelineProvider {
+  // MARK: - SwiftData
+  // +TODO: remove if not needed
+  //@Environment(\.modelContext) private var context
+
+  //MARK: - METHOD
+  @MainActor //main thread
+  private func getLatestFavoriteMovie() -> FavoriteMovie? {
+    guard let modelContainer = try? ModelContainer(for: FavoriteMovie.self) else { return nil }
+    let fetchDescriptor = FetchDescriptor<FavoriteMovie>()
+    let latestFavoriteMovie = try? modelContainer.mainContext.fetch(fetchDescriptor).last
+    return latestFavoriteMovie ?? nil
+  }
+  
   //MARK: - PLACEHOLDER
   // when data is not available
   // first added to the home screen or during widget reloading.
+  @MainActor 
   func placeholder(in context: Context) -> SimpleEntry {
-    SimpleEntry(date: Date(), configuration: ConfigurationAppIntent())
+    SimpleEntry(date: Date(),
+                configuration: ConfigurationAppIntent(),
+          favoriteMovie: getLatestFavoriteMovie())
   }
   
   //MARK: - SNAPSHOT
   // quick preview when browsing widget to add to the home screen
   func snapshot(for configuration: ConfigurationAppIntent, in context: Context) async -> SimpleEntry {
-    SimpleEntry(date: Date(), configuration: configuration)
+    await SimpleEntry(date: Date(),
+                configuration: configuration,
+                favoriteMovie: getLatestFavoriteMovie())
   }
   
   //MARK: - TIMELINE
@@ -24,7 +43,10 @@ struct Provider: AppIntentTimelineProvider {
     let currentDate = Date()
     for hourOffset in 0 ..< 5 {
       let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-      let entry = SimpleEntry(date: entryDate, configuration: configuration)
+      let entry = await SimpleEntry(
+        date: entryDate,
+        configuration: configuration,
+        favoriteMovie: getLatestFavoriteMovie())
       entries.append(entry)
     }
     
@@ -37,6 +59,7 @@ struct Provider: AppIntentTimelineProvider {
 struct SimpleEntry: TimelineEntry {
   let date: Date
   let configuration: ConfigurationAppIntent
+  let favoriteMovie: FavoriteMovie?
 }
 
 
@@ -46,10 +69,8 @@ struct WidgetsEntryView : View {
   
   var body: some View {
     VStack {
-      Text("Time:")
-      Text(entry.date, style: .time)
-      Text("Favorite Emoji:")
-      Text(entry.configuration.favoriteEmoji)
+      Text(entry.favoriteMovie?.title ?? "Movie Title")
+      Text(entry.configuration.favoriteSymbol)
     }
   }
 }
@@ -69,15 +90,9 @@ struct Widgets: Widget {
 }
 
 extension ConfigurationAppIntent {
-  fileprivate static var smiley: ConfigurationAppIntent {
+  fileprivate static var withHeart: ConfigurationAppIntent {
     let intent = ConfigurationAppIntent()
-    intent.favoriteEmoji = "😀"
-    return intent
-  }
-  
-  fileprivate static var starEyes: ConfigurationAppIntent {
-    let intent = ConfigurationAppIntent()
-    intent.favoriteEmoji = "🤩"
+    intent.favoriteSymbol = "❤️"
     return intent
   }
 }
@@ -86,20 +101,21 @@ extension ConfigurationAppIntent {
 #Preview(as: .systemSmall) {
   Widgets()
 } timeline: {
-  SimpleEntry(date: .now, configuration: .smiley)
-  SimpleEntry(date: .now, configuration: .starEyes)
+  SimpleEntry(date: .now,
+              configuration: .withHeart, 
+              favoriteMovie: nil)
 }
 
-#Preview(as: .systemMedium) {
-  Widgets()
-} timeline: {
-  SimpleEntry(date: .now, configuration: .smiley)
-  SimpleEntry(date: .now, configuration: .starEyes)
-}
-
-#Preview(as: .systemLarge) {
-  Widgets()
-} timeline: {
-  SimpleEntry(date: .now, configuration: .smiley)
-  SimpleEntry(date: .now, configuration: .starEyes)
-}
+//#Preview(as: .systemMedium) {
+//  Widgets()
+//} timeline: {
+//  SimpleEntry(date: .now, configuration: .smiley)
+//  SimpleEntry(date: .now, configuration: .starEyes)
+//}
+//
+//#Preview(as: .systemLarge) {
+//  Widgets()
+//} timeline: {
+//  SimpleEntry(date: .now, configuration: .smiley)
+//  SimpleEntry(date: .now, configuration: .starEyes)
+//}
