@@ -20,7 +20,6 @@ struct FavoriteView: View {
       HeaderSwipeBar()
       FavoriteHeaderView(numOfFavorites: favoriteMovies.count)
 
-
       ScrollView {
         LazyVGrid(columns: vstackColumnSet, spacing: 15) {
           ForEach(favoriteMovies) { movie in

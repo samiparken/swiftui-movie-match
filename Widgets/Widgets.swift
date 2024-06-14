@@ -38,19 +38,12 @@ struct Provider: AppIntentTimelineProvider {
   // a sequence of entries that defines the data for widget over time
   func timeline(for configuration: ConfigurationAppIntent, in context: Context) async -> Timeline<SimpleEntry> {
     var entries: [SimpleEntry] = []
+    let entry = await SimpleEntry(date: Date(),
+                            configuration: configuration,
+                            favoriteMovie: getLatestFavoriteMovie())
+    entries.append(entry)
     
-    // Generate a timeline consisting of five entries an hour apart, starting from the current date.
-    let currentDate = Date()
-    for hourOffset in 0 ..< 5 {
-      let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-      let entry = await SimpleEntry(
-        date: entryDate,
-        configuration: configuration,
-        favoriteMovie: getLatestFavoriteMovie())
-      entries.append(entry)
-    }
-    
-    return Timeline(entries: entries, policy: .atEnd)
+    return Timeline(entries: entries, policy: .after(.now.advanced(by: 60*5)))
   }
 }
 
@@ -65,15 +58,46 @@ struct SimpleEntry: TimelineEntry {
 
 //MARK: - VIEW
 struct WidgetsEntryView : View {
+  @Environment(\.widgetFamily) var widgetSize
   var entry: Provider.Entry
   
   var body: some View {
-    VStack {
-      Text(entry.favoriteMovie?.title ?? "Movie Title")
-      Text(entry.configuration.favoriteSymbol)
+    switch widgetSize {
+      
+      //+TODO: create a widget view for each size
+      
+    case .systemSmall:
+      VStack (spacing: 5) {
+        Text("Small")
+        Text(entry.configuration.favoriteSymbol)
+        Text(entry.favoriteMovie?.title ?? "Movie Title")
+      }
+
+    case .systemMedium:
+      VStack (spacing: 5) {
+        Text("Medium")
+        Text(entry.configuration.favoriteSymbol)
+        Text(entry.favoriteMovie?.title ?? "Movie Title")
+      }
+
+    case .systemLarge:
+      VStack (spacing: 5) {
+        Text("Large")
+        Text(entry.configuration.favoriteSymbol)
+        Text(entry.favoriteMovie?.title ?? "Movie Title")
+      }
+
+    default:
+      VStack {
+        Text(entry.configuration.favoriteSymbol)
+        Text(entry.favoriteMovie?.title ?? "Movie Title")
+      }
+
     }
   }
 }
+
+
 
 //MARK: - WIDGET
 struct Widgets: Widget {
@@ -82,7 +106,7 @@ struct Widgets: Widget {
   var body: some WidgetConfiguration {
     AppIntentConfiguration(kind: kind, intent: ConfigurationAppIntent.self, provider: Provider()) { entry in
       WidgetsEntryView(entry: entry)
-        .containerBackground(.fill.tertiary, for: .widget)
+        .containerBackground(.background, for: .widget)
     }
     .configurationDisplayName("Movie Match Widget")
     .description("Movie Match Widget")
@@ -98,24 +122,10 @@ extension ConfigurationAppIntent {
 }
 
 //MARK: - PREVIEW
-#Preview(as: .systemSmall) {
+#Preview(as: .systemLarge) {
   Widgets()
 } timeline: {
   SimpleEntry(date: .now,
               configuration: .withHeart, 
               favoriteMovie: nil)
 }
-
-//#Preview(as: .systemMedium) {
-//  Widgets()
-//} timeline: {
-//  SimpleEntry(date: .now, configuration: .smiley)
-//  SimpleEntry(date: .now, configuration: .starEyes)
-//}
-//
-//#Preview(as: .systemLarge) {
-//  Widgets()
-//} timeline: {
-//  SimpleEntry(date: .now, configuration: .smiley)
-//  SimpleEntry(date: .now, configuration: .starEyes)
-//}
