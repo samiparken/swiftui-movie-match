@@ -10,6 +10,22 @@ struct MainHeaderFeature {
   @ObservableState
   struct State: Equatable {
     @Presents var settingsView: SettingsFeature.State?
+
+    @Shared(.appStorage(K.AppStorageKey.appearanceMode)) var appearanceMode : AppearanceMode = .system
+    
+    var colorScheme: ColorScheme {
+      get {
+        switch appearanceMode {
+        case .light:
+          return .light
+        case .dark:
+          return .dark
+        default:
+          return .light
+        }
+      }
+    }
+    
   }
 
   //MARK: - ACTION
@@ -46,7 +62,6 @@ struct MainHeaderView: View {
   
   //MARK: - PROPERTIES
   var movieManager: MovieManager
-  @Binding var colorScheme: ColorScheme
   @State var showSettingView: Bool = false
   let haptics = UINotificationFeedbackGenerator()
   
@@ -63,7 +78,7 @@ struct MainHeaderView: View {
           Image(systemName: "arrow.clockwise")
             .font(.system(size: 24, weight: .regular))
         }
-        .accentColor(Color(UIColor(colorScheme.getPrimaryColor())))
+        .accentColor(Color(UIColor(store.colorScheme.getPrimaryColor())))
         
         Spacer()
         
@@ -83,7 +98,7 @@ struct MainHeaderView: View {
           Image(systemName: "gearshape")
             .font(.system(size: 24, weight: .regular))
         }
-        .accentColor(Color(UIColor(colorScheme.getPrimaryColor())))
+        .accentColor(Color(UIColor(store.colorScheme.getPrimaryColor())))
         
       }
       .padding()
@@ -106,8 +121,7 @@ struct HeaderView_Previews: PreviewProvider {
       store: Store(initialState: MainHeaderFeature.State()) {
         MainHeaderFeature()
           ._printChanges()
-      }, movieManager: movieManager,
-      colorScheme: $colorScheme)
+      }, movieManager: movieManager)
     .previewLayout(.fixed(width: 375, height: 80))
   }
 }

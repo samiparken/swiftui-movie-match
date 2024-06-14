@@ -1,84 +1,121 @@
-//
-//  Widgets.swift
-//  Widgets
-//
-//  Created by Han-Saem Park on 2024-05-23.
-//
-
 import WidgetKit
 import SwiftUI
+import SwiftData
 
 struct Provider: AppIntentTimelineProvider {
-    func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), configuration: ConfigurationAppIntent())
-    }
+  // MARK: - SwiftData
+  // +TODO: remove if not needed
+  //@Environment(\.modelContext) private var context
 
-    func snapshot(for configuration: ConfigurationAppIntent, in context: Context) async -> SimpleEntry {
-        SimpleEntry(date: Date(), configuration: configuration)
+  //MARK: - METHOD
+  @MainActor //main thread
+  private func getLatestFavoriteMovie() -> FavoriteMovie? {
+    guard let modelContainer = try? ModelContainer(for: FavoriteMovie.self) else { return nil }
+    let fetchDescriptor = FetchDescriptor<FavoriteMovie>()
+    let latestFavoriteMovie = try? modelContainer.mainContext.fetch(fetchDescriptor).last
+    return latestFavoriteMovie ?? nil
+  }
+  
+  //MARK: - PLACEHOLDER
+  // when data is not available
+  // first added to the home screen or during widget reloading.
+  @MainActor 
+  func placeholder(in context: Context) -> SimpleEntry {
+    SimpleEntry(date: Date(),
+                configuration: ConfigurationAppIntent(),
+          favoriteMovie: getLatestFavoriteMovie())
+  }
+  
+  //MARK: - SNAPSHOT
+  // quick preview when browsing widget to add to the home screen
+  func snapshot(for configuration: ConfigurationAppIntent, in context: Context) async -> SimpleEntry {
+    await SimpleEntry(date: Date(),
+                configuration: configuration,
+                favoriteMovie: getLatestFavoriteMovie())
+  }
+  
+  //MARK: - TIMELINE
+  // a sequence of entries that defines the data for widget over time
+  func timeline(for configuration: ConfigurationAppIntent, in context: Context) async -> Timeline<SimpleEntry> {
+    var entries: [SimpleEntry] = []
+    
+    // Generate a timeline consisting of five entries an hour apart, starting from the current date.
+    let currentDate = Date()
+    for hourOffset in 0 ..< 5 {
+      let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
+      let entry = await SimpleEntry(
+        date: entryDate,
+        configuration: configuration,
+        favoriteMovie: getLatestFavoriteMovie())
+      entries.append(entry)
     }
     
-    func timeline(for configuration: ConfigurationAppIntent, in context: Context) async -> Timeline<SimpleEntry> {
-        var entries: [SimpleEntry] = []
-
-        // Generate a timeline consisting of five entries an hour apart, starting from the current date.
-        let currentDate = Date()
-        for hourOffset in 0 ..< 5 {
-            let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = SimpleEntry(date: entryDate, configuration: configuration)
-            entries.append(entry)
-        }
-
-        return Timeline(entries: entries, policy: .atEnd)
-    }
+    return Timeline(entries: entries, policy: .atEnd)
+  }
 }
 
+//MARK: - ENTRY
+// for data
 struct SimpleEntry: TimelineEntry {
-    let date: Date
-    let configuration: ConfigurationAppIntent
+  let date: Date
+  let configuration: ConfigurationAppIntent
+  let favoriteMovie: FavoriteMovie?
 }
 
+
+//MARK: - VIEW
 struct WidgetsEntryView : View {
-    var entry: Provider.Entry
-
-    var body: some View {
-        VStack {
-            Text("Time:")
-            Text(entry.date, style: .time)
-
-            Text("Favorite Emoji:")
-            Text(entry.configuration.favoriteEmoji)
-        }
+  var entry: Provider.Entry
+  
+  var body: some View {
+    VStack {
+      Text(entry.favoriteMovie?.title ?? "Movie Title")
+      Text(entry.configuration.favoriteSymbol)
     }
+  }
 }
 
+//MARK: - WIDGET
 struct Widgets: Widget {
-    let kind: String = "Widgets"
-
-    var body: some WidgetConfiguration {
-        AppIntentConfiguration(kind: kind, intent: ConfigurationAppIntent.self, provider: Provider()) { entry in
-            WidgetsEntryView(entry: entry)
-                .containerBackground(.fill.tertiary, for: .widget)
-        }
+  let kind: String = "Widgets"
+  
+  var body: some WidgetConfiguration {
+    AppIntentConfiguration(kind: kind, intent: ConfigurationAppIntent.self, provider: Provider()) { entry in
+      WidgetsEntryView(entry: entry)
+        .containerBackground(.fill.tertiary, for: .widget)
     }
+    .configurationDisplayName("Movie Match Widget")
+    .description("Movie Match Widget")
+  }
 }
 
 extension ConfigurationAppIntent {
-    fileprivate static var smiley: ConfigurationAppIntent {
-        let intent = ConfigurationAppIntent()
-        intent.favoriteEmoji = "😀"
-        return intent
-    }
-    
-    fileprivate static var starEyes: ConfigurationAppIntent {
-        let intent = ConfigurationAppIntent()
-        intent.favoriteEmoji = "🤩"
-        return intent
-    }
+  fileprivate static var withHeart: ConfigurationAppIntent {
+    let intent = ConfigurationAppIntent()
+    intent.favoriteSymbol = "❤️"
+    return intent
+  }
 }
 
+//MARK: - PREVIEW
 #Preview(as: .systemSmall) {
-    Widgets()
+  Widgets()
 } timeline: {
-    SimpleEntry(date: .now, configuration: .smiley)
-    SimpleEntry(date: .now, configuration: .starEyes)
+  SimpleEntry(date: .now,
+              configuration: .withHeart, 
+              favoriteMovie: nil)
 }
+
+//#Preview(as: .systemMedium) {
+//  Widgets()
+//} timeline: {
+//  SimpleEntry(date: .now, configuration: .smiley)
+//  SimpleEntry(date: .now, configuration: .starEyes)
+//}
+//
+//#Preview(as: .systemLarge) {
+//  Widgets()
+//} timeline: {
+//  SimpleEntry(date: .now, configuration: .smiley)
+//  SimpleEntry(date: .now, configuration: .starEyes)
+//}
