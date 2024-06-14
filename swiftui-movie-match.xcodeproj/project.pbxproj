@@ -138,6 +138,8 @@
 		31D2E2AF2BFFA33A00C0AD63 /* MainFooterViewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFooterViewUITests.swift; sourceTree = "<group>"; };
 		31D2E2B12BFFAA2C00C0AD63 /* MainViewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewUITests.swift; sourceTree = "<group>"; };
 		31D718422BFBEDCB00C00DC7 /* MovieDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetail.swift; sourceTree = "<group>"; };
+		31E0BE1F2C1CC2B900D26363 /* swiftui-movie-match.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "swiftui-movie-match.entitlements"; sourceTree = "<group>"; };
+		31E0BE202C1CC32700D26363 /* WidgetsExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WidgetsExtension.entitlements; sourceTree = "<group>"; };
 		31E8E3C22BFB7BE400841B95 /* FavoriteMovie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteMovie.swift; sourceTree = "<group>"; };
 		31F7C8C52BFF1B0600963FF5 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		31F7C8C72BFF1F6400963FF5 /* LocaleIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocaleIdentifier.swift; sourceTree = "<group>"; };
@@ -255,6 +257,7 @@
 		31D2E2962BFF780400C0AD63 /* Widgets */ = {
 			isa = PBXGroup;
 			children = (
+				31E0BE202C1CC32700D26363 /* WidgetsExtension.entitlements */,
 				31D2E2972BFF780400C0AD63 /* WidgetsBundle.swift */,
 				31D2E2992BFF780400C0AD63 /* WidgetsLiveActivity.swift */,
 				31D2E29B2BFF780400C0AD63 /* Widgets.swift */,
@@ -310,6 +313,7 @@
 		31FD8F9A2BFA694D00F03252 /* swiftui-movie-match */ = {
 			isa = PBXGroup;
 			children = (
+				31E0BE1F2C1CC2B900D26363 /* swiftui-movie-match.entitlements */,
 				31036C8E2BFA9DD900604902 /* Extension */,
 				31FD8FCA2BFA7F3B00F03252 /* Model */,
 				31FD8FCB2BFA7F5000F03252 /* View Model */,
@@ -681,6 +685,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = Widgets/WidgetsExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6E66L27LG6;
@@ -708,6 +713,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = Widgets/WidgetsExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6E66L27LG6;
@@ -857,6 +863,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "swiftui-movie-match/swiftui-movie-match.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"swiftui-movie-match/Preview Content\"";
@@ -886,6 +893,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "swiftui-movie-match/swiftui-movie-match.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"swiftui-movie-match/Preview Content\"";

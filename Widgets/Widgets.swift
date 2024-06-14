@@ -33,6 +33,7 @@ struct Provider: AppIntentTimelineProvider {
 }
 
 //MARK: - ENTRY
+// for data
 struct SimpleEntry: TimelineEntry {
   let date: Date
   let configuration: ConfigurationAppIntent
@@ -63,6 +64,7 @@ struct Widgets: Widget {
         .containerBackground(.fill.tertiary, for: .widget)
     }
     .configurationDisplayName("Movie Match Widget")
+    .description("Movie Match Widget")
   }
 }
 
@@ -95,3 +97,9 @@ extension ConfigurationAppIntent {
   SimpleEntry(date: .now, configuration: .starEyes)
 }
 
+#Preview(as: .systemLarge) {
+  Widgets()
+} timeline: {
+  SimpleEntry(date: .now, configuration: .smiley)
+  SimpleEntry(date: .now, configuration: .starEyes)
+}
