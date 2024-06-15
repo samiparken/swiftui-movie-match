@@ -43,7 +43,7 @@ struct Provider: AppIntentTimelineProvider {
                             favoriteMovie: getLatestFavoriteMovie())
     entries.append(entry)
     
-    return Timeline(entries: entries, policy: .after(.now.advanced(by: 60*5)))
+    return Timeline(entries: entries, policy: .never)
   }
 }
 
@@ -54,7 +54,6 @@ struct SimpleEntry: TimelineEntry {
   let configuration: ConfigurationAppIntent
   let favoriteMovie: FavoriteMovie?
 }
-
 
 //MARK: - VIEW
 struct WidgetsEntryView : View {
