@@ -80,11 +80,14 @@ struct WidgetsEntryView : View {
       }
 
     case .systemLarge:
-      VStack (spacing: 5) {
-        Text("Large")
-        Text(entry.configuration.favoriteSymbol)
-        Text(entry.favoriteMovie?.title ?? "Movie Title")
-      }
+      WidgetView(widgetSize: .large)
+        .environment(FavoriteMovieViewModel(favoriteMovie: entry.favoriteMovie!))
+      
+//      VStack (spacing: 5) {
+//        Text("Large")
+//        Text(entry.configuration.favoriteSymbol)
+//        Text(entry.favoriteMovie?.title ?? "Movie Title")
+//      }
 
     default:
       VStack {

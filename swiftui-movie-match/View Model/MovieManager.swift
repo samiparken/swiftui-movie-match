@@ -8,6 +8,7 @@ class MovieManager {
   //MARK: - SwiftData
   var context: ModelContext? = nil
   var favoriteMovies: [FavoriteMovie] = []
+  //var latestFavoriteMovie: FavoriteMovie?
   
   func fetchFavoriteMovies() {
     let fetchDescriptor = FetchDescriptor<FavoriteMovie>(
@@ -17,6 +18,7 @@ class MovieManager {
       sortBy: [SortDescriptor(\.savedAt)]
     )
     favoriteMovies = (try? (context?.fetch(fetchDescriptor) ?? [])) ?? []
+    //latestFavoriteMovie = favoriteMovies.last
   }
     
   func createFavoriteMovie(_ movie: Movie) {

@@ -1,8 +1,6 @@
 import SwiftUI
 struct WidgetImage: View {
-  
-  @Environment(\.colorScheme) var colorScheme
-  
+    
   let id = UUID() //for Identifiable
   var movie: FavoriteMovie
   @State private var uiImage: UIImage? = nil
@@ -14,26 +12,22 @@ struct WidgetImage: View {
         Image(uiImage: uiImage)
           .resizable()
           .cornerRadius(24)
-          .scaledToFit()
-          .frame(minWidth: 0, maxWidth: .infinity)
+          .scaledToFill()
       } else {
         if isLoading {
           ProgressView() // A spinner or loading indicator
             .frame(minWidth: 0, maxWidth: .infinity)
         } else {
+          //placeholder image
           Image(systemName: "photo")
             .resizable()
             .cornerRadius(24)
             .scaledToFit()
-            .frame(minWidth: 0, maxWidth: .infinity)
             .foregroundColor(.gray)
         }
       }
       
       Text(movie.title)
-        .foregroundColor(colorScheme == .dark
-                         ? .tertiaryColor
-                         : .primaryColor)
         .font(.title)
         .lineLimit(2)
     }
