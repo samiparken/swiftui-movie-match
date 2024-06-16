@@ -32,6 +32,7 @@ struct K {
   struct Image {
     struct Logo {
       static let primaryLong = "logo_primary_long"
+      static let primaryFull = "logo_primary_full"
       static let altLong = "logo_alt_long"
       static let altShort = "logo_alt_short"
     }

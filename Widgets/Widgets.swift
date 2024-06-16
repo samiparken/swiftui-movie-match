@@ -6,7 +6,7 @@ struct Provider: AppIntentTimelineProvider {
   // MARK: - SwiftData
   // +TODO: remove if not needed
   //@Environment(\.modelContext) private var context
-
+  
   //MARK: - METHOD
   @MainActor //main thread
   private func getLatestFavoriteMovie() -> FavoriteMovie? {
@@ -16,33 +16,49 @@ struct Provider: AppIntentTimelineProvider {
     return latestFavoriteMovie ?? nil
   }
   
+  func fetchImage(imageUrl: String) async -> UIImage? {
+    guard let imageUrl = URL(string: imageUrl) else { return nil }
+    do {
+      async let (data, _) = URLSession.shared.data(from: imageUrl)
+      return try await UIImage(data: data)
+    } catch {
+      print("Error fetching Widget Image data: \(error)")
+      return nil
+    }
+  }
+  
   //MARK: - PLACEHOLDER
   // when data is not available
   // first added to the home screen or during widget reloading.
-  @MainActor 
+  @MainActor
   func placeholder(in context: Context) -> SimpleEntry {
     SimpleEntry(date: Date(),
                 configuration: ConfigurationAppIntent(),
-          favoriteMovie: getLatestFavoriteMovie())
+                moviePosterImage: nil)
   }
   
   //MARK: - SNAPSHOT
   // quick preview when browsing widget to add to the home screen
   func snapshot(for configuration: ConfigurationAppIntent, in context: Context) async -> SimpleEntry {
-    await SimpleEntry(date: Date(),
+    SimpleEntry(date: Date(),
                 configuration: configuration,
-                favoriteMovie: getLatestFavoriteMovie())
+                moviePosterImage: nil)
   }
   
   //MARK: - TIMELINE
   // a sequence of entries that defines the data for widget over time
   func timeline(for configuration: ConfigurationAppIntent, in context: Context) async -> Timeline<SimpleEntry> {
-    var entries: [SimpleEntry] = []
-    let entry = await SimpleEntry(date: Date(),
-                            configuration: configuration,
-                            favoriteMovie: getLatestFavoriteMovie())
-    entries.append(entry)
     
+    // Get Latest Favorite Movie Image
+    async let url = getLatestFavoriteMovie()?.posterPath?.toImageUrl() ?? ""
+    let uiImage = await fetchImage(imageUrl: url)
+    
+    // Organize Timeline
+    var entries: [SimpleEntry] = []
+    let entry = SimpleEntry(date: Date(),
+                            configuration: configuration,
+                            moviePosterImage: uiImage)
+    entries.append(entry)
     return Timeline(entries: entries, policy: .never)
   }
 }
@@ -52,7 +68,7 @@ struct Provider: AppIntentTimelineProvider {
 struct SimpleEntry: TimelineEntry {
   let date: Date
   let configuration: ConfigurationAppIntent
-  let favoriteMovie: FavoriteMovie?
+  let moviePosterImage: UIImage?
 }
 
 //MARK: - VIEW
@@ -63,38 +79,54 @@ struct WidgetsEntryView : View {
   var body: some View {
     switch widgetSize {
       
-      //+TODO: create a widget view for each size
-      
     case .systemSmall:
       VStack (spacing: 5) {
         Text("Small")
         Text(entry.configuration.favoriteSymbol)
-        Text(entry.favoriteMovie?.title ?? "Movie Title")
+        //Text(entry.favoriteMovie?.title ?? "Movie Title")
       }
-
-    case .systemMedium:
-      VStack (spacing: 5) {
-        Text("Medium")
-        Text(entry.configuration.favoriteSymbol)
-        Text(entry.favoriteMovie?.title ?? "Movie Title")
-      }
-
-    case .systemLarge:
-      WidgetView(widgetSize: .large)
-        .environment(FavoriteMovieViewModel(favoriteMovie: entry.favoriteMovie!))
       
-//      VStack (spacing: 5) {
-//        Text("Large")
-//        Text(entry.configuration.favoriteSymbol)
-//        Text(entry.favoriteMovie?.title ?? "Movie Title")
-//      }
-
+    case .systemMedium:
+      ZStack {
+        
+        if let uiImage = entry.moviePosterImage {
+          Image(uiImage: uiImage)
+            .resizable()
+            .cornerRadius(24)
+            .scaledToFill()
+            .frame(width: UIScreen.main.bounds.width)
+        } else {
+          Image(K.Image.Logo.primaryFull)
+            .resizable()
+            .scaledToFit()
+        }
+        
+        Text(entry.configuration.favoriteSymbol)
+      }
+      
+    case .systemLarge:
+      ZStack {
+        
+        if let uiImage = entry.moviePosterImage {
+          Image(uiImage: uiImage)
+            .resizable()
+            .cornerRadius(24)
+            .scaledToFill()
+        } else {
+          Image(K.Image.Logo.primaryFull)
+            .resizable()
+            .scaledToFit()
+        }
+        
+        Text(entry.configuration.favoriteSymbol)
+      }
+      
     default:
       VStack {
         Text(entry.configuration.favoriteSymbol)
-        Text(entry.favoriteMovie?.title ?? "Movie Title")
+        //Text(entry.favoriteMovie?.title ?? "Movie Title")
       }
-
+      
     }
   }
 }
@@ -128,6 +160,6 @@ extension ConfigurationAppIntent {
   Widgets()
 } timeline: {
   SimpleEntry(date: .now,
-              configuration: .withHeart, 
-              favoriteMovie: nil)
+              configuration: .withHeart,
+              moviePosterImage: nil)
 }
