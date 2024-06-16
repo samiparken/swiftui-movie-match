@@ -34,6 +34,7 @@ struct Provider: AppIntentTimelineProvider {
   func placeholder(in context: Context) -> SimpleEntry {
     SimpleEntry(date: Date(),
                 configuration: ConfigurationAppIntent(),
+                latestFavoriteMovie: nil,
                 moviePosterImage: nil)
   }
   
@@ -42,6 +43,7 @@ struct Provider: AppIntentTimelineProvider {
   func snapshot(for configuration: ConfigurationAppIntent, in context: Context) async -> SimpleEntry {
     SimpleEntry(date: Date(),
                 configuration: configuration,
+                latestFavoriteMovie: nil,
                 moviePosterImage: nil)
   }
   
@@ -50,14 +52,16 @@ struct Provider: AppIntentTimelineProvider {
   func timeline(for configuration: ConfigurationAppIntent, in context: Context) async -> Timeline<SimpleEntry> {
     
     // Get Latest Favorite Movie Image
-    async let url = getLatestFavoriteMovie()?.posterPath?.toImageUrl() ?? ""
-    let uiImage = await fetchImage(imageUrl: url)
+    async let movie = getLatestFavoriteMovie()
+    let url = await movie?.posterPath?.toImageUrl() ?? ""
+    async let uiImage = fetchImage(imageUrl: url)
     
     // Organize Timeline
     var entries: [SimpleEntry] = []
-    let entry = SimpleEntry(date: Date(),
-                            configuration: configuration,
-                            moviePosterImage: uiImage)
+    let entry = await SimpleEntry(date: Date(),
+                                  configuration: configuration,
+                                  latestFavoriteMovie: movie,
+                                  moviePosterImage: uiImage)
     entries.append(entry)
     return Timeline(entries: entries, policy: .never)
   }
@@ -68,6 +72,7 @@ struct Provider: AppIntentTimelineProvider {
 struct SimpleEntry: TimelineEntry {
   let date: Date
   let configuration: ConfigurationAppIntent
+  let latestFavoriteMovie: FavoriteMovie?
   let moviePosterImage: UIImage?
 }
 
@@ -101,7 +106,7 @@ struct WidgetsEntryView : View {
               Color.black.opacity(0.3) // dark layer
             )
                     
-          HStack (spacing: 20) {
+          HStack (spacing: 17) {
             // Movie poster
             Image(uiImage: uiImage)
               .resizable()
@@ -109,22 +114,24 @@ struct WidgetsEntryView : View {
               .cornerRadius(10)
               .frame(height: 125) // Set the desired frame size
             
-            VStack (spacing: 10) {
-              Text("Movie Title 123")
+            VStack (alignment: .leading, spacing: 6) {
+              // Movie Title
+              Text(entry.latestFavoriteMovie?.title ?? "Movie Title")
                 .foregroundColor(Color.white)
                 .font(.title3)
-                .fontWeight(.bold)
+                .fontWeight(.heavy)
                 .shadow(radius: 1)
-              
-              Text("Movie description. Movie description. Movie description. Movie description. Movie description. Movie description. Movie description. Movie description. Movie description. Movie description. Movie description. Movie description.")
+
+              // Movie Description
+              Text(entry.latestFavoriteMovie?.overview ?? "Movie description")
                 .foregroundColor(Color.white)
                 .font(.footnote)
                 .fontWeight(.medium)
                 .multilineTextAlignment(.leading)
             }
-            .frame(width: 200)
-            .padding(.top, 20)
-            .padding(.bottom, 20)
+            .frame(width: 205)
+            .padding(.top, 18)
+            .padding(.bottom, 18)
             
           }
         }
@@ -198,5 +205,6 @@ extension ConfigurationAppIntent {
 } timeline: {
   SimpleEntry(date: .now,
               configuration: .withHeart,
+              latestFavoriteMovie: nil,
               moviePosterImage: nil)
 }
