@@ -87,30 +87,68 @@ struct WidgetsEntryView : View {
       }
       
     case .systemMedium:
-      ZStack {
+      if let uiImage = entry.moviePosterImage {
         
-        if let uiImage = entry.moviePosterImage {
+        ZStack {
+          // Background
           Image(uiImage: uiImage)
             .resizable()
-            .cornerRadius(24)
             .scaledToFill()
-            .frame(width: UIScreen.main.bounds.width)
-        } else {
-          Image(K.Image.Logo.primaryFull)
-            .resizable()
-            .scaledToFit()
+            .blur(radius: 10)
+            .frame(width: 345, height: 165) //medium
+            .clipped()
+            .overlay(
+              Color.black.opacity(0.3) // dark layer
+            )
+                    
+          HStack (spacing: 20) {
+            // Movie poster
+            Image(uiImage: uiImage)
+              .resizable()
+              .scaledToFit()
+              .cornerRadius(10)
+              .frame(height: 125) // Set the desired frame size
+            
+            VStack (spacing: 10) {
+              Text("Movie Title 123")
+                .foregroundColor(Color.white)
+                .font(.title3)
+                .fontWeight(.bold)
+                .shadow(radius: 1)
+              
+              Text("Movie description. Movie description. Movie description. Movie description. Movie description. Movie description. Movie description. Movie description. Movie description. Movie description. Movie description. Movie description.")
+                .foregroundColor(Color.white)
+                .font(.footnote)
+                .fontWeight(.medium)
+                .multilineTextAlignment(.leading)
+            }
+            .frame(width: 200)
+            .padding(.top, 20)
+            .padding(.bottom, 20)
+            
+          }
         }
-        
-        Text(entry.configuration.favoriteSymbol)
+
+      } else {
+        Image(K.Image.Logo.primaryFull)
+          .resizable()
+          .scaledToFill()
+          .blur(radius: 10) // Adjust the radius to control the blur intensity
+          .frame(width: 345, height: 155) // Set the desired frame size
+          .clipped() // Ensure the image doesn't overflow its frame
       }
+      
+      
+
+      
+
       
     case .systemLarge:
       ZStack {        
         if let uiImage = entry.moviePosterImage {
           Image(uiImage: uiImage)
             .resizable()
-            .cornerRadius(24)
-            .scaledToFill()
+            .aspectRatio(contentMode: .fit)
         } else {
           Image(K.Image.Logo.primaryFull)
             .resizable()
@@ -155,7 +193,7 @@ extension ConfigurationAppIntent {
 }
 
 //MARK: - PREVIEW
-#Preview(as: .systemLarge) {
+#Preview(as: .systemMedium) {
   Widgets()
 } timeline: {
   SimpleEntry(date: .now,
