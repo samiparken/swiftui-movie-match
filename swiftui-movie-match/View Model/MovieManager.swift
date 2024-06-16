@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 import SwiftData
+import WidgetKit
 import Observation
 
 @Observable 
@@ -107,6 +108,11 @@ class MovieManager {
     }
   }
   
+  func refreshWidget() {
+    // Refresh Widget to show the latest favorite movie
+    WidgetCenter.shared.reloadAllTimelines()
+  }
+    
   func addMovieCardToFavorite(_ movie: Movie) {
     // create FavoriteMovie in SwiftData
     createFavoriteMovie(movie)
@@ -119,6 +125,8 @@ class MovieManager {
         
     // Refresh movieCardsToShow
     removeTopMovieCardAndReload()
+    
+    refreshWidget()
   }
   
   func removeTopMovieCardAndReload() {

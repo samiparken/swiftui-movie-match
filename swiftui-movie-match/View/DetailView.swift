@@ -55,6 +55,7 @@ struct DetailView: View {
             if let indexToDelete = favoriteMovies.firstIndex(where: {$0.id == movieId}) {
               context.delete(favoriteMovies[indexToDelete])
             }
+            movieManager.refreshWidget()
             self.presentationMode.wrappedValue.dismiss()
           }) {
             Text("remove-string")

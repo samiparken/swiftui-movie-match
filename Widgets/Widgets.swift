@@ -105,8 +105,7 @@ struct WidgetsEntryView : View {
       }
       
     case .systemLarge:
-      ZStack {
-        
+      ZStack {        
         if let uiImage = entry.moviePosterImage {
           Image(uiImage: uiImage)
             .resizable()
