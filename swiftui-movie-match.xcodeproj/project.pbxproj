@@ -127,6 +127,7 @@
 		31B6774B2BFCE13A005223DC /* MovieManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieManagerTests.swift; sourceTree = "<group>"; };
 		31B6774F2BFCFCC4005223DC /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		31B677532BFD0AB2005223DC /* AppearanceMode+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppearanceMode+Ext.swift"; sourceTree = "<group>"; };
+		31C47A5B2C1F783C0035665C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		31D2E2862BFF58FC00C0AD63 /* Double+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Ext.swift"; sourceTree = "<group>"; };
 		31D2E2902BFF780300C0AD63 /* WidgetsExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WidgetsExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		31D2E2922BFF780300C0AD63 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -318,6 +319,7 @@
 		31FD8F9A2BFA694D00F03252 /* swiftui-movie-match */ = {
 			isa = PBXGroup;
 			children = (
+				31C47A5B2C1F783C0035665C /* Info.plist */,
 				31E0BE1F2C1CC2B900D26363 /* swiftui-movie-match.entitlements */,
 				31036C8E2BFA9DD900604902 /* Extension */,
 				31FD8FCA2BFA7F3B00F03252 /* Model */,
@@ -880,6 +882,8 @@
 				DEVELOPMENT_TEAM = 6E66L27LG6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "swiftui-movie-match/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Movie Match";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -910,6 +914,8 @@
 				DEVELOPMENT_TEAM = 6E66L27LG6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "swiftui-movie-match/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Movie Match";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
