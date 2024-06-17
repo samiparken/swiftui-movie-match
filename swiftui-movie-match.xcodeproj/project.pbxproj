@@ -332,9 +332,9 @@
 				31FD8FC92BFA7F3600F03252 /* API Service */,
 				31B2F1282C20198E0001F1C9 /* NavigationStackRouter.swift */,
 				31FD8F9B2BFA694D00F03252 /* swiftui_movie_matchApp.swift */,
+				31FD8FC72BFA771E00F03252 /* Constants.swift */,
 				31FD8FA12BFA694F00F03252 /* Assets.xcassets */,
 				31FD8FA32BFA694F00F03252 /* Preview Content */,
-				31FD8FC72BFA771E00F03252 /* Constants.swift */,
 				31F7C8C52BFF1B0600963FF5 /* Localizable.xcstrings */,
 			);
 			path = "swiftui-movie-match";
@@ -903,9 +903,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.samiparken.swiftui-movie-match";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -935,9 +939,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.samiparken.swiftui-movie-match";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

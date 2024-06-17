@@ -93,7 +93,7 @@ extension NavigationStackRouter {
     let host = url.host()?.lowercased()
     switch(host) {
       
-    //MARK: - MOVIE DETAIL with id
+    //MARK: - DETAIL with movieId
     case K.DeepLink.Host.movieDetail:
       let movieId = Int(url.pathComponents[1]) ?? 0
       navStack.removeAll()
