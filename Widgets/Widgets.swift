@@ -137,7 +137,7 @@ struct WidgetsEntryView : View {
             
           }
         }
-        .widgetURL(URL(string: "moviematch://latestfavorite"))
+        .widgetURL(URL(string: "moviematch://moviedetail/\(entry.latestFavoriteMovie?.id ?? 0)"))
 
       } else {
         Image(K.Image.Logo.primaryFull)

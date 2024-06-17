@@ -19,7 +19,6 @@ class MovieManager {
       sortBy: [SortDescriptor(\.savedAt)]
     )
     favoriteMovies = (try? (context?.fetch(fetchDescriptor) ?? [])) ?? []
-    selectedFavoriteMovie = favoriteMovies.last
   }
     
   func createFavoriteMovie(_ movie: Movie) {
@@ -35,6 +34,15 @@ class MovieManager {
       language: currentLanguageCode
     )
     context?.insert(favoriteMovie)
+  }
+  
+  func selectFavoriteMovie(id: Int) -> Bool {
+    if let favorieMovie = favoriteMovies.first(where: {$0.id == id}) {
+      selectedFavoriteMovie = favorieMovie
+      return true
+    } else {
+      return false
+    }
   }
   
   //MARK: - PROPERTIES

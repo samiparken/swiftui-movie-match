@@ -16,6 +16,12 @@ struct K {
       static let korean = "한국어"
     }
   }
+  
+  struct DeepLink {
+    struct Host {
+      static let movieDetail = "moviedetail"
+    }
+  }
     
   struct API {
     static let baseUrl = "https://api.themoviedb.org/3"

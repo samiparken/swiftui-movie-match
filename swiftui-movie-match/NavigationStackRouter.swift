@@ -38,9 +38,9 @@ struct NavigationStackRouter: View {
   
   //MARK: - BODY
   var body: some View {
-    NavigationStack(path:$navStack) {
+    NavigationStack(path: $navStack) {
       
-      // Root View
+      //MARK: - ROOT VIEW
       MainView(store: Store(initialState: MainFeature.State()) {
         MainFeature()
       }, navStack: $navStack, movieManager: movieManager)
@@ -67,7 +67,6 @@ struct NavigationStackRouter: View {
           FavoriteView(navStack: $navStack, movieManager: movieManager)
             .modelContainer(sharedModelContainer)
             .navigationBarBackButtonHidden()
-
           
         //MARK: - DETAIL VIEW
         case .detailView:
@@ -80,11 +79,36 @@ struct NavigationStackRouter: View {
           .navigationBarBackButtonHidden()
         }
       }
-      
-    }    
+    }
+    .onOpenURL { url in
+      handleDeepLink(from: url)
+    }
+    
   }
 }
 
+//MARK: - DEEP LINK
+extension NavigationStackRouter {
+  func handleDeepLink(from url: URL) {
+    let host = url.host()?.lowercased()
+    switch(host) {
+      
+    //MARK: - MOVIE DETAIL with id
+    case K.DeepLink.Host.movieDetail:
+      let movieId = Int(url.pathComponents[1]) ?? 0
+      navStack.removeAll()
+      navStack.append(.favoriteView)
+      if movieManager.selectFavoriteMovie(id: movieId) {
+        navStack.append(.detailView)
+      }
+      
+    default: 
+      break
+    }
+  }
+}
+
+//MARK: - PREVIEW
 #Preview {
   NavigationStackRouter()
 }
