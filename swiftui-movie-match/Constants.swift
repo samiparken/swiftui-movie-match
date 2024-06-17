@@ -42,6 +42,10 @@ struct K {
       static let altLong = "logo_alt_long"
       static let altShort = "logo_alt_short"
     }
+    
+    struct SampleData {
+      static let moviePoster = "sampleData_movie_poster"
+    }
   }
   
   struct UITests {
