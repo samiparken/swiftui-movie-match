@@ -1,57 +1,64 @@
 import Foundation
 
 struct SampleData {
-  
+    
   static let favoriteMovie = FavoriteMovie (
-    id: 1,//823464,
-    posterPath: "/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg",
-    releaseDate: "2024-03-27",
-    title: "Godzilla x Kong: The New Empire",
-    originalTitle: "Godzilla x Kong: The New Empire",
-    overview: "Following their explosive showdown, Godzilla and Kong must reunite against a colossal undiscovered threat hidden within our world, challenging their very existence – and our own.",
+    id: 1022789,
+    posterPath: "/vpnVM9B6NMmQpWeZvzLvDESb2QY.jpg",
+    releaseDate: "2024-06-11",
+    title: "Inside Out 2",
+    originalTitle: "Inside Out 2",
+    overview: "Teenager Riley's mind headquarters is undergoing a sudden demolition to make room for something entirely unexpected: new Emotions! Joy, Sadness, Anger, Fear and Disgust, who’ve long been running a successful operation by all accounts, aren’t sure how to feel when Anxiety shows up. And it looks like she’s not alone.",
     voteAverage: 7.222,
     savedAt: Date(),
     language: "en"
   )
-    
+  
   static let movieDetail = MovieDetail (
-    adult: false,
-    backdropPath: "/ySgY4jBvZ6qchrxKnBg4M8tZp8V.jpg",
-    belongsToCollection: nil, // Assuming no collection for this sample
-    budget: 28000000,
-    genres: [
-      Genre(id: 27, name: "Horror"),
-      Genre(id: 53, name: "Thriller")
-    ],
-    homepage: "https://www.abigailmovie.com",
-    id: 1111873,
-    imdbID: "tt27489557",
-    originCountry: ["US"],
+    id: 1022789,
+    title: "Inside Out 2",
     originalLanguage: "en",
-    originalTitle: "Abigail",
-    overview: "A group of criminals kidnaps a teenage ballet dancer, the daughter of a notorious gang leader, in order to obtain a ransom of $50 million, but over time, they discover that she is not just an ordinary girl. After the kidnappers begin to diminish, one by one, they discover, to their increasing horror, that they are locked inside with an unusual girl.",
-    popularity: 1077.607,
-    posterPath: "/7qxG0zyt29BI0IzFDfsps62kbQi.jpg",
+    originalTitle: "Inside Out 2",
+    posterPath: "/vpnVM9B6NMmQpWeZvzLvDESb2QY.jpg",
+    releaseDate: "2024-06-11",
+    genres: [
+      Genre(id: 16, name: "Animation"),
+      Genre(id: 10751, name: "Family"),
+      Genre(id: 18, name: "Drama"),
+      Genre(id: 12, name: "Adventure"),
+      Genre(id: 35, name: "Comedy")
+    ],
+    adult: false,
+    backdropPath: "/coATv42PoiLqAFKStJiMZs2r6Zb.jpg",
+    belongsToCollection: BelongsToCollection(
+      id: 1022790,
+      name: "Inside Out Collection",
+      posterPath: "/Apr19lGxP7gm6y2HQX0kqOXTtqC.jpg",
+      backdropPath: "/7U2m2dMSIfHx2gWXKq78Xj1weuH.jpg"
+    ),
+    budget: 200000000,
+
+    homepage: "https://movies.disney.com/inside-out-2",
+    imdbID: "tt22022452",
+    originCountry: ["US"],
+    overview: "Teenager Riley's mind headquarters is undergoing a sudden demolition to make room for something entirely unexpected: new Emotions! Joy, Sadness, Anger, Fear and Disgust, who’ve long been running a successful operation by all accounts, aren’t sure how to feel when Anxiety shows up. And it looks like she’s not alone.",
+    popularity: 6964.86,
     productionCompanies: [
-      ProductionCompany(id: 130448, logoPath: "/yHWTTGKbOGZKUd1cp6l3uLyDeiv.png", name: "Project X Entertainment", originCountry: "US"),
-      ProductionCompany(id: 126588, logoPath: "/cNhOITS96oOV7SCgUHxvZlWRecx.png", name: "Radio Silence", originCountry: "US"),
-      ProductionCompany(id: 33, logoPath: "/8lvHyhjr8oUKOOy2dKXoALWKdp0.png", name: "Universal Pictures", originCountry: "US"),
-      ProductionCompany(id: 19367, logoPath: nil, name: "Vinson Films", originCountry: "US")
+      ProductionCompany(id: 3, logoPath: "/1TjvGVDMYsj6JBxOAkUHpPEwLf7.png", name: "Pixar", originCountry: "US"),
+      ProductionCompany(id: 2, logoPath: "/wdrCwmRnLFJhEoH8GSfymY85KHT.png", name: "Walt Disney Pictures", originCountry: "US")
     ],
     productionCountries: [
       ProductionCountry(iso3166_1: "US", name: "United States of America")
     ],
-    releaseDate: "2024-04-18",
-    revenue: 37546000,
-    runtime: 109,
+    revenue: 295800000,
+    runtime: 97,
     spokenLanguages: [
       SpokenLanguage(englishName: "English", iso639_1: "en", name: "English")
     ],
     status: "Released",
-    tagline: "Children can be such monsters.",
-    title: "Abigail",
+    tagline: "Make room for new emotions.",
     video: false,
-    voteAverage: 6.884,
-    voteCount: 447
+    voteAverage: 7.733,
+    voteCount: 193
   )
 }

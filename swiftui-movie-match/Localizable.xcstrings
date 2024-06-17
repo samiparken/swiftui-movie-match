@@ -33,6 +33,9 @@
         }
       }
     },
+    "Bottom %@" : {
+
+    },
     "close-string" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -55,6 +58,9 @@
           }
         }
       }
+    },
+    "Configuration" : {
+
     },
     "dark-string" : {
       "extractionState" : "manual",
@@ -88,6 +94,9 @@
     "Failed to load movie detail" : {
 
     },
+    "Favorite Symbol" : {
+
+    },
     "favorites-string" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -111,10 +120,19 @@
         }
       }
     },
+    "Hello %@" : {
+
+    },
     "Key" : {
       "extractionState" : "manual"
     },
+    "L" : {
+
+    },
     "Language" : {
+
+    },
+    "Leading" : {
 
     },
     "light-string" : {
@@ -154,6 +172,9 @@
           }
         }
       }
+    },
+    "Movie Match Widget" : {
+
     },
     "Placeholder" : {
       "localizations" : {
@@ -300,6 +321,18 @@
           }
         }
       }
+    },
+    "T %@" : {
+
+    },
+    "Tap to refresh" : {
+
+    },
+    "This is an example widget." : {
+
+    },
+    "Trailing" : {
+
     }
   },
   "version" : "1.0"

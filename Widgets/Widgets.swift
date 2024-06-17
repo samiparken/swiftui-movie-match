@@ -90,29 +90,30 @@ struct WidgetsEntryView : View {
             .resizable()
             .scaledToFill()
             .blur(radius: 10)
-            .frame(width: 165, height: 165) //medium
+            .frame(width: 165, height: 165) //small
             .clipped()
             .overlay(
               Color.black.opacity(0.3) // dark layer
             )
                     
           VStack (alignment:.center, spacing: 5) {
+            // Movie Title
+            Text(entry.latestFavoriteMovie?.title ?? "Movie Title")
+              .foregroundColor(Color.white)
+              .font(.footnote)
+              .fontWeight(.bold)
+              .shadow(radius: 1)
+              .lineLimit(2)
+              .truncationMode(.tail)
+              .frame(width: 145)
+              .lineSpacing(-7)
+            
             // Movie poster
             Image(uiImage: uiImage)
               .resizable()
               .scaledToFit()
               .cornerRadius(10)
               .frame(height: 115) // Set the desired frame size
-            
-              // Movie Title
-              Text(entry.latestFavoriteMovie?.title ?? "Movie Title")
-                .foregroundColor(Color.white)
-                .font(.footnote)
-                .fontWeight(.bold)
-                .shadow(radius: 1)
-                .lineLimit(2)
-                .truncationMode(.tail)
-                .frame(width: 145)
           }
         }
         .widgetURL(URL(string: "moviematch://moviedetail/\(entry.latestFavoriteMovie?.id ?? 0)"))
@@ -206,25 +207,97 @@ struct WidgetsEntryView : View {
         }
       }
       
-      
 
-      
-
-      
+//MARK: - LARGE SIZE
     case .systemLarge:
-      ZStack {        
-        if let uiImage = entry.moviePosterImage {
+      if let uiImage = entry.moviePosterImage {
+        
+        ZStack {
+          // Background
           Image(uiImage: uiImage)
             .resizable()
-            .aspectRatio(contentMode: .fit)
-        } else {
+            .scaledToFill()
+            .blur(radius: 10)
+            .frame(width: 345, height: 355) //large
+            .clipped()
+            .overlay(
+              Color.black.opacity(0.3) // dark layer
+            )
+                              
+          VStack (alignment: .center, spacing: 5) {
+            // Movie Title
+            Text(entry.latestFavoriteMovie?.title ?? "Movie Title")
+              .foregroundColor(Color.white)
+              .font(.title)
+              .fontWeight(.heavy)
+              .shadow(radius: 2)
+            
+            HStack {
+              Spacer()
+              
+              // Average Rate
+              Text("rate-label-string")
+                .modifier(WidgetTextLabelModifier())
+              Text(String(entry.latestFavoriteMovie?.voteAverage.rounded(toPlaces: 1) ?? 7.1) + " / 10")
+                .modifier(WidgetTextModifier())
+
+              Spacer()
+
+              // Release Date
+              Text("released-label-string")
+                .modifier(WidgetTextLabelModifier())
+              Text(entry.latestFavoriteMovie?.releaseDate ?? "2024-05-30")
+                .modifier(WidgetTextModifier())
+              
+              Spacer()
+            }
+            
+            HStack (alignment: .top, spacing: 17) {
+              // Movie poster
+              Image(uiImage: uiImage)
+                .resizable()
+                .scaledToFit()
+                .cornerRadius(10)
+                .frame(width: 140, height: 230)
+
+              // Movie Description
+              Text(entry.latestFavoriteMovie?.overview ?? "Movie description")
+                .foregroundColor(Color.white)
+                .font(.footnote)
+                .fontWeight(.medium)
+                .multilineTextAlignment(.leading)
+                .frame(width: 160, height: 230)
+            }
+          }
+          .padding(.top, 10)
+          .padding(.bottom, 10)
+          
+          
+        }
+        .widgetURL(URL(string: "moviematch://moviedetail/\(entry.latestFavoriteMovie?.id ?? 0)"))
+
+      } else {
+        ZStack {
           Image(K.Image.Logo.primaryFull)
             .resizable()
             .scaledToFit()
+            .blur(radius: 7) // Adjust the radius to control the blur intensity
+            .frame(width: 345, height: 355) // large
+            .clipped() // Ensure the image doesn't overflow its frame
+            .overlay(
+              Color.black.opacity(0.3) // dark layer
+            )
+
+          Text("Tap to refresh")
+            .foregroundColor(Color.white)
+            .font(.title3)
+            .fontWeight(.heavy)
+            .shadow(radius: 2)
         }
-        
-        Text(entry.configuration.favoriteSymbol)
       }
+      
+      
+      
       
     default:
       VStack {
@@ -261,7 +334,7 @@ extension ConfigurationAppIntent {
 }
 
 //MARK: - PREVIEW
-#Preview(as: .systemSmall) {
+#Preview(as: .systemLarge) {
   Widgets()
 } timeline: {
   SimpleEntry(date: .now,

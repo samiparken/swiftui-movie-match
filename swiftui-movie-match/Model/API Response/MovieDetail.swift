@@ -1,29 +1,30 @@
 import Foundation
 
 struct MovieDetail: Codable {
-  let adult: Bool
-  let backdropPath: String?
-  let belongsToCollection: Collection?
-  let budget: Int
-  let genres: [Genre]
-  let homepage: String?
   let id: Int
-  let imdbID: String?
-  let originCountry: [String]
+  let title: String
   let originalLanguage: String
   let originalTitle: String
+  let posterPath: String?
+  let releaseDate: String
+  let genres: [Genre]
+
+  let adult: Bool
+  let backdropPath: String?
+  let belongsToCollection: BelongsToCollection?
+  let budget: Int
+  let homepage: String?
+  let imdbID: String?
+  let originCountry: [String]
   let overview: String
   let popularity: Double
-  let posterPath: String?
   let productionCompanies: [ProductionCompany]
   let productionCountries: [ProductionCountry]
-  let releaseDate: String
   let revenue: Int
   let runtime: Int?
   let spokenLanguages: [SpokenLanguage]
   let status: String
   let tagline: String?
-  let title: String
   let video: Bool
   let voteAverage: Double
   let voteCount: Int
@@ -56,6 +57,20 @@ struct MovieDetail: Codable {
     case voteAverage = "vote_average"
     case voteCount = "vote_count"
   }
+}
+
+struct BelongsToCollection: Codable {
+    let id: Int
+    let name: String
+    let posterPath: String?
+    let backdropPath: String?
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case name
+        case posterPath = "poster_path"
+        case backdropPath = "backdrop_path"
+    }
 }
 
 struct Collection: Codable {
