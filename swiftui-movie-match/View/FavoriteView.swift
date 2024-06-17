@@ -2,6 +2,9 @@ import SwiftUI
 import SwiftData
 
 struct FavoriteView: View {
+  //MARK: - Navigation Stack
+  @Binding var navStack: [Routes]
+    
   // MARK: - SwiftData
   @Environment(\.modelContext) private var context
   @Query (sort: [SortDescriptor(\FavoriteMovie.savedAt, order: .reverse)]) private var favoriteMovies: [FavoriteMovie]
@@ -12,6 +15,11 @@ struct FavoriteView: View {
   @State var showMovieDetailView: Bool = false
   @State private var isClicked: [Int: Bool] = [:]
   let vstackColumnSet = [ GridItem(.flexible()), GridItem(.flexible()) ]
+    
+  //MARK: - INIT
+  init(navStack: Binding<[Routes]>) {
+    self._navStack = navStack
+  }
   
   //MARK: - BODY
   var body: some View {
@@ -43,9 +51,7 @@ struct FavoriteView: View {
 //MARK: - PREVIEW
 struct FavoriteView_Previews: PreviewProvider {
   static var previews: some View {
-    @State var showMovieDetailView: Bool = true
-    
-    FavoriteView()
+    FavoriteView(navStack: .constant([]))
       .modelContainer(for: FavoriteMovie.self, inMemory: true)
   }
 }

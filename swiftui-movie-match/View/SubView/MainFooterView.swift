@@ -27,6 +27,10 @@ struct MainFooter {
 
 //MARK: - VIEW
 struct MainFooterView: View {
+  //MARK: - Navigation Stack
+  @Binding var navStack: [Routes]
+  
+  //MARK: - TCA store
   @Bindable var store: StoreOf<MainFooter>
   
   //MARK: - PROPERTIES
@@ -37,8 +41,9 @@ struct MainFooterView: View {
   let haptics = UINotificationFeedbackGenerator()
   
   //MARK: - INIT
-  init(store: StoreOf<MainFooter>) {
+  init(store: StoreOf<MainFooter>, navStack: Binding<[Routes]>) {
     self.store = store
+    self._navStack = navStack
   }
   
   //MARK: - BODY
@@ -54,7 +59,7 @@ struct MainFooterView: View {
         Button(action:{
           // ACTION
           self.haptics.notificationOccurred(.success)
-          store.send(.showFavoriteView(true))
+          navStack.append(.favoriteView)
         }) {
           Text("showFavorite-string")
             .textCase(.uppercase)
@@ -66,9 +71,6 @@ struct MainFooterView: View {
             .background(
               Capsule().stroke(Color(UIColor(colorScheme.getPrimaryColor())), lineWidth: 2)
             )
-            .sheet(isPresented: $store.isFavoriteViewOn.sending(\.showFavoriteView)) {
-              FavoriteView()
-            }
         }
         .accessibility(identifier: K.UITests.Identifier.showFavoriteButton)
         
@@ -99,7 +101,7 @@ struct FooterView_Previews: PreviewProvider {
   static var previews: some View {
     MainFooterView(store: Store(initialState: MainFooter.State()) {
       MainFooter()
-    })
+    }, navStack: .constant([]))
     .previewLayout(.fixed(width: 375, height: 80))
   }
 }

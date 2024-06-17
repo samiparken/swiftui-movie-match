@@ -98,7 +98,10 @@ struct SettingsFeature {
 }
 
 struct SettingsView: View {
-  //MARK: - Store
+  //MARK: - Navigation Stack
+  @Binding var navStack: [Routes]
+
+  //MARK: - TCA store
   @Bindable var store: StoreOf<SettingsFeature>
   
   //MARK: - PROPERTIES
@@ -118,7 +121,8 @@ struct SettingsView: View {
         HStack{
           Spacer()
           HeaderCloseButton(){
-            store.send(.closeSettingsView)
+            //store.send(.closeSettingsView)
+            navStack.removeLast()
           }
         }
       }
@@ -250,7 +254,9 @@ struct SettingsView: View {
 //MARK: - PREVIEW
 struct SettingsView_Previews: PreviewProvider {
   static var previews: some View {
-    SettingsView(store: Store(initialState: SettingsFeature.State()) { SettingsFeature() })
+    SettingsView(
+      navStack: .constant([]),
+      store: Store(initialState: SettingsFeature.State()) { SettingsFeature() })
   }
 }
 

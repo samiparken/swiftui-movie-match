@@ -21,6 +21,7 @@
 		3181D1FF2BFB3EDB00C40722 /* MainFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3181D1FE2BFB3EDB00C40722 /* MainFooterView.swift */; };
 		3181D2012BFB43B900C40722 /* Color+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3181D2002BFB43B900C40722 /* Color+Ext.swift */; };
 		3181D2032BFB468B00C40722 /* MainHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3181D2022BFB468B00C40722 /* MainHeaderView.swift */; };
+		31B2F1292C20198E0001F1C9 /* NavigationStackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B2F1282C20198E0001F1C9 /* NavigationStackManager.swift */; };
 		31B6773C2BFC7410005223DC /* FavoriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B6773B2BFC7410005223DC /* FavoriteView.swift */; };
 		31B677402BFC761F005223DC /* HeaderSwipeBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B6773F2BFC761F005223DC /* HeaderSwipeBar.swift */; };
 		31B677422BFC7B1D005223DC /* MiniMovieCardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B677412BFC7B1D005223DC /* MiniMovieCardButton.swift */; };
@@ -118,6 +119,7 @@
 		3181D1FE2BFB3EDB00C40722 /* MainFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFooterView.swift; sourceTree = "<group>"; };
 		3181D2002BFB43B900C40722 /* Color+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Ext.swift"; sourceTree = "<group>"; };
 		3181D2022BFB468B00C40722 /* MainHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHeaderView.swift; sourceTree = "<group>"; };
+		31B2F1282C20198E0001F1C9 /* NavigationStackManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationStackManager.swift; sourceTree = "<group>"; };
 		31B6773B2BFC7410005223DC /* FavoriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteView.swift; sourceTree = "<group>"; };
 		31B6773F2BFC761F005223DC /* HeaderSwipeBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderSwipeBar.swift; sourceTree = "<group>"; };
 		31B677412BFC7B1D005223DC /* MiniMovieCardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniMovieCardButton.swift; sourceTree = "<group>"; };
@@ -326,6 +328,7 @@
 				31FD8FCB2BFA7F5000F03252 /* View Model */,
 				31FD8FCC2BFA7F5C00F03252 /* View */,
 				31FD8FC92BFA7F3600F03252 /* API Service */,
+				31B2F1282C20198E0001F1C9 /* NavigationStackManager.swift */,
 				31FD8F9B2BFA694D00F03252 /* swiftui_movie_matchApp.swift */,
 				31FD8FA12BFA694F00F03252 /* Assets.xcassets */,
 				31FD8FA32BFA694F00F03252 /* Preview Content */,
@@ -637,6 +640,7 @@
 				31D2E2AE2BFF99B700C0AD63 /* HeaderTitleText.swift in Sources */,
 				3181D1F32BFB2CEC00C40722 /* ButtonModifier.swift in Sources */,
 				31F7C8CA2BFF26AF00963FF5 /* Language.swift in Sources */,
+				31B2F1292C20198E0001F1C9 /* NavigationStackManager.swift in Sources */,
 				3181D1FF2BFB3EDB00C40722 /* MainFooterView.swift in Sources */,
 				31B6773C2BFC7410005223DC /* FavoriteView.swift in Sources */,
 				31D718432BFBEDCB00C00DC7 /* MovieDetail.swift in Sources */,
