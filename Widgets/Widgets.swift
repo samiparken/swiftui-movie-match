@@ -3,10 +3,6 @@ import SwiftUI
 import SwiftData
 
 struct Provider: AppIntentTimelineProvider {
-  // MARK: - SwiftData
-  // +TODO: remove if not needed
-  //@Environment(\.modelContext) private var context
-  
   //MARK: - METHOD
   @MainActor //main thread
   private func getLatestFavoriteMovie() -> FavoriteMovie? {
@@ -80,19 +76,70 @@ struct SimpleEntry: TimelineEntry {
 struct WidgetsEntryView : View {
   @Environment(\.widgetFamily) var widgetSize
   var entry: Provider.Entry
-  
-  //+TODO: organize small and large widget
-  
+    
+  //MARK: - BODY
   var body: some View {
     switch widgetSize {
       
+    //MARK: - SMALL SIZE
     case .systemSmall:
-      VStack (spacing: 5) {
-        Text("Small")
-        Text(entry.configuration.favoriteSymbol)
-        //Text(entry.favoriteMovie?.title ?? "Movie Title")
+      if let uiImage = entry.moviePosterImage {
+        ZStack {
+          // Background
+          Image(uiImage: uiImage)
+            .resizable()
+            .scaledToFill()
+            .blur(radius: 10)
+            .frame(width: 165, height: 165) //medium
+            .clipped()
+            .overlay(
+              Color.black.opacity(0.3) // dark layer
+            )
+                    
+          VStack (alignment:.center, spacing: 5) {
+            // Movie poster
+            Image(uiImage: uiImage)
+              .resizable()
+              .scaledToFit()
+              .cornerRadius(10)
+              .frame(height: 115) // Set the desired frame size
+            
+              // Movie Title
+              Text(entry.latestFavoriteMovie?.title ?? "Movie Title")
+                .foregroundColor(Color.white)
+                .font(.footnote)
+                .fontWeight(.bold)
+                .shadow(radius: 1)
+                .lineLimit(2)
+                .truncationMode(.tail)
+                .frame(width: 145)
+          }
+        }
+        .widgetURL(URL(string: "moviematch://moviedetail/\(entry.latestFavoriteMovie?.id ?? 0)"))
+
+      } else {
+        ZStack {
+          Image(K.Image.Logo.primaryFull)
+            .resizable()
+            .scaledToFill()
+            .blur(radius: 7) // Adjust the radius to control the blur intensity
+            .frame(width: 165, height: 165) // Set the desired frame size
+            .clipped() // Ensure the image doesn't overflow its frame
+            .overlay(
+              Color.black.opacity(0.3) // dark layer
+            )
+
+          Text("Tap to refresh")
+            .foregroundColor(Color.white)
+            .font(.title3)
+            .fontWeight(.heavy)
+            .shadow(radius: 2)
+        }
       }
       
+      
+      
+      //MARK: - MEDIUM SIZE
     case .systemMedium:
       if let uiImage = entry.moviePosterImage {
         
@@ -122,7 +169,7 @@ struct WidgetsEntryView : View {
                 .foregroundColor(Color.white)
                 .font(.title3)
                 .fontWeight(.heavy)
-                .shadow(radius: 1)
+                .shadow(radius: 2)
 
               // Movie Description
               Text(entry.latestFavoriteMovie?.overview ?? "Movie description")
@@ -140,12 +187,23 @@ struct WidgetsEntryView : View {
         .widgetURL(URL(string: "moviematch://moviedetail/\(entry.latestFavoriteMovie?.id ?? 0)"))
 
       } else {
-        Image(K.Image.Logo.primaryFull)
-          .resizable()
-          .scaledToFill()
-          .blur(radius: 10) // Adjust the radius to control the blur intensity
-          .frame(width: 345, height: 155) // Set the desired frame size
-          .clipped() // Ensure the image doesn't overflow its frame
+        ZStack {
+          Image(K.Image.Logo.primaryFull)
+            .resizable()
+            .scaledToFill()
+            .blur(radius: 7) // Adjust the radius to control the blur intensity
+            .frame(width: 345, height: 165) // Set the desired frame size
+            .clipped() // Ensure the image doesn't overflow its frame
+            .overlay(
+              Color.black.opacity(0.3) // dark layer
+            )
+
+          Text("Tap to refresh")
+            .foregroundColor(Color.white)
+            .font(.title3)
+            .fontWeight(.heavy)
+            .shadow(radius: 2)
+        }
       }
       
       
@@ -203,7 +261,7 @@ extension ConfigurationAppIntent {
 }
 
 //MARK: - PREVIEW
-#Preview(as: .systemMedium) {
+#Preview(as: .systemSmall) {
   Widgets()
 } timeline: {
   SimpleEntry(date: .now,
