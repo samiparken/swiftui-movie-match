@@ -5,7 +5,7 @@ struct MiniMovieCardButton: View {
   
   let id = UUID() //for Identifiable
   var movie: FavoriteMovie
-  @Binding var isClicked: Bool
+  @Binding var navStack: [NavRoute]
   @State private var uiImage: UIImage? = nil
   @State private var isLoading = true
   
@@ -42,11 +42,12 @@ struct MiniMovieCardButton: View {
       loadImage(from: movie.posterPath!.toImageUrl())
     }
     .onTapGesture {
-      isClicked.toggle()
+      //isClicked.toggle()
+      navStack.append(.detailView)
     }
-    .sheet(isPresented: $isClicked) {
-      DetailView(movieId: movie.id, languageCode: movie.language)
-    }
+    //.sheet(isPresented: $isClicked) {
+    //  DetailView(favoriteMovie: movie)
+    //}
   }
   
   private func loadImage(from url: String) {
@@ -86,7 +87,6 @@ struct FavoriteMovieCardView_Previews: PreviewProvider {
     )
     
     @State var isClicked: Bool = false
-    
-    MiniMovieCardButton(movie: sampleFavoriteMovie, isClicked: $isClicked)
+    MiniMovieCardButton(movie: sampleFavoriteMovie, navStack:.constant([]))
   }
 }

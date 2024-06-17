@@ -10,19 +10,6 @@ struct swiftui_movie_matchApp: App {
       
       NavigationStackManager()
       
-      //      MainView(store: Store(initialState: MainFeature.State()) {
-      //        MainFeature()
-      //      })
-      //      .onOpenURL { url in
-      //        if url.host()?.lowercased() == "latestfavorite" {
-      //          //FavoriteView()
-      //        }
-      //          print(url)
-      //      }
-      //    }
-      //    .modelContainer(sharedModelContainer)
-      
     }
-    
   }
 }

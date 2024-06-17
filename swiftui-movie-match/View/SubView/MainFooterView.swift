@@ -28,7 +28,7 @@ struct MainFooter {
 //MARK: - VIEW
 struct MainFooterView: View {
   //MARK: - Navigation Stack
-  @Binding var navStack: [Routes]
+  @Binding var navStack: [NavRoute]
   
   //MARK: - TCA store
   @Bindable var store: StoreOf<MainFooter>
@@ -41,7 +41,7 @@ struct MainFooterView: View {
   let haptics = UINotificationFeedbackGenerator()
   
   //MARK: - INIT
-  init(store: StoreOf<MainFooter>, navStack: Binding<[Routes]>) {
+  init(store: StoreOf<MainFooter>, navStack: Binding<[NavRoute]>) {
     self.store = store
     self._navStack = navStack
   }

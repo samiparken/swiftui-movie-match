@@ -99,7 +99,7 @@ struct SettingsFeature {
 
 struct SettingsView: View {
   //MARK: - Navigation Stack
-  @Binding var navStack: [Routes]
+  @Binding var navStack: [NavRoute]
 
   //MARK: - TCA store
   @Bindable var store: StoreOf<SettingsFeature>

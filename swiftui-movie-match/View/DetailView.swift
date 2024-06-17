@@ -3,6 +3,9 @@ import SwiftData
 import Observation
 
 struct DetailView: View {
+  //MARK: - Navigation Stack
+  @Binding var navStack: [NavRoute]
+  
   // MARK: - SwiftData
   @Environment(\.modelContext) private var context
   @Query private var favoriteMovies: [FavoriteMovie]
@@ -15,15 +18,14 @@ struct DetailView: View {
   @State private var isError = false
   @State private var isClicked = true
   var movieManager = MovieManager()
-
-  let movieId: Int
-  let languageCode: String
+  
+  let favoriteMovie: FavoriteMovie
   
   //MARK: - METHOD
   private func getMovieDetail() async {
     if let movieDetail = await movieManager.getMovieDetail(
-      id: movieId,
-      languageCode: languageCode ) {
+      id: favoriteMovie.id,
+      languageCode: favoriteMovie.language ) {
       self.movieDetail = movieDetail
       isLoading = false
     } else {
@@ -52,7 +54,7 @@ struct DetailView: View {
           
           //MARK: - REMOVE BUTTON
           Button(action:{
-            if let indexToDelete = favoriteMovies.firstIndex(where: {$0.id == movieId}) {
+            if let indexToDelete = favoriteMovies.firstIndex(where: {$0.id == favoriteMovie.id}) {
               context.delete(favoriteMovies[indexToDelete])
             }
             movieManager.refreshWidget()
@@ -66,7 +68,8 @@ struct DetailView: View {
           
           //MARK: - CLOSE BUTTON
           Button(action:{
-            self.presentationMode.wrappedValue.dismiss()
+            //self.presentationMode.wrappedValue.dismiss()
+            navStack.removeLast()
           }) {
             Text("close-string")
               .textCase(.uppercase)
@@ -98,6 +101,17 @@ struct DetailView: View {
 //MARK: - PREVIEW
 struct MovieDetailView_Previews: PreviewProvider {
   static var previews: some View {
-    DetailView(movieId: 823464, languageCode: "en")
+    let sampleFavoriteMovie: FavoriteMovie = FavoriteMovie(
+      id: 823464,
+      releaseDate: "2024-03-27",
+      title: "Godzilla x Kong: The New Empire",
+      originalTitle: "Godzilla x Kong: The New Empire",
+      overview: "Following their explosive showdown, Godzilla and Kong must reunite against a colossal undiscovered threat hidden within our world, challenging their very existence – and our own.",
+      voteAverage: 7.222,
+      savedAt: Date.now,
+      language: "en")
+    
+    DetailView(navStack: .constant([]),
+               favoriteMovie: sampleFavoriteMovie)
   }
 }

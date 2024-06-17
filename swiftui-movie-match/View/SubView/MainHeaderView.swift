@@ -56,7 +56,7 @@ struct MainHeaderFeature {
 //MARK: - VIEW
 struct MainHeaderView: View {
   //MARK: - Navigation Stack
-  @Binding var navStack: [Routes]
+  @Binding var navStack: [NavRoute]
   
   //MARK: - TCA store
   @Bindable var store: StoreOf<MainHeaderFeature>

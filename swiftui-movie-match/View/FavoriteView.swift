@@ -3,7 +3,7 @@ import SwiftData
 
 struct FavoriteView: View {
   //MARK: - Navigation Stack
-  @Binding var navStack: [Routes]
+  @Binding var navStack: [NavRoute]
     
   // MARK: - SwiftData
   @Environment(\.modelContext) private var context
@@ -17,7 +17,7 @@ struct FavoriteView: View {
   let vstackColumnSet = [ GridItem(.flexible()), GridItem(.flexible()) ]
     
   //MARK: - INIT
-  init(navStack: Binding<[Routes]>) {
+  init(navStack: Binding<[NavRoute]>) {
     self._navStack = navStack
   }
   
@@ -33,10 +33,12 @@ struct FavoriteView: View {
           ForEach(favoriteMovies) { movie in
             MiniMovieCardButton(
               movie: movie,
-              isClicked: Binding(
-                get: { isClicked[movie.id] ?? false },
-                set: { isClicked[movie.id] = $0 }
-              ))
+              navStack: $navStack
+//              isClicked: Binding(
+//                get: { isClicked[movie.id] ?? false },
+//                set: { isClicked[movie.id] = $0 }
+//              )
+            )
           }
         }
         .padding()

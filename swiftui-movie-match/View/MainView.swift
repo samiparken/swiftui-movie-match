@@ -80,7 +80,7 @@ struct MainView: View {
   @Bindable var store: StoreOf<MainFeature>
 
   //MARK: - Navigation Stack
-  @Binding var navStack: [Routes]
+  @Binding var navStack: [NavRoute]
   
   // MARK: - SwiftData
   @Environment(\.modelContext) private var context
@@ -95,7 +95,7 @@ struct MainView: View {
   private let dragAreaThreshold: CGFloat = 65.0 // if it's less than 65 points, the card snaps back to its origianl place.
   
   //MARK: - INIT
-  init(store: StoreOf<MainFeature>, navStack: Binding<[Routes]>) {
+  init(store: StoreOf<MainFeature>, navStack: Binding<[NavRoute]>) {
     self.store = store
     self._navStack = navStack
   }
