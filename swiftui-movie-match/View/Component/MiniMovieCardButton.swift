@@ -1,14 +1,28 @@
 import SwiftUI
+import SwiftData
+import Observation
+import ComposableArchitecture
 
 struct MiniMovieCardButton: View {
   @Environment(\.colorScheme) var colorScheme
   
-  let id = UUID() //for Identifiable
-  var movie: FavoriteMovie
-  @Binding var isClicked: Bool
+  @Binding var navStack: [NavRoute]
   @State private var uiImage: UIImage? = nil
   @State private var isLoading = true
+
+  let id = UUID() //for Identifiable
+  var movie: FavoriteMovie
   
+  var movieManager = MovieManager()
+
+  //MARK: - INIT
+  init(navStack: Binding<[NavRoute]>, movie: FavoriteMovie, movieManager: MovieManager) {
+    self._navStack = navStack
+    self.movie = movie
+    self.movieManager = movieManager
+  }
+  
+  //MARK: - BODY
   var body: some View {
     VStack {
       if let uiImage = uiImage {
@@ -42,10 +56,8 @@ struct MiniMovieCardButton: View {
       loadImage(from: movie.posterPath!.toImageUrl())
     }
     .onTapGesture {
-      isClicked.toggle()
-    }
-    .sheet(isPresented: $isClicked) {
-      DetailView(movieId: movie.id, languageCode: movie.language)
+      movieManager.selectedFavoriteMovie = movie
+      navStack.append(.detailView)
     }
   }
   
@@ -72,21 +84,11 @@ struct MiniMovieCardButton: View {
 }
 
 struct FavoriteMovieCardView_Previews: PreviewProvider {
-  static var previews: some View {
-    let sampleFavoriteMovie = FavoriteMovie(
-      id: 1,
-      posterPath: "/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg",
-      releaseDate: "2024-03-27",
-      title: "Godzilla x Kong: The New Empire",
-      originalTitle: "Godzilla x Kong: The New Empire",
-      overview: "Following their explosive showdown, Godzilla and Kong must reunite against a colossal undiscovered threat hidden within our world, challenging their very existence – and our own.",
-      voteAverage: 7.222,
-      savedAt: Date(),
-      language: "en"
-    )
+  static var previews: some View {    
+    let sampleMovie = SampleData.favoriteMovie
     
-    @State var isClicked: Bool = false
-    
-    MiniMovieCardButton(movie: sampleFavoriteMovie, isClicked: $isClicked)
+    MiniMovieCardButton(navStack:.constant([]),
+                        movie: sampleMovie,
+                        movieManager: MovieManager())
   }
 }

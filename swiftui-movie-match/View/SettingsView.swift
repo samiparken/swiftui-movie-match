@@ -98,31 +98,31 @@ struct SettingsFeature {
 }
 
 struct SettingsView: View {
-  //MARK: - Store
+  //MARK: - Navigation Stack
+  @Binding var navStack: [NavRoute]
+
+  //MARK: - TCA store
   @Bindable var store: StoreOf<SettingsFeature>
-  
-  //MARK: - PROPERTIES
-  @Environment(\.presentationMode) var presentationMode
     
   //MARK: - BODY
   var body: some View {
     VStack (alignment:.center, spacing: 0) {
-      HeaderSwipeBar()
+      //HeaderSwipeBar()
       
       //MARK: - HEADER
       ZStack {
+        // BACK Button
+        HStack{
+          HeaderBackButton(){
+            navStack.removeLast()
+          }
+          Spacer()
+        }
+        
         // HEADER TITLE
         HeaderTitleText(icon: "gearshape", text: "settings-string")
-        
-        // CLOSE Button
-        HStack{
-          Spacer()
-          HeaderCloseButton(){
-            store.send(.closeSettingsView)
-          }
-        }
       }
-      .padding(.horizontal)
+      .padding()
             
       //MARK: - APPEARANCE
       VStack(alignment:.leading, spacing: 10) {
@@ -250,7 +250,9 @@ struct SettingsView: View {
 //MARK: - PREVIEW
 struct SettingsView_Previews: PreviewProvider {
   static var previews: some View {
-    SettingsView(store: Store(initialState: SettingsFeature.State()) { SettingsFeature() })
+    SettingsView(
+      navStack: .constant([]),
+      store: Store(initialState: SettingsFeature.State()) { SettingsFeature() })
   }
 }
 

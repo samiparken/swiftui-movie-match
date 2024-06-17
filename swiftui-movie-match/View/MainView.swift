@@ -76,14 +76,17 @@ struct MainFeature {
 }
 
 struct MainView: View {
+  //MARK: - TCA store
   @Bindable var store: StoreOf<MainFeature>
+
+  //MARK: - Navigation Stack
+  @Binding var navStack: [NavRoute]
   
   // MARK: - SwiftData
   @Environment(\.modelContext) private var context
   
   //MARK: - PROPERTIES
-  private var movieManager = MovieManager()
-  
+  var movieManager = MovieManager()
   @GestureState private var dragState = DragState.inactive
   @State private var lastCardIndex: Int = 1
   @State private var cardRemovalTransition = AnyTransition.trailingBottom
@@ -91,8 +94,12 @@ struct MainView: View {
   private let dragAreaThreshold: CGFloat = 65.0 // if it's less than 65 points, the card snaps back to its origianl place.
   
   //MARK: - INIT
-  init(store: StoreOf<MainFeature>) {
+  init(store: StoreOf<MainFeature>, 
+       navStack: Binding<[NavRoute]>,
+       movieManager: MovieManager) {
     self.store = store
+    self._navStack = navStack
+    self.movieManager = movieManager
   }
     
   //MARK: - BODY
@@ -102,9 +109,11 @@ struct MainView: View {
       Spacer()
       
       //MARK: - HEADER VIEW
-      MainHeaderView(store: Store(initialState: MainHeaderFeature.State()){
-        MainHeaderFeature()
-      },movieManager: movieManager)
+      MainHeaderView(navStack: $navStack, 
+                     store: Store(initialState: MainHeaderFeature.State()){
+                        MainHeaderFeature()
+                      },
+                     movieManager: movieManager)
       .opacity(dragState.isDragging ? 0.0 : 1.0)
       .animation(.default, value: dragState.isDragging)
       
@@ -209,7 +218,7 @@ struct MainView: View {
       //MARK: - FOOTER VIEW
       MainFooterView(store: Store(initialState: MainFooter.State()){
         MainFooter()
-      })
+      }, navStack: $navStack)
         .opacity(dragState.isDragging ? 0.0 : 1.0)
         .animation(.default, value: dragState.isDragging)
       
@@ -227,10 +236,12 @@ struct MainView: View {
   }
 }
 
+
+//MARK: - PREVIEW
 #Preview {
   MainView(store: Store(initialState: MainFeature.State()) {
     MainFeature()
       ._printChanges()
-  })
+  }, navStack: .constant([]), movieManager: MovieManager())
   .modelContainer(for: FavoriteMovie.self, inMemory: true)
 }

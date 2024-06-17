@@ -55,6 +55,10 @@ struct MainHeaderFeature {
 
 //MARK: - VIEW
 struct MainHeaderView: View {
+  //MARK: - Navigation Stack
+  @Binding var navStack: [NavRoute]
+  
+  //MARK: - TCA store
   @Bindable var store: StoreOf<MainHeaderFeature>
 
   //MARK: - AppStorage
@@ -93,7 +97,7 @@ struct MainHeaderView: View {
         // SETTINGS BUTTON
         Button(action: {
           self.haptics.notificationOccurred(.success)
-          store.send(.showSettingsView)
+          navStack.append(.settingsView)
         }){
           Image(systemName: "gearshape")
             .font(.system(size: 24, weight: .regular))
@@ -106,7 +110,7 @@ struct MainHeaderView: View {
       .sheet(
         item: $store.scope(state: \.settingsView, action: \.settingsView)
       ) { settingsStore in
-        SettingsView(store: settingsStore)
+        SettingsView(navStack:$navStack, store: settingsStore)
       }
     
   }
@@ -117,11 +121,12 @@ struct HeaderView_Previews: PreviewProvider {
   @State static var colorScheme: ColorScheme = .light
   
   static var previews: some View {
-    MainHeaderView(
-      store: Store(initialState: MainHeaderFeature.State()) {
-        MainHeaderFeature()
-          ._printChanges()
-      }, movieManager: movieManager)
+    MainHeaderView(navStack: .constant([]),
+                   store: Store(initialState: MainHeaderFeature.State()) {
+      MainHeaderFeature()
+        ._printChanges()
+    },
+                   movieManager: movieManager)
     .previewLayout(.fixed(width: 375, height: 80))
   }
 }

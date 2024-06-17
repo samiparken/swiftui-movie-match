@@ -3,27 +3,27 @@ import SwiftData
 import Observation
 
 struct DetailView: View {
+  //MARK: - Navigation Stack
+  @Binding var navStack: [NavRoute]
+  
   // MARK: - SwiftData
   @Environment(\.modelContext) private var context
   @Query private var favoriteMovies: [FavoriteMovie]
   
   //MARK: - PROPERTIES
   @Environment(\.colorScheme) var colorScheme
-  @Environment(\.presentationMode) var presentationMode
   @State private var movieDetail: MovieDetail?
   @State private var isLoading = true
   @State private var isError = false
   @State private var isClicked = true
   var movieManager = MovieManager()
-
-  let movieId: Int
-  let languageCode: String
+  let favoriteMovie: FavoriteMovie
   
   //MARK: - METHOD
   private func getMovieDetail() async {
     if let movieDetail = await movieManager.getMovieDetail(
-      id: movieId,
-      languageCode: languageCode ) {
+      id: favoriteMovie.id,
+      languageCode: favoriteMovie.language ) {
       self.movieDetail = movieDetail
       isLoading = false
     } else {
@@ -32,63 +32,95 @@ struct DetailView: View {
     }
   }
   
+  //MARK: - INIT
+  init(navStack: Binding<[NavRoute]>,
+       movieManager: MovieManager,
+       favoriteMovie: FavoriteMovie) {
+    self._navStack = navStack
+    self.movieManager = movieManager
+    self.favoriteMovie = favoriteMovie
+  }
+  
   //MARK: - BODY
   var body: some View {
-    VStack {
-      HeaderSwipeBar()
-      Spacer()
+    
+    //MARK: - HEADER
+    ZStack(alignment: .center) {
       
-      VStack {
-        if isLoading {
-          Text("Loading...")
-        } else if isError {
-          Text("Failed to load movie detail")
-        } else if let movieDetail = movieDetail {
-          
-          //MARK: - DETAILED CARD VIEW
-          DetailCardView(movieDetail: movieDetail, isClicked: $isClicked)
-          
+      // BACK Button
+      HStack{
+        HeaderBackButton(){
+          navStack.removeLast()
+        }
+        Spacer()
+      }
+      
+      // TITLE
+      HeaderTitleText(icon: "", text: "Detail")
+    }
+    //.padding(.horizontal)
+    .padding()
+    
+    VStack {
+      if isLoading {
+        VStack {
           Spacer()
-          
-          //MARK: - REMOVE BUTTON
-          Button(action:{
-            if let indexToDelete = favoriteMovies.firstIndex(where: {$0.id == movieId}) {
-              context.delete(favoriteMovies[indexToDelete])
-            }
-            movieManager.refreshWidget()
-            self.presentationMode.wrappedValue.dismiss()
-          }) {
-            Text("remove-string")
-              .textCase(.uppercase)
-              .modifier(ButtonRemoveModifier())
-              .padding(.horizontal, 20)
-          }
-          
-          //MARK: - CLOSE BUTTON
-          Button(action:{
-            self.presentationMode.wrappedValue.dismiss()
-          }) {
-            Text("close-string")
-              .textCase(.uppercase)
-              .modifier(ButtonCloseModifier())
-              .accentColor(Color(UIColor(colorScheme == .dark
-                                         ? .tertiaryColor
-                                         : .primaryColor)))
-              .background(
-                Capsule().stroke(Color(UIColor(colorScheme == .dark
-                                               ? .tertiaryColor
-                                               : .primaryColor)), lineWidth: 2)
-              )
-              .padding(.top, 5)
-              .padding(.horizontal, 20)
-          }
-          
+          ProgressView() // A spinner or loading indicator
+            .frame(minWidth: 20, maxWidth: .infinity)
           Spacer()
         }
+      } else if isError {
+        VStack {
+          Spacer()
+          Text("Failed to load movie detail")
+          Spacer()
+        }
+      } else if let movieDetail = movieDetail {
+        
+        //MARK: - DETAILED CARD VIEW
+        DetailCardView(movieDetail: movieDetail, isClicked: $isClicked)
+        
+        Spacer()
+        
+        //MARK: - REMOVE BUTTON
+        Button(action:{
+          if let indexToDelete = favoriteMovies.firstIndex(where: {$0.id == favoriteMovie.id}) {
+            context.delete(favoriteMovies[indexToDelete])
+          }
+          movieManager.refreshWidget()
+          navStack.removeLast()
+        }) {
+          Text("remove-string")
+            .textCase(.uppercase)
+            .modifier(ButtonRemoveModifier())
+            .padding(.top, 5)
+            .padding(.horizontal, 20)
+        }
+        
+        //MARK: - CLOSE BUTTON
+        Button(action:{
+          navStack.removeLast()
+        }) {
+          Text("close-string")
+            .textCase(.uppercase)
+            .modifier(ButtonCloseModifier())
+            .accentColor(Color(UIColor(colorScheme == .dark
+                                       ? .tertiaryColor
+                                       : .primaryColor)))
+            .background(
+              Capsule().stroke(Color(UIColor(colorScheme == .dark
+                                             ? .tertiaryColor
+                                             : .primaryColor)), lineWidth: 2)
+            )
+            .padding(.top, 5)
+            .padding(.horizontal, 20)
+        }
+        
+        Spacer()
       }
-      .task {
-        await getMovieDetail()
-      }
+    }
+    .task {
+      await getMovieDetail()
     }
     
     Spacer()
@@ -96,8 +128,10 @@ struct DetailView: View {
 }
 
 //MARK: - PREVIEW
-struct MovieDetailView_Previews: PreviewProvider {
+struct DetailView_Previews: PreviewProvider {
   static var previews: some View {
-    DetailView(movieId: 823464, languageCode: "en")
+    DetailView(navStack: .constant([]),
+               movieManager: MovieManager(),
+               favoriteMovie: SampleData.favoriteMovie)
   }
 }

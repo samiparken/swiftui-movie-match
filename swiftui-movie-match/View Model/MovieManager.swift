@@ -9,7 +9,7 @@ class MovieManager {
   //MARK: - SwiftData
   var context: ModelContext? = nil
   var favoriteMovies: [FavoriteMovie] = []
-  //var latestFavoriteMovie: FavoriteMovie?
+  var selectedFavoriteMovie: FavoriteMovie?
   
   func fetchFavoriteMovies() {
     let fetchDescriptor = FetchDescriptor<FavoriteMovie>(
@@ -19,7 +19,6 @@ class MovieManager {
       sortBy: [SortDescriptor(\.savedAt)]
     )
     favoriteMovies = (try? (context?.fetch(fetchDescriptor) ?? [])) ?? []
-    //latestFavoriteMovie = favoriteMovies.last
   }
     
   func createFavoriteMovie(_ movie: Movie) {
@@ -37,15 +36,24 @@ class MovieManager {
     context?.insert(favoriteMovie)
   }
   
+  func selectFavoriteMovie(id: Int) -> Bool {
+    if let favorieMovie = favoriteMovies.first(where: {$0.id == id}) {
+      selectedFavoriteMovie = favorieMovie
+      return true
+    } else {
+      return false
+    }
+  }
+  
   //MARK: - PROPERTIES
   @ObservationIgnored 
   @AppStorage(K.AppStorageKey.localeIdentifier) private var localeIdentifier: LocaleIdentifier = .English
   var movieCardsToShow: [Movie] = []
   var movieCardDeck: [Movie] = []
   var currentPopularMoviePage = 1
+  var currentLanguageCode = LocaleIdentifier.English.rawValue
   let popularMoviePageLimit = 500
   let movieCardDeckLimit = 100
-  var currentLanguageCode = LocaleIdentifier.English.rawValue
   
   //MARK: - METHOD - GET DATA
   func getMovieDetail(id: Int, languageCode: String) async -> MovieDetail? {

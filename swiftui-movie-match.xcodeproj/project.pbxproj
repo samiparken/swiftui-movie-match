@@ -21,6 +21,8 @@
 		3181D1FF2BFB3EDB00C40722 /* MainFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3181D1FE2BFB3EDB00C40722 /* MainFooterView.swift */; };
 		3181D2012BFB43B900C40722 /* Color+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3181D2002BFB43B900C40722 /* Color+Ext.swift */; };
 		3181D2032BFB468B00C40722 /* MainHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3181D2022BFB468B00C40722 /* MainHeaderView.swift */; };
+		31B2F1292C20198E0001F1C9 /* NavigationStackRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B2F1282C20198E0001F1C9 /* NavigationStackRouter.swift */; };
+		31B2F12B2C2049680001F1C9 /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B2F12A2C2049680001F1C9 /* SampleData.swift */; };
 		31B6773C2BFC7410005223DC /* FavoriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B6773B2BFC7410005223DC /* FavoriteView.swift */; };
 		31B677402BFC761F005223DC /* HeaderSwipeBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B6773F2BFC761F005223DC /* HeaderSwipeBar.swift */; };
 		31B677422BFC7B1D005223DC /* MiniMovieCardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B677412BFC7B1D005223DC /* MiniMovieCardButton.swift */; };
@@ -41,7 +43,7 @@
 		31D2E2A02BFF780500C0AD63 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 31D2E29F2BFF780500C0AD63 /* Assets.xcassets */; };
 		31D2E2A42BFF780500C0AD63 /* WidgetsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 31D2E2902BFF780300C0AD63 /* WidgetsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		31D2E2AA2BFF7A4500C0AD63 /* ColorScheme+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D2E2A92BFF7A4500C0AD63 /* ColorScheme+Ext.swift */; };
-		31D2E2AC2BFF98DB00C0AD63 /* HeaderCloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D2E2AB2BFF98DB00C0AD63 /* HeaderCloseButton.swift */; };
+		31D2E2AC2BFF98DB00C0AD63 /* HeaderBackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D2E2AB2BFF98DB00C0AD63 /* HeaderBackButton.swift */; };
 		31D2E2AE2BFF99B700C0AD63 /* HeaderTitleText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D2E2AD2BFF99B700C0AD63 /* HeaderTitleText.swift */; };
 		31D2E2B02BFFA33A00C0AD63 /* MainFooterViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D2E2AF2BFFA33A00C0AD63 /* MainFooterViewUITests.swift */; };
 		31D2E2B22BFFAA2C00C0AD63 /* MainViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D2E2B12BFFAA2C00C0AD63 /* MainViewUITests.swift */; };
@@ -118,6 +120,8 @@
 		3181D1FE2BFB3EDB00C40722 /* MainFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFooterView.swift; sourceTree = "<group>"; };
 		3181D2002BFB43B900C40722 /* Color+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Ext.swift"; sourceTree = "<group>"; };
 		3181D2022BFB468B00C40722 /* MainHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHeaderView.swift; sourceTree = "<group>"; };
+		31B2F1282C20198E0001F1C9 /* NavigationStackRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationStackRouter.swift; sourceTree = "<group>"; };
+		31B2F12A2C2049680001F1C9 /* SampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
 		31B6773B2BFC7410005223DC /* FavoriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteView.swift; sourceTree = "<group>"; };
 		31B6773F2BFC761F005223DC /* HeaderSwipeBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderSwipeBar.swift; sourceTree = "<group>"; };
 		31B677412BFC7B1D005223DC /* MiniMovieCardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniMovieCardButton.swift; sourceTree = "<group>"; };
@@ -127,6 +131,7 @@
 		31B6774B2BFCE13A005223DC /* MovieManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieManagerTests.swift; sourceTree = "<group>"; };
 		31B6774F2BFCFCC4005223DC /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		31B677532BFD0AB2005223DC /* AppearanceMode+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppearanceMode+Ext.swift"; sourceTree = "<group>"; };
+		31C47A5B2C1F783C0035665C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		31D2E2862BFF58FC00C0AD63 /* Double+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Ext.swift"; sourceTree = "<group>"; };
 		31D2E2902BFF780300C0AD63 /* WidgetsExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WidgetsExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		31D2E2922BFF780300C0AD63 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -138,7 +143,7 @@
 		31D2E29F2BFF780500C0AD63 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		31D2E2A12BFF780500C0AD63 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		31D2E2A92BFF7A4500C0AD63 /* ColorScheme+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ColorScheme+Ext.swift"; sourceTree = "<group>"; };
-		31D2E2AB2BFF98DB00C0AD63 /* HeaderCloseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCloseButton.swift; sourceTree = "<group>"; };
+		31D2E2AB2BFF98DB00C0AD63 /* HeaderBackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderBackButton.swift; sourceTree = "<group>"; };
 		31D2E2AD2BFF99B700C0AD63 /* HeaderTitleText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderTitleText.swift; sourceTree = "<group>"; };
 		31D2E2AF2BFFA33A00C0AD63 /* MainFooterViewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFooterViewUITests.swift; sourceTree = "<group>"; };
 		31D2E2B12BFFAA2C00C0AD63 /* MainViewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewUITests.swift; sourceTree = "<group>"; };
@@ -243,7 +248,7 @@
 			isa = PBXGroup;
 			children = (
 				31B677412BFC7B1D005223DC /* MiniMovieCardButton.swift */,
-				31D2E2AB2BFF98DB00C0AD63 /* HeaderCloseButton.swift */,
+				31D2E2AB2BFF98DB00C0AD63 /* HeaderBackButton.swift */,
 				31B6773F2BFC761F005223DC /* HeaderSwipeBar.swift */,
 				31D2E2AD2BFF99B700C0AD63 /* HeaderTitleText.swift */,
 			);
@@ -318,12 +323,14 @@
 		31FD8F9A2BFA694D00F03252 /* swiftui-movie-match */ = {
 			isa = PBXGroup;
 			children = (
+				31C47A5B2C1F783C0035665C /* Info.plist */,
 				31E0BE1F2C1CC2B900D26363 /* swiftui-movie-match.entitlements */,
 				31036C8E2BFA9DD900604902 /* Extension */,
 				31FD8FCA2BFA7F3B00F03252 /* Model */,
 				31FD8FCB2BFA7F5000F03252 /* View Model */,
 				31FD8FCC2BFA7F5C00F03252 /* View */,
 				31FD8FC92BFA7F3600F03252 /* API Service */,
+				31B2F1282C20198E0001F1C9 /* NavigationStackRouter.swift */,
 				31FD8F9B2BFA694D00F03252 /* swiftui_movie_matchApp.swift */,
 				31FD8FA12BFA694F00F03252 /* Assets.xcassets */,
 				31FD8FA32BFA694F00F03252 /* Preview Content */,
@@ -375,6 +382,7 @@
 		31FD8FCA2BFA7F3B00F03252 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				31B2F12A2C2049680001F1C9 /* SampleData.swift */,
 				31FD8FDF2BFA870400F03252 /* API Response */,
 				31F7C8CC2BFF271000963FF5 /* Data */,
 				31F7C8CB2BFF26FF00963FF5 /* Enums */,
@@ -394,9 +402,9 @@
 			isa = PBXGroup;
 			children = (
 				31FD8F9D2BFA694D00F03252 /* MainView.swift */,
+				31B6774F2BFCFCC4005223DC /* SettingsView.swift */,
 				31B6773B2BFC7410005223DC /* FavoriteView.swift */,
 				31B677432BFC81BC005223DC /* DetailView.swift */,
-				31B6774F2BFCFCC4005223DC /* SettingsView.swift */,
 				31B6773D2BFC7464005223DC /* SubView */,
 				31B6773E2BFC75F9005223DC /* Component */,
 				3181D1EF2BFB2CB800C40722 /* ViewModifier */,
@@ -625,16 +633,18 @@
 				3181D2012BFB43B900C40722 /* Color+Ext.swift in Sources */,
 				31FD8FD32BFA802200F03252 /* APIs.swift in Sources */,
 				31FD8FDC2BFA86CA00F03252 /* Movie.swift in Sources */,
+				31B2F12B2C2049680001F1C9 /* SampleData.swift in Sources */,
 				31B677442BFC81BC005223DC /* DetailView.swift in Sources */,
 				31D2E2AA2BFF7A4500C0AD63 /* ColorScheme+Ext.swift in Sources */,
 				31B677402BFC761F005223DC /* HeaderSwipeBar.swift in Sources */,
 				31B677482BFCC8FE005223DC /* FavoriteHeaderView.swift in Sources */,
 				31036C8D2BFA9C5F00604902 /* MainCardView.swift in Sources */,
-				31D2E2AC2BFF98DB00C0AD63 /* HeaderCloseButton.swift in Sources */,
+				31D2E2AC2BFF98DB00C0AD63 /* HeaderBackButton.swift in Sources */,
 				31036C902BFA9DEC00604902 /* String+Ext.swift in Sources */,
 				31D2E2AE2BFF99B700C0AD63 /* HeaderTitleText.swift in Sources */,
 				3181D1F32BFB2CEC00C40722 /* ButtonModifier.swift in Sources */,
 				31F7C8CA2BFF26AF00963FF5 /* Language.swift in Sources */,
+				31B2F1292C20198E0001F1C9 /* NavigationStackRouter.swift in Sources */,
 				3181D1FF2BFB3EDB00C40722 /* MainFooterView.swift in Sources */,
 				31B6773C2BFC7410005223DC /* FavoriteView.swift in Sources */,
 				31D718432BFBEDCB00C00DC7 /* MovieDetail.swift in Sources */,
@@ -880,6 +890,8 @@
 				DEVELOPMENT_TEAM = 6E66L27LG6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "swiftui-movie-match/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Movie Match";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -910,6 +922,8 @@
 				DEVELOPMENT_TEAM = 6E66L27LG6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "swiftui-movie-match/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Movie Match";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

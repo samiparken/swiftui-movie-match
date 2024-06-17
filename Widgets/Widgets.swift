@@ -81,6 +81,8 @@ struct WidgetsEntryView : View {
   @Environment(\.widgetFamily) var widgetSize
   var entry: Provider.Entry
   
+  //+TODO: organize small and large widget
+  
   var body: some View {
     switch widgetSize {
       
@@ -135,6 +137,7 @@ struct WidgetsEntryView : View {
             
           }
         }
+        .widgetURL(URL(string: "moviematch://moviedetail/\(entry.latestFavoriteMovie?.id ?? 0)"))
 
       } else {
         Image(K.Image.Logo.primaryFull)

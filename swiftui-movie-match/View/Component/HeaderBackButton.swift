@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct HeaderCloseButton: View {
+struct HeaderBackButton: View {
   @Environment(\.colorScheme) var colorScheme
   let action: () -> Void
 
@@ -8,7 +8,7 @@ struct HeaderCloseButton: View {
     Button(action:{
       action()
     }) {
-      Image(systemName: "xmark")
+      Image(systemName: "arrow.left")
         .font(.system(size: 30, weight: .light))
         .foregroundColor(colorScheme.getPrimaryColor())
     }
