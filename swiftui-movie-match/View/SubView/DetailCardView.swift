@@ -121,9 +121,8 @@ struct DetailCardView: View, Identifiable {
 struct Detail_Previews: PreviewProvider {
   static var previews: some View {
     @State var isClicked: Bool = true
-    let sampleMovie = SampleData.movieDetail
-    
-    DetailCardView(movieDetail: sampleMovie, isClicked: $isClicked)
-      .previewLayout(.fixed(width: 375, height: 700))
+    DetailCardView(
+      movieDetail: SampleData.movieDetail,
+      isClicked: $isClicked)
   }
 }

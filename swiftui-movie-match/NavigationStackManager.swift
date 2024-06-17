@@ -72,6 +72,7 @@ struct NavigationStackManager: View {
           let movie = movieManager.selectedFavoriteMovie ?? SampleData.favoriteMovie
           
           DetailView(navStack: $navStack,
+                     movieManager: movieManager,
                      favoriteMovie: movie)
           .modelContainer(sharedModelContainer)
           

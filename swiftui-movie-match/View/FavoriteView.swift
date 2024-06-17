@@ -12,8 +12,6 @@ struct FavoriteView: View {
   //MARK: - PROPERTIES
   @Environment(\.presentationMode) var presentationMode
   var movieManager = MovieManager()
-  @State var showMovieDetailView: Bool = false
-  @State private var isClicked: [Int: Bool] = [:]
   let vstackColumnSet = [ GridItem(.flexible()), GridItem(.flexible()) ]
     
   //MARK: - INIT
@@ -36,10 +34,6 @@ struct FavoriteView: View {
               navStack: $navStack,
               movie: movie,
               movieManager: movieManager
-//              isClicked: Binding(
-//                get: { isClicked[movie.id] ?? false },
-//                set: { isClicked[movie.id] = $0 }
-//              )
             )
           }
         }

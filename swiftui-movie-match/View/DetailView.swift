@@ -18,7 +18,6 @@ struct DetailView: View {
   @State private var isError = false
   @State private var isClicked = true
   var movieManager = MovieManager()
-  
   let favoriteMovie: FavoriteMovie
   
   //MARK: - METHOD
@@ -32,6 +31,15 @@ struct DetailView: View {
       isError = true
       isLoading = false
     }
+  }
+  
+  //MARK: - INIT
+  init(navStack: Binding<[NavRoute]>, 
+       movieManager: MovieManager,
+       favoriteMovie: FavoriteMovie) {
+    self._navStack = navStack
+    self.movieManager = movieManager
+    self.favoriteMovie = favoriteMovie
   }
   
   //MARK: - BODY
@@ -68,7 +76,6 @@ struct DetailView: View {
           
           //MARK: - CLOSE BUTTON
           Button(action:{
-            //self.presentationMode.wrappedValue.dismiss()
             navStack.removeLast()
           }) {
             Text("close-string")
@@ -99,11 +106,10 @@ struct DetailView: View {
 }
 
 //MARK: - PREVIEW
-struct MovieDetailView_Previews: PreviewProvider {
-  static var previews: some View {
-    let sampleFavoriteMovie = SampleData.favoriteMovie
-    
+struct DetailView_Previews: PreviewProvider {
+  static var previews: some View {    
     DetailView(navStack: .constant([]),
-               favoriteMovie: sampleFavoriteMovie)
+               movieManager: MovieManager(),
+               favoriteMovie: SampleData.favoriteMovie)
   }
 }

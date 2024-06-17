@@ -84,11 +84,11 @@ struct MiniMovieCardButton: View {
 }
 
 struct FavoriteMovieCardView_Previews: PreviewProvider {
-  static var previews: some View {
-    let sampleFavoriteMovie = SampleData.favoriteMovie
+  static var previews: some View {    
+    let sampleMovie = SampleData.favoriteMovie
     
-    MiniMovieCardButton(navStack:.constant([]), 
-                        movie: sampleFavoriteMovie,
+    MiniMovieCardButton(navStack:.constant([]),
+                        movie: sampleMovie,
                         movieManager: MovieManager())
   }
 }
