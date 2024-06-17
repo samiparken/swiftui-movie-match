@@ -3,45 +3,39 @@ import Foundation
 struct SampleData {
     
   static let favoriteMovie = FavoriteMovie (
-    id: 1022789,
-    posterPath: "/vpnVM9B6NMmQpWeZvzLvDESb2QY.jpg",
-    releaseDate: "2024-06-11",
-    title: "Inside Out 2",
-    originalTitle: "Inside Out 2",
-    overview: "Teenager Riley's mind headquarters is undergoing a sudden demolition to make room for something entirely unexpected: new Emotions! Joy, Sadness, Anger, Fear and Disgust, who’ve long been running a successful operation by all accounts, aren’t sure how to feel when Anxiety shows up. And it looks like she’s not alone.",
-    voteAverage: 7.222,
+    id: 748783,
+    posterPath: "/p6AbOJvMQhBmffd0PIv0u8ghWeY.jpg",
+    releaseDate: "2024-04-30",
+    title: "The Garfield Movie",
+    originalTitle: "The Garfield Movie",
+    overview: "Garfield, the world-famous, Monday-hating, lasagna-loving indoor cat, is about to have a wild outdoor adventure! After an unexpected reunion with his long-lost father – scruffy street cat Vic – Garfield and his canine friend Odie are forced from their perfectly pampered life into joining Vic in a hilarious, high-stakes heist.",
+    voteAverage: 6.5,
     savedAt: Date(),
     language: "en"
   )
   
   static let movieDetail = MovieDetail (
-    id: 1022789,
-    title: "Inside Out 2",
+    id: 748783,
+    title: "The Garfield Movie",
     originalLanguage: "en",
-    originalTitle: "Inside Out 2",
-    posterPath: "/vpnVM9B6NMmQpWeZvzLvDESb2QY.jpg",
-    releaseDate: "2024-06-11",
+    originalTitle: "The Garfield Movie",
+    posterPath: "/p6AbOJvMQhBmffd0PIv0u8ghWeY.jpg",
+    releaseDate: "2024-04-30",
     genres: [
       Genre(id: 16, name: "Animation"),
+      Genre(id: 35, name: "Comedy"),
       Genre(id: 10751, name: "Family"),
-      Genre(id: 18, name: "Drama"),
       Genre(id: 12, name: "Adventure"),
-      Genre(id: 35, name: "Comedy")
     ],
     adult: false,
-    backdropPath: "/coATv42PoiLqAFKStJiMZs2r6Zb.jpg",
-    belongsToCollection: BelongsToCollection(
-      id: 1022790,
-      name: "Inside Out Collection",
-      posterPath: "/Apr19lGxP7gm6y2HQX0kqOXTtqC.jpg",
-      backdropPath: "/7U2m2dMSIfHx2gWXKq78Xj1weuH.jpg"
-    ),
+    backdropPath: "/vWzJDjLPmycnQ42IppEjMpIhrhc.jpg",
+    belongsToCollection: nil,
     budget: 200000000,
 
-    homepage: "https://movies.disney.com/inside-out-2",
+    homepage: "https://www.thegarfield-movie.com/",
     imdbID: "tt22022452",
-    originCountry: ["US"],
-    overview: "Teenager Riley's mind headquarters is undergoing a sudden demolition to make room for something entirely unexpected: new Emotions! Joy, Sadness, Anger, Fear and Disgust, who’ve long been running a successful operation by all accounts, aren’t sure how to feel when Anxiety shows up. And it looks like she’s not alone.",
+    originCountry: ["US","GB"],
+    overview: "Garfield, the world-famous, Monday-hating, lasagna-loving indoor cat, is about to have a wild outdoor adventure! After an unexpected reunion with his long-lost father – scruffy street cat Vic – Garfield and his canine friend Odie are forced from their perfectly pampered life into joining Vic in a hilarious, high-stakes heist.",
     popularity: 6964.86,
     productionCompanies: [
       ProductionCompany(id: 3, logoPath: "/1TjvGVDMYsj6JBxOAkUHpPEwLf7.png", name: "Pixar", originCountry: "US"),
@@ -50,15 +44,15 @@ struct SampleData {
     productionCountries: [
       ProductionCountry(iso3166_1: "US", name: "United States of America")
     ],
-    revenue: 295800000,
-    runtime: 97,
+    revenue: 217479694,
+    runtime: 101,
     spokenLanguages: [
       SpokenLanguage(englishName: "English", iso639_1: "en", name: "English")
     ],
     status: "Released",
-    tagline: "Make room for new emotions.",
+    tagline: "Indoor cat. Outdoor adventure.",
     video: false,
-    voteAverage: 7.733,
-    voteCount: 193
+    voteAverage: 6.5,
+    voteCount: 167
   )
 }

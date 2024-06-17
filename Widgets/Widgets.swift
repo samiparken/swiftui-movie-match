@@ -39,8 +39,8 @@ struct Provider: AppIntentTimelineProvider {
   func snapshot(for configuration: ConfigurationAppIntent, in context: Context) async -> SimpleEntry {
     SimpleEntry(date: Date(),
                 configuration: configuration,
-                latestFavoriteMovie: nil,
-                moviePosterImage: nil)
+                latestFavoriteMovie: SampleData.favoriteMovie,
+                moviePosterImage: UIImage(named: "sampleData_movie_poster")!)
   }
   
   //MARK: - TIMELINE
@@ -221,7 +221,7 @@ struct WidgetsEntryView : View {
             .frame(width: 345, height: 355) //large
             .clipped()
             .overlay(
-              Color.black.opacity(0.3) // dark layer
+              Color.black.opacity(0.4) // dark layer
             )
                               
           VStack (alignment: .center, spacing: 5) {
