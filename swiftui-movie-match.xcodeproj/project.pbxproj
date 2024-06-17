@@ -22,6 +22,7 @@
 		3181D2012BFB43B900C40722 /* Color+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3181D2002BFB43B900C40722 /* Color+Ext.swift */; };
 		3181D2032BFB468B00C40722 /* MainHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3181D2022BFB468B00C40722 /* MainHeaderView.swift */; };
 		31B2F1292C20198E0001F1C9 /* NavigationStackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B2F1282C20198E0001F1C9 /* NavigationStackManager.swift */; };
+		31B2F12B2C2049680001F1C9 /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B2F12A2C2049680001F1C9 /* SampleData.swift */; };
 		31B6773C2BFC7410005223DC /* FavoriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B6773B2BFC7410005223DC /* FavoriteView.swift */; };
 		31B677402BFC761F005223DC /* HeaderSwipeBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B6773F2BFC761F005223DC /* HeaderSwipeBar.swift */; };
 		31B677422BFC7B1D005223DC /* MiniMovieCardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B677412BFC7B1D005223DC /* MiniMovieCardButton.swift */; };
@@ -120,6 +121,7 @@
 		3181D2002BFB43B900C40722 /* Color+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Ext.swift"; sourceTree = "<group>"; };
 		3181D2022BFB468B00C40722 /* MainHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHeaderView.swift; sourceTree = "<group>"; };
 		31B2F1282C20198E0001F1C9 /* NavigationStackManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationStackManager.swift; sourceTree = "<group>"; };
+		31B2F12A2C2049680001F1C9 /* SampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
 		31B6773B2BFC7410005223DC /* FavoriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteView.swift; sourceTree = "<group>"; };
 		31B6773F2BFC761F005223DC /* HeaderSwipeBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderSwipeBar.swift; sourceTree = "<group>"; };
 		31B677412BFC7B1D005223DC /* MiniMovieCardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniMovieCardButton.swift; sourceTree = "<group>"; };
@@ -380,6 +382,7 @@
 		31FD8FCA2BFA7F3B00F03252 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				31B2F12A2C2049680001F1C9 /* SampleData.swift */,
 				31FD8FDF2BFA870400F03252 /* API Response */,
 				31F7C8CC2BFF271000963FF5 /* Data */,
 				31F7C8CB2BFF26FF00963FF5 /* Enums */,
@@ -630,6 +633,7 @@
 				3181D2012BFB43B900C40722 /* Color+Ext.swift in Sources */,
 				31FD8FD32BFA802200F03252 /* APIs.swift in Sources */,
 				31FD8FDC2BFA86CA00F03252 /* Movie.swift in Sources */,
+				31B2F12B2C2049680001F1C9 /* SampleData.swift in Sources */,
 				31B677442BFC81BC005223DC /* DetailView.swift in Sources */,
 				31D2E2AA2BFF7A4500C0AD63 /* ColorScheme+Ext.swift in Sources */,
 				31B677402BFC761F005223DC /* HeaderSwipeBar.swift in Sources */,

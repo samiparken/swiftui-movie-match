@@ -101,15 +101,7 @@ struct DetailView: View {
 //MARK: - PREVIEW
 struct MovieDetailView_Previews: PreviewProvider {
   static var previews: some View {
-    let sampleFavoriteMovie: FavoriteMovie = FavoriteMovie(
-      id: 823464,
-      releaseDate: "2024-03-27",
-      title: "Godzilla x Kong: The New Empire",
-      originalTitle: "Godzilla x Kong: The New Empire",
-      overview: "Following their explosive showdown, Godzilla and Kong must reunite against a colossal undiscovered threat hidden within our world, challenging their very existence – and our own.",
-      voteAverage: 7.222,
-      savedAt: Date.now,
-      language: "en")
+    let sampleFavoriteMovie = SampleData.favoriteMovie
     
     DetailView(navStack: .constant([]),
                favoriteMovie: sampleFavoriteMovie)

@@ -85,17 +85,7 @@ struct MiniMovieCardButton: View {
 
 struct FavoriteMovieCardView_Previews: PreviewProvider {
   static var previews: some View {
-    let sampleFavoriteMovie = FavoriteMovie(
-      id: 823464,
-      posterPath: "/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg",
-      releaseDate: "2024-03-27",
-      title: "Godzilla x Kong: The New Empire",
-      originalTitle: "Godzilla x Kong: The New Empire",
-      overview: "Following their explosive showdown, Godzilla and Kong must reunite against a colossal undiscovered threat hidden within our world, challenging their very existence – and our own.",
-      voteAverage: 7.222,
-      savedAt: Date(),
-      language: "en"
-    )
+    let sampleFavoriteMovie = SampleData.favoriteMovie
     
     MiniMovieCardButton(navStack:.constant([]), 
                         movie: sampleFavoriteMovie,

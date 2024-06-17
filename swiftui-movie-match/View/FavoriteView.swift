@@ -55,7 +55,8 @@ struct FavoriteView: View {
 //MARK: - PREVIEW
 struct FavoriteView_Previews: PreviewProvider {
   static var previews: some View {
-    FavoriteView(navStack: .constant([]), movieManager: MovieManager())
+    FavoriteView(navStack: .constant([]), 
+                 movieManager: MovieManager())
       .modelContainer(for: FavoriteMovie.self, inMemory: true)
   }
 }

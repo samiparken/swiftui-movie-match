@@ -69,7 +69,7 @@ struct NavigationStackManager: View {
           
         //MARK: - DETAIL VIEW
         case .detailView:
-          let movie = movieManager.selectedFavoriteMovie ?? FavoriteMovie.sampleData
+          let movie = movieManager.selectedFavoriteMovie ?? SampleData.favoriteMovie
           
           DetailView(navStack: $navStack,
                      favoriteMovie: movie)

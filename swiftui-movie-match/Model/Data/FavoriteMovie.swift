@@ -25,18 +25,4 @@ class FavoriteMovie {
     self.savedAt = savedAt
     self.language = language
   }
-  
-  static var sampleData: FavoriteMovie {
-    return FavoriteMovie(
-      id: 823464,
-      posterPath: "/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg",
-      releaseDate: "2024-03-27",
-      title: "Godzilla x Kong: The New Empire",
-      originalTitle: "Godzilla x Kong: The New Empire",
-      overview: "Following their explosive showdown, Godzilla and Kong must reunite against a colossal undiscovered threat hidden within our world, challenging their very existence – and our own.",
-      voteAverage: 7.222,
-      savedAt: Date(),
-      language: "en"
-    )
-  }
 }
