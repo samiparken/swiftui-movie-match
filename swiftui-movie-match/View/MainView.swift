@@ -86,8 +86,7 @@ struct MainView: View {
   @Environment(\.modelContext) private var context
   
   //MARK: - PROPERTIES
-  private var movieManager = MovieManager()
-  
+  var movieManager = MovieManager()
   @GestureState private var dragState = DragState.inactive
   @State private var lastCardIndex: Int = 1
   @State private var cardRemovalTransition = AnyTransition.trailingBottom
@@ -95,9 +94,12 @@ struct MainView: View {
   private let dragAreaThreshold: CGFloat = 65.0 // if it's less than 65 points, the card snaps back to its origianl place.
   
   //MARK: - INIT
-  init(store: StoreOf<MainFeature>, navStack: Binding<[NavRoute]>) {
+  init(store: StoreOf<MainFeature>, 
+       navStack: Binding<[NavRoute]>,
+       movieManager: MovieManager) {
     self.store = store
     self._navStack = navStack
+    self.movieManager = movieManager
   }
     
   //MARK: - BODY
@@ -240,6 +242,6 @@ struct MainView: View {
   MainView(store: Store(initialState: MainFeature.State()) {
     MainFeature()
       ._printChanges()
-  }, navStack: .constant([]))
+  }, navStack: .constant([]), movieManager: MovieManager())
   .modelContainer(for: FavoriteMovie.self, inMemory: true)
 }

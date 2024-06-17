@@ -103,7 +103,7 @@ struct MainCardView: View, Identifiable {
 struct CardView_Previews: PreviewProvider {
   static var previews: some View {
     let sampleMovie = Movie(
-      id: 1,
+      id: 823464,
       adult: false,
       backdropPath: "/piLUbWQ3pgkma1nCyjHLEoMCSsN.jpg",
       genreIds: [12, 28],

@@ -1,14 +1,28 @@
 import SwiftUI
+import SwiftData
+import Observation
+import ComposableArchitecture
 
 struct MiniMovieCardButton: View {
   @Environment(\.colorScheme) var colorScheme
   
-  let id = UUID() //for Identifiable
-  var movie: FavoriteMovie
   @Binding var navStack: [NavRoute]
   @State private var uiImage: UIImage? = nil
   @State private var isLoading = true
+
+  let id = UUID() //for Identifiable
+  var movie: FavoriteMovie
   
+  var movieManager = MovieManager()
+
+  //MARK: - INIT
+  init(navStack: Binding<[NavRoute]>, movie: FavoriteMovie, movieManager: MovieManager) {
+    self._navStack = navStack
+    self.movie = movie
+    self.movieManager = movieManager
+  }
+  
+  //MARK: - BODY
   var body: some View {
     VStack {
       if let uiImage = uiImage {
@@ -42,12 +56,9 @@ struct MiniMovieCardButton: View {
       loadImage(from: movie.posterPath!.toImageUrl())
     }
     .onTapGesture {
-      //isClicked.toggle()
+      movieManager.selectedFavoriteMovie = movie
       navStack.append(.detailView)
     }
-    //.sheet(isPresented: $isClicked) {
-    //  DetailView(favoriteMovie: movie)
-    //}
   }
   
   private func loadImage(from url: String) {
@@ -75,7 +86,7 @@ struct MiniMovieCardButton: View {
 struct FavoriteMovieCardView_Previews: PreviewProvider {
   static var previews: some View {
     let sampleFavoriteMovie = FavoriteMovie(
-      id: 1,
+      id: 823464,
       posterPath: "/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg",
       releaseDate: "2024-03-27",
       title: "Godzilla x Kong: The New Empire",
@@ -86,7 +97,8 @@ struct FavoriteMovieCardView_Previews: PreviewProvider {
       language: "en"
     )
     
-    @State var isClicked: Bool = false
-    MiniMovieCardButton(movie: sampleFavoriteMovie, navStack:.constant([]))
+    MiniMovieCardButton(navStack:.constant([]), 
+                        movie: sampleFavoriteMovie,
+                        movieManager: MovieManager())
   }
 }

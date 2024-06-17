@@ -11,14 +11,15 @@ struct FavoriteView: View {
   
   //MARK: - PROPERTIES
   @Environment(\.presentationMode) var presentationMode
-  private var movieManager = MovieManager()
+  var movieManager = MovieManager()
   @State var showMovieDetailView: Bool = false
   @State private var isClicked: [Int: Bool] = [:]
   let vstackColumnSet = [ GridItem(.flexible()), GridItem(.flexible()) ]
     
   //MARK: - INIT
-  init(navStack: Binding<[NavRoute]>) {
+  init(navStack: Binding<[NavRoute]>, movieManager: MovieManager) {
     self._navStack = navStack
+    self.movieManager = movieManager
   }
   
   //MARK: - BODY
@@ -32,8 +33,9 @@ struct FavoriteView: View {
         LazyVGrid(columns: vstackColumnSet, spacing: 15) {
           ForEach(favoriteMovies) { movie in
             MiniMovieCardButton(
+              navStack: $navStack,
               movie: movie,
-              navStack: $navStack
+              movieManager: movieManager
 //              isClicked: Binding(
 //                get: { isClicked[movie.id] ?? false },
 //                set: { isClicked[movie.id] = $0 }
@@ -53,7 +55,7 @@ struct FavoriteView: View {
 //MARK: - PREVIEW
 struct FavoriteView_Previews: PreviewProvider {
   static var previews: some View {
-    FavoriteView(navStack: .constant([]))
+    FavoriteView(navStack: .constant([]), movieManager: MovieManager())
       .modelContainer(for: FavoriteMovie.self, inMemory: true)
   }
 }

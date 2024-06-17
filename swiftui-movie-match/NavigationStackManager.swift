@@ -6,8 +6,9 @@
 //
 
 import SwiftUI
-import ComposableArchitecture
 import SwiftData
+import Observation
+import ComposableArchitecture
 
 enum NavRoute {
   case mainView
@@ -34,6 +35,9 @@ struct NavigationStackManager: View {
     }
   }()
   
+  //MARK: - PROPERTIES
+  private var movieManager = MovieManager()
+  
   //MARK: - BODY
   var body: some View {
     NavigationStack(path:$navStack) {
@@ -41,7 +45,7 @@ struct NavigationStackManager: View {
       // Root View
       MainView(store: Store(initialState: MainFeature.State()) {
         MainFeature()
-      }, navStack: $navStack)
+      }, navStack: $navStack, movieManager: movieManager)
       .modelContainer(sharedModelContainer)
       .navigationDestination(for: NavRoute.self) { route in
         switch(route) {
@@ -50,7 +54,7 @@ struct NavigationStackManager: View {
         case .mainView:
           MainView(store: Store(initialState: MainFeature.State()) {
             MainFeature()
-          }, navStack: $navStack)
+          }, navStack: $navStack, movieManager: movieManager)
           .modelContainer(sharedModelContainer)
           
         //MARK: - SETTINGS VIEW
@@ -60,23 +64,15 @@ struct NavigationStackManager: View {
           
         //MARK: - FAVORITE VIEW
         case .favoriteView:
-          FavoriteView(navStack: $navStack)
+          FavoriteView(navStack: $navStack, movieManager: movieManager)
             .modelContainer(sharedModelContainer)
           
         //MARK: - DETAIL VIEW
         case .detailView:
-          let sampleFavoriteMovie: FavoriteMovie = FavoriteMovie(
-            id: 823464,
-            releaseDate: "2024-03-27",
-            title: "Godzilla x Kong: The New Empire",
-            originalTitle: "Godzilla x Kong: The New Empire",
-            overview: "Following their explosive showdown, Godzilla and Kong must reunite against a colossal undiscovered threat hidden within our world, challenging their very existence – and our own.",
-            voteAverage: 7.222,
-            savedAt: Date.now,
-            language: "en")
+          let movie = movieManager.selectedFavoriteMovie ?? FavoriteMovie.sampleData
           
           DetailView(navStack: $navStack,
-                     favoriteMovie: sampleFavoriteMovie)
+                     favoriteMovie: movie)
           .modelContainer(sharedModelContainer)
           
         }

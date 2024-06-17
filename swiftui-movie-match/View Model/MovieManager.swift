@@ -9,7 +9,7 @@ class MovieManager {
   //MARK: - SwiftData
   var context: ModelContext? = nil
   var favoriteMovies: [FavoriteMovie] = []
-  //var latestFavoriteMovie: FavoriteMovie?
+  var selectedFavoriteMovie: FavoriteMovie?
   
   func fetchFavoriteMovies() {
     let fetchDescriptor = FetchDescriptor<FavoriteMovie>(
@@ -19,7 +19,7 @@ class MovieManager {
       sortBy: [SortDescriptor(\.savedAt)]
     )
     favoriteMovies = (try? (context?.fetch(fetchDescriptor) ?? [])) ?? []
-    //latestFavoriteMovie = favoriteMovies.last
+    selectedFavoriteMovie = favoriteMovies.last
   }
     
   func createFavoriteMovie(_ movie: Movie) {
@@ -43,9 +43,9 @@ class MovieManager {
   var movieCardsToShow: [Movie] = []
   var movieCardDeck: [Movie] = []
   var currentPopularMoviePage = 1
+  var currentLanguageCode = LocaleIdentifier.English.rawValue
   let popularMoviePageLimit = 500
   let movieCardDeckLimit = 100
-  var currentLanguageCode = LocaleIdentifier.English.rawValue
   
   //MARK: - METHOD - GET DATA
   func getMovieDetail(id: Int, languageCode: String) async -> MovieDetail? {
