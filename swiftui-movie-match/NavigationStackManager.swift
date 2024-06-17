@@ -56,16 +56,20 @@ struct NavigationStackManager: View {
             MainFeature()
           }, navStack: $navStack, movieManager: movieManager)
           .modelContainer(sharedModelContainer)
+          .navigationBarBackButtonHidden()
           
         //MARK: - SETTINGS VIEW
         case .settingsView:
           SettingsView(navStack: $navStack,
                        store: Store(initialState: SettingsFeature.State()) { SettingsFeature() })
+          .navigationBarBackButtonHidden()
           
         //MARK: - FAVORITE VIEW
         case .favoriteView:
           FavoriteView(navStack: $navStack, movieManager: movieManager)
             .modelContainer(sharedModelContainer)
+            .navigationBarBackButtonHidden()
+
           
         //MARK: - DETAIL VIEW
         case .detailView:
@@ -75,11 +79,11 @@ struct NavigationStackManager: View {
                      movieManager: movieManager,
                      favoriteMovie: movie)
           .modelContainer(sharedModelContainer)
-          
+          .navigationBarBackButtonHidden()
         }
       }
       
-    }
+    }    
   }
 }
 

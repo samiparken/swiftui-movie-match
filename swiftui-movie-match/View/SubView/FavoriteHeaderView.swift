@@ -1,43 +1,46 @@
 import SwiftUI
 
 struct FavoriteHeaderView: View {
+  //MARK: - Navigation Stack
+  @Binding var navStack: [NavRoute]
+  
   //MARK: - PROPERTIES
-  @Environment(\.presentationMode) var presentationMode
   @Environment(\.colorScheme) var colorScheme
   var numOfFavorites: Int = 0
   
   //MARK: - BODY
   var body: some View {
-    ZStack(alignment:.center) {
+    ZStack(alignment: .center) {
 
-      // NUM OF FAVORITE MOVIES
+      // Back Button
       HStack{
-        Text(String(numOfFavorites))
-          .font(.title)
-          .fontWeight(.heavy)
-          .foregroundColor(Color.pink)
-          .padding(.leading, 5)
+        HeaderBackButton(){
+          navStack.removeLast()
+        }
         Spacer()
       }
       
       // TITLE
       HeaderTitleText(icon: "heart.circle", text: "favorites-string")
-      
-      // CLOSE Button
+
+      // NUM OF FAVORITE MOVIES
       HStack{
         Spacer()
-        HeaderCloseButton(){
-          self.presentationMode.wrappedValue.dismiss()
-        }
+        Text(String(numOfFavorites))
+          .font(.title)
+          .fontWeight(.heavy)
+          .foregroundColor(Color.pink)
+          .padding(.leading, 5)
       }
     }
-    .padding(.horizontal)
+    .padding()
   }
 }
 
 struct FavoriteHeaderView_Previews: PreviewProvider {
   static var previews: some View {
-    FavoriteHeaderView(numOfFavorites: 10)
+    FavoriteHeaderView(navStack:.constant([]),
+                       numOfFavorites: 10)
       .previewLayout(.sizeThatFits) //the views in it
   }
 }

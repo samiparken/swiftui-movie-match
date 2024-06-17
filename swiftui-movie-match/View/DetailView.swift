@@ -12,7 +12,6 @@ struct DetailView: View {
   
   //MARK: - PROPERTIES
   @Environment(\.colorScheme) var colorScheme
-  @Environment(\.presentationMode) var presentationMode
   @State private var movieDetail: MovieDetail?
   @State private var isLoading = true
   @State private var isError = false
@@ -34,7 +33,7 @@ struct DetailView: View {
   }
   
   //MARK: - INIT
-  init(navStack: Binding<[NavRoute]>, 
+  init(navStack: Binding<[NavRoute]>,
        movieManager: MovieManager,
        favoriteMovie: FavoriteMovie) {
     self._navStack = navStack
@@ -44,70 +43,84 @@ struct DetailView: View {
   
   //MARK: - BODY
   var body: some View {
-    VStack {
-      HeaderSwipeBar()
-      Spacer()
-      
-      VStack {
-        if isLoading {
-          Text("Loading...")
-        } else if isError {
-          Text("Failed to load movie detail")
-        } else if let movieDetail = movieDetail {
-          
-          //MARK: - DETAILED CARD VIEW
-          DetailCardView(movieDetail: movieDetail, isClicked: $isClicked)
-          
-          Spacer()
-          
-          //MARK: - REMOVE BUTTON
-          Button(action:{
-            if let indexToDelete = favoriteMovies.firstIndex(where: {$0.id == favoriteMovie.id}) {
-              context.delete(favoriteMovies[indexToDelete])
-            }
-            movieManager.refreshWidget()
-            self.presentationMode.wrappedValue.dismiss()
-          }) {
-            Text("remove-string")
-              .textCase(.uppercase)
-              .modifier(ButtonRemoveModifier())
-              .padding(.horizontal, 20)
-          }
-          
-          //MARK: - CLOSE BUTTON
-          Button(action:{
-            navStack.removeLast()
-          }) {
-            Text("close-string")
-              .textCase(.uppercase)
-              .modifier(ButtonCloseModifier())
-              .accentColor(Color(UIColor(colorScheme == .dark
-                                         ? .tertiaryColor
-                                         : .primaryColor)))
-              .background(
-                Capsule().stroke(Color(UIColor(colorScheme == .dark
-                                               ? .tertiaryColor
-                                               : .primaryColor)), lineWidth: 2)
-              )
-              .padding(.top, 5)
-              .padding(.horizontal, 20)
-          }
-          
-          Spacer()
+
+    //MARK: - HEADER
+    ZStack(alignment: .center) {
+
+      // BACK Button
+      HStack{
+        HeaderBackButton(){
+          navStack.removeLast()
         }
+        Spacer()
       }
-      .task {
-        await getMovieDetail()
+      
+      // TITLE
+      HeaderTitleText(icon: "", text: "Detail")
+    }
+    .padding()
+        
+    VStack {
+      if isLoading {
+        Text("Loading...")
+      } else if isError {
+        Text("Failed to load movie detail")
+      } else if let movieDetail = movieDetail {
+        
+        //MARK: - DETAILED CARD VIEW
+        DetailCardView(movieDetail: movieDetail, isClicked: $isClicked)
+        
+        Spacer()
+        
+        //MARK: - REMOVE BUTTON
+        Button(action:{
+          if let indexToDelete = favoriteMovies.firstIndex(where: {$0.id == favoriteMovie.id}) {
+            context.delete(favoriteMovies[indexToDelete])
+          }
+          movieManager.refreshWidget()
+          navStack.removeLast()
+        }) {
+          Text("remove-string")
+            .textCase(.uppercase)
+            .modifier(ButtonRemoveModifier())
+            .padding(.top, 5)
+            .padding(.horizontal, 20)
+        }
+        
+        //MARK: - CLOSE BUTTON
+        Button(action:{
+          navStack.removeLast()
+        }) {
+          Text("close-string")
+            .textCase(.uppercase)
+            .modifier(ButtonCloseModifier())
+            .accentColor(Color(UIColor(colorScheme == .dark
+                                       ? .tertiaryColor
+                                       : .primaryColor)))
+            .background(
+              Capsule().stroke(Color(UIColor(colorScheme == .dark
+                                             ? .tertiaryColor
+                                             : .primaryColor)), lineWidth: 2)
+            )
+            .padding(.top, 5)
+            .padding(.horizontal, 20)
+        }
+        
+        Spacer()
       }
     }
-    
+    .padding(.top)
+    .task {
+      await getMovieDetail()
+    }
+        
     Spacer()
   }
 }
 
 //MARK: - PREVIEW
 struct DetailView_Previews: PreviewProvider {
-  static var previews: some View {    
+  static var previews: some View {
     DetailView(navStack: .constant([]),
                movieManager: MovieManager(),
                favoriteMovie: SampleData.favoriteMovie)

@@ -8,9 +8,11 @@ struct HeaderTitleText: View {
   
   var body: some View {
     HStack{
-      Image(systemName: icon)
-        .font(.title2)
-        .foregroundColor(colorScheme.getPrimaryColor())
+      if icon != "" {
+        Image(systemName: icon)
+          .font(.title2)
+          .foregroundColor(colorScheme.getPrimaryColor())
+      }
       Text(text)
         .textCase(.uppercase)
         .font(.title2)

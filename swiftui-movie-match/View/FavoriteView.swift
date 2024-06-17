@@ -24,8 +24,9 @@ struct FavoriteView: View {
   var body: some View {
     
     VStack {
-      HeaderSwipeBar()
-      FavoriteHeaderView(numOfFavorites: favoriteMovies.count)
+      //HeaderSwipeBar()
+      FavoriteHeaderView(navStack: $navStack, 
+                         numOfFavorites: favoriteMovies.count)
 
       ScrollView {
         LazyVGrid(columns: vstackColumnSet, spacing: 15) {

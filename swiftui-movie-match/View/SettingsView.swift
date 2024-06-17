@@ -103,30 +103,26 @@ struct SettingsView: View {
 
   //MARK: - TCA store
   @Bindable var store: StoreOf<SettingsFeature>
-  
-  //MARK: - PROPERTIES
-  @Environment(\.presentationMode) var presentationMode
     
   //MARK: - BODY
   var body: some View {
     VStack (alignment:.center, spacing: 0) {
-      HeaderSwipeBar()
+      //HeaderSwipeBar()
       
       //MARK: - HEADER
       ZStack {
-        // HEADER TITLE
-        HeaderTitleText(icon: "gearshape", text: "settings-string")
-        
-        // CLOSE Button
+        // BACK Button
         HStack{
-          Spacer()
-          HeaderCloseButton(){
-            //store.send(.closeSettingsView)
+          HeaderBackButton(){
             navStack.removeLast()
           }
+          Spacer()
         }
+        
+        // HEADER TITLE
+        HeaderTitleText(icon: "gearshape", text: "settings-string")
       }
-      .padding(.horizontal)
+      .padding()
             
       //MARK: - APPEARANCE
       VStack(alignment:.leading, spacing: 10) {
