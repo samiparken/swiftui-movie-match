@@ -337,11 +337,11 @@
 				31B2F1282C20198E0001F1C9 /* NavigationStackRouter.swift */,
 				31FD8F9B2BFA694D00F03252 /* swiftui_movie_matchApp.swift */,
 				31B2F12C2C207D800001F1C9 /* LaunchScreenAnimationView.swift */,
+				31B2F12E2C2087890001F1C9 /* LaunchScreen.storyboard */,
 				31FD8FC72BFA771E00F03252 /* Constants.swift */,
 				31FD8FA12BFA694F00F03252 /* Assets.xcassets */,
 				31FD8FA32BFA694F00F03252 /* Preview Content */,
 				31F7C8C52BFF1B0600963FF5 /* Localizable.xcstrings */,
-				31B2F12E2C2087890001F1C9 /* LaunchScreen.storyboard */,
 			);
 			path = "swiftui-movie-match";
 			sourceTree = "<group>";

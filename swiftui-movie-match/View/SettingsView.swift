@@ -37,7 +37,6 @@ struct SettingsFeature {
     case changeLanguage(String?)
     case closeSettingsView
   }
-  @Dependency(\.dismiss) var dismiss //dismiss effect for child
   
   //MARK: - Reducer
   var body: some ReducerOf<Self> {
@@ -77,20 +76,21 @@ struct SettingsFeature {
       
       case let .changeLanguage(selectedLanguage):
         state.selectedLanguage = selectedLanguage
-//        switch selectedLanguage {
-//        case K.SettingsView.Language.english:
-//          state.localeIdentifier = .English
-//        case K.SettingsView.Language.swedish:
-//          state.localeIdentifier = .Swedish
-//        case K.SettingsView.Language.korean:
-//          state.localeIdentifier = .Korean
-//        default:
-//          state.localeIdentifier = .English
-//        }
+        switch selectedLanguage {
+        case K.SettingsView.Language.english:
+          state.localeIdentifier = .English
+        case K.SettingsView.Language.swedish:
+          state.localeIdentifier = .Swedish
+        case K.SettingsView.Language.korean:
+          state.localeIdentifier = .Korean
+        default:
+          state.localeIdentifier = .English
+        }
         return .none
                 
       case .closeSettingsView:
-        return .run { _ in await self.dismiss() } //dismiss
+
+        return .none
         
       }
     }
