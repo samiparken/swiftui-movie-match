@@ -92,8 +92,12 @@ extension NavigationStackRouter {
   func handleDeepLink(from url: URL) {
     let host = url.host()?.lowercased()
     switch(host) {
+            
+    //MARK: - MAIN VIEW
+    case K.DeepLink.Host.mainView:
+      navStack.removeAll()
       
-    //MARK: - DETAIL with movieId
+    //MARK: - DETAIL VIEW with movieId
     case K.DeepLink.Host.movieDetail:
       let movieId = Int(url.pathComponents[1]) ?? 0
       navStack.removeAll()
