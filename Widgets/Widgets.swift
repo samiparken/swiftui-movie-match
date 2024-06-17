@@ -81,6 +81,8 @@ struct WidgetsEntryView : View {
   @Environment(\.widgetFamily) var widgetSize
   var entry: Provider.Entry
   
+  //+TODO: organize small and large widget
+  
   var body: some View {
     switch widgetSize {
       
