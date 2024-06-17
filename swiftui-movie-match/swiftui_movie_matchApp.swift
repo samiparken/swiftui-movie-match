@@ -7,9 +7,7 @@ struct swiftui_movie_matchApp: App {
     
   var body: some Scene {
     WindowGroup {
-      
-      NavigationStackManager()
-      
+      NavigationStackRouter()
     }
   }
 }

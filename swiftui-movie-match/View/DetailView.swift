@@ -43,10 +43,10 @@ struct DetailView: View {
   
   //MARK: - BODY
   var body: some View {
-
+    
     //MARK: - HEADER
     ZStack(alignment: .center) {
-
+      
       // BACK Button
       HStack{
         HeaderBackButton(){
@@ -58,13 +58,23 @@ struct DetailView: View {
       // TITLE
       HeaderTitleText(icon: "", text: "Detail")
     }
+    //.padding(.horizontal)
     .padding()
-        
+    
     VStack {
       if isLoading {
-        Text("Loading...")
+        VStack {
+          Spacer()
+          ProgressView() // A spinner or loading indicator
+            .frame(minWidth: 20, maxWidth: .infinity)
+          Spacer()
+        }
       } else if isError {
-        Text("Failed to load movie detail")
+        VStack {
+          Spacer()
+          Text("Failed to load movie detail")
+          Spacer()
+        }
       } else if let movieDetail = movieDetail {
         
         //MARK: - DETAILED CARD VIEW
@@ -109,11 +119,10 @@ struct DetailView: View {
         Spacer()
       }
     }
-    .padding(.top)
     .task {
       await getMovieDetail()
     }
-        
+    
     Spacer()
   }
 }

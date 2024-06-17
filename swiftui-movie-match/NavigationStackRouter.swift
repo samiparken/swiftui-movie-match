@@ -17,15 +17,13 @@ enum NavRoute {
   case detailView
 }
 
-struct NavigationStackManager: View {
+struct NavigationStackRouter: View {
   //MARK: - Navigation Stack
   @State var navStack = [NavRoute]()
   
   //MARK: - SwiftData
   var sharedModelContainer: ModelContainer = {
-    let schema = Schema([
-      FavoriteMovie.self,
-    ])
+    let schema = Schema([FavoriteMovie.self])
     let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
     
     do {
@@ -88,5 +86,5 @@ struct NavigationStackManager: View {
 }
 
 #Preview {
-  NavigationStackManager()
+  NavigationStackRouter()
 }
