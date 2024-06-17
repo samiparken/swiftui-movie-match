@@ -132,6 +132,9 @@
     "Language" : {
 
     },
+    "Latest Favorite Movie" : {
+
+    },
     "Leading" : {
 
     },
@@ -173,7 +176,7 @@
         }
       }
     },
-    "Movie Match Widget" : {
+    "No support Extra Large" : {
 
     },
     "Placeholder" : {
@@ -325,10 +328,13 @@
     "T %@" : {
 
     },
-    "Tap to refresh" : {
+    "Tap to find favorite movies" : {
 
     },
     "This is an example widget." : {
+
+    },
+    "This widget shows your latest favorite movie." : {
 
     },
     "Trailing" : {
