@@ -52,7 +52,6 @@ struct LaunchScreenAnimationView: View {
 
 //MARK: - PROPERTIES
   @Environment(\.colorScheme) var colorScheme
-  //@Binding var isPresented: Bool
   @State private var scale = CGSize(width:0.8, height: 0.8)
   @State private var opacity = 1.0
 
