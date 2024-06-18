@@ -19,6 +19,7 @@ struct K {
   
   struct DeepLink {
     struct Host {
+      static let mainView = "mainview"
       static let movieDetail = "moviedetail"
     }
   }

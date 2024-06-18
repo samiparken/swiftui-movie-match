@@ -56,7 +56,7 @@ struct DetailView: View {
       }
       
       // TITLE
-      HeaderTitleText(icon: "", text: "Detail")
+      HeaderTitleText(icon: "", text: "details-string")
     }
     //.padding(.horizontal)
     .padding()

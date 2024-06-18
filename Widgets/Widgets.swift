@@ -130,12 +130,14 @@ struct WidgetsEntryView : View {
               Color.black.opacity(0.3) // dark layer
             )
 
-          Text("Tap to refresh")
+          Text("Tap to find favorite movies")
             .foregroundColor(Color.white)
-            .font(.title3)
+            .font(.subheadline)
             .fontWeight(.heavy)
             .shadow(radius: 2)
+            .multilineTextAlignment(.center)
         }
+        .widgetURL(URL(string: "moviematch://mainview"))
       }
       
       
@@ -199,12 +201,13 @@ struct WidgetsEntryView : View {
               Color.black.opacity(0.3) // dark layer
             )
 
-          Text("Tap to refresh")
+          Text("Tap to find favorite movies")
             .foregroundColor(Color.white)
             .font(.title3)
             .fontWeight(.heavy)
             .shadow(radius: 2)
         }
+        .widgetURL(URL(string: "moviematch://mainview"))
       }
       
 
@@ -287,22 +290,24 @@ struct WidgetsEntryView : View {
             .overlay(
               Color.black.opacity(0.3) // dark layer
             )
-
-          Text("Tap to refresh")
+          
+          Text("Tap to find favorite movies")
             .foregroundColor(Color.white)
             .font(.title3)
             .fontWeight(.heavy)
             .shadow(radius: 2)
         }
+        .widgetURL(URL(string: "moviematch://mainview"))
       }
-      
-      
-      
+
       
     default:
       VStack {
-        Text(entry.configuration.favoriteSymbol)
-        //Text(entry.favoriteMovie?.title ?? "Movie Title")
+        Text("No support Extra Large")
+          .foregroundColor(Color.black)
+          .font(.title3)
+          .fontWeight(.heavy)
+          .shadow(radius: 2)
       }
       
     }
@@ -320,8 +325,8 @@ struct Widgets: Widget {
       WidgetsEntryView(entry: entry)
         .containerBackground(.background, for: .widget)
     }
-    .configurationDisplayName("Movie Match Widget")
-    .description("Movie Match Widget")
+    .configurationDisplayName("Latest Favorite Movie")
+    .description("This widget shows your latest favorite movie.")
   }
 }
 
@@ -334,7 +339,7 @@ extension ConfigurationAppIntent {
 }
 
 //MARK: - PREVIEW
-#Preview(as: .systemLarge) {
+#Preview(as: .systemSmall) {
   Widgets()
 } timeline: {
   SimpleEntry(date: .now,

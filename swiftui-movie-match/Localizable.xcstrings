@@ -86,7 +86,32 @@
       }
     },
     "Detail" : {
-
+      "extractionState" : "stale",
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "영화"
+          }
+        }
+      }
+    },
+    "details-string" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Details"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Detaljer"
+          }
+        }
+      }
     },
     "Failed to load image" : {
 
@@ -132,6 +157,9 @@
     "Language" : {
 
     },
+    "Latest Favorite Movie" : {
+
+    },
     "Leading" : {
 
     },
@@ -158,6 +186,7 @@
       }
     },
     "Loading..." : {
+      "extractionState" : "stale",
       "localizations" : {
         "ko" : {
           "stringUnit" : {
@@ -173,7 +202,7 @@
         }
       }
     },
-    "Movie Match Widget" : {
+    "No support Extra Large" : {
 
     },
     "Placeholder" : {
@@ -325,10 +354,13 @@
     "T %@" : {
 
     },
-    "Tap to refresh" : {
+    "Tap to find favorite movies" : {
 
     },
     "This is an example widget." : {
+
+    },
+    "This widget shows your latest favorite movie." : {
 
     },
     "Trailing" : {
