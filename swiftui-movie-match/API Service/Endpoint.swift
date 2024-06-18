@@ -44,7 +44,7 @@ enum EndpointCase: Endpoint {
     switch self {
     case .movieListPopular:
       return K.API.Endpoint.movieListPopular
-    case .movieDetail(let id, let language):
+    case .movieDetail(let id, _):
       return K.API.Endpoint.movieDetail.replacingOccurrences(of: "{id}", with: "\(id)")
     }
   }
@@ -75,8 +75,8 @@ enum EndpointCase: Endpoint {
   
   var encodedBody: Data? {
     switch self {
-      //        case .postProtocol(let jsonData):
-      //            return jsonData
+      //case .postProtocol(let jsonData):
+      //return jsonData
     default:
       return Data()
     }
@@ -86,10 +86,10 @@ enum EndpointCase: Endpoint {
     switch self {
     case .movieListPopular(let language, let page, let region):
       return ["language" : language, "page" : page, "region" : region]
-    case .movieDetail(let id, let language):
+    case .movieDetail(_, let language):
       return ["language" : language]
-    default:
-      return [:]
+    //default:
+      //return [:]
     }
   }
 }
