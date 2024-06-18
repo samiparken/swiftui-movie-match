@@ -37,8 +37,7 @@ struct MainFeature {
   enum Action {
     case saveMovieToFavorite
     case passMovie
-    
-    case turnOffLaunchScreen
+    case offLaunchScreen
     
     // test
     case numberFactButtonTapped
@@ -57,7 +56,8 @@ struct MainFeature {
       case .passMovie:
         return .none
         
-      case .turnOffLaunchScreen:
+      case .offLaunchScreen:
+        state.isLaunchScreenPresented = false
         return .none
       
         //test
@@ -242,11 +242,16 @@ struct MainView: View {
       }
             
       //MARK: - LAUNCH SCREEN ANIMATION
-      if isLaunchScreenPresented {
-        LaunchScreenAnimationView(isPresented: $isLaunchScreenPresented)
+      if store.isLaunchScreenPresented {
+        LaunchScreenAnimationView(
+          store: Store(initialState: LaunchScreenAnimationFeature.State(
+          isPresented: store.isLaunchScreenPresented
+        )){
+         LaunchScreenAnimationFeature()
+        })
       }
     }
-          
+
   }
 }
 
