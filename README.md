@@ -8,6 +8,8 @@ Discover and organize your favorite movies effortlessly. Swipe right to save a m
 - API requests: TMDB Open Source API (https://developer.themoviedb.org/docs/getting-started)
 - Light/Dark mode support, language preference
 - Examples of Unit Tests and UI Tests
+- Small, Medium, and Large Homescreen Widgets
+- Navigation Stack and Deep Link supports
 
 ## DEMO
 .              |.|
