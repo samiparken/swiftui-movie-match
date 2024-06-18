@@ -17,8 +17,6 @@ struct MainFeature {
     var colorScheme: ColorScheme {
       get {
         switch appearanceMode {
-        case .light:
-          return .light
         case .dark:
           return .dark
         default:
@@ -28,6 +26,7 @@ struct MainFeature {
     }
     
     var numOfFavoriteMovies = 0
+    var isLaunchScreenPresented = true
     
     //test
     var count = 0
@@ -38,6 +37,8 @@ struct MainFeature {
   enum Action {
     case saveMovieToFavorite
     case passMovie
+    
+    case turnOffLaunchScreen
     
     // test
     case numberFactButtonTapped
@@ -56,6 +57,9 @@ struct MainFeature {
       case .passMovie:
         return .none
         
+      case .turnOffLaunchScreen:
+        return .none
+      
         //test
       case .numberFactButtonTapped:
         return .run { [count = state.count] send in
@@ -88,7 +92,6 @@ struct MainView: View {
   //MARK: - PROPERTIES
   var movieManager = MovieManager()
   @GestureState private var dragState = DragState.inactive
-  @State private var lastCardIndex: Int = 1
   @State private var cardRemovalTransition = AnyTransition.trailingBottom
   @State private var isClicked: [Int: Bool] = [:]
   private let dragAreaThreshold: CGFloat = 65.0 // if it's less than 65 points, the card snaps back to its origianl place.

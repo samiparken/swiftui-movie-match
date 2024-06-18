@@ -14,8 +14,6 @@ struct SettingsFeature {
     var colorScheme: ColorScheme {
       get {
         switch appearanceMode {
-        case .light:
-          return .light
         case .dark:
           return .dark
         default:
@@ -46,10 +44,6 @@ struct SettingsFeature {
         
       case .refreshAppearanceMode:
         switch state.appearanceMode {
-        case .light:
-          //state.colorScheme = .light
-          state.selectedColor = .primaryColor
-          state.backgroundColor = Color.white
         case .dark:
           //state.colorScheme = .dark
           state.selectedColor = .tertiaryColor
