@@ -37,11 +37,13 @@ struct SettingsFeature {
     case changeLanguage(String?)
     case closeSettingsView
   }
+  @Dependency(\.dismiss) var dismiss
   
   //MARK: - Reducer
   var body: some ReducerOf<Self> {
     Reduce { state, action in
       switch action {
+        
       case .refreshAppearanceMode:
         switch state.appearanceMode {
         case .light:
@@ -89,7 +91,6 @@ struct SettingsFeature {
         return .none
                 
       case .closeSettingsView:
-
         return .none
         
       }
@@ -107,7 +108,6 @@ struct SettingsView: View {
   //MARK: - BODY
   var body: some View {
     VStack (alignment:.center, spacing: 0) {
-      //HeaderSwipeBar()
       
       //MARK: - HEADER
       ZStack {

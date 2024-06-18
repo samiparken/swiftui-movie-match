@@ -24,8 +24,7 @@ struct FavoriteView: View {
   var body: some View {
     
     VStack {
-      //HeaderSwipeBar()
-      FavoriteHeaderView(navStack: $navStack, 
+      FavoriteHeaderView(navStack: $navStack,
                          numOfFavorites: favoriteMovies.count)
 
       ScrollView {

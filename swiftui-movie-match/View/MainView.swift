@@ -247,12 +247,13 @@ struct MainView: View {
   }
 }
 
-
 //MARK: - PREVIEW
 #Preview {
   MainView(store: Store(initialState: MainFeature.State()) {
     MainFeature()
       ._printChanges()
-  }, navStack: .constant([]), movieManager: MovieManager())
+  },
+           navStack: .constant([]),
+           movieManager: MovieManager())
   .modelContainer(for: FavoriteMovie.self, inMemory: true)
 }
