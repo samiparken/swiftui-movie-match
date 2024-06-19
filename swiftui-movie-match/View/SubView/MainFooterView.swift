@@ -4,7 +4,7 @@ import ComposableArchitecture
 
 //MARK: - REDUCER
 @Reducer
-struct MainFooter {
+struct MainFooterFeature {
   //MARK: - STATE
   @ObservableState
   struct State: Equatable {
@@ -27,11 +27,11 @@ struct MainFooter {
 
 //MARK: - VIEW
 struct MainFooterView: View {
+  //MARK: - TCA store
+  @Bindable var store: StoreOf<MainFooterFeature>
+  
   //MARK: - Navigation Stack
   @Binding var navStack: [NavRoute]
-  
-  //MARK: - TCA store
-  @Bindable var store: StoreOf<MainFooter>
   
   //MARK: - PROPERTIES
   @Environment(\.colorScheme) var colorScheme
@@ -41,7 +41,7 @@ struct MainFooterView: View {
   let haptics = UINotificationFeedbackGenerator()
   
   //MARK: - INIT
-  init(store: StoreOf<MainFooter>, navStack: Binding<[NavRoute]>) {
+  init(store: StoreOf<MainFooterFeature>, navStack: Binding<[NavRoute]>) {
     self.store = store
     self._navStack = navStack
   }
@@ -97,11 +97,9 @@ struct MainFooterView: View {
   }
 }
 
-struct FooterView_Previews: PreviewProvider {
-  static var previews: some View {
-    MainFooterView(store: Store(initialState: MainFooter.State()) {
-      MainFooter()
-    }, navStack: .constant([]))
-    .previewLayout(.fixed(width: 375, height: 80))
-  }
+#Preview {
+  MainFooterView(store: Store(initialState: MainFooterFeature.State()) {
+    MainFooterFeature()
+  }, navStack: .constant([]))
 }
+

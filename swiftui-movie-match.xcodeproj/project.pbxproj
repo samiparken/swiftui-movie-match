@@ -55,6 +55,9 @@
 		31D75A0C2C20C322003C6519 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 31F7C8C52BFF1B0600963FF5 /* Localizable.xcstrings */; };
 		31D75A0E2C20C3A1003C6519 /* TextModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D75A0D2C20C3A1003C6519 /* TextModifier.swift */; };
 		31E0BE212C1CC7C400D26363 /* FavoriteMovie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E8E3C22BFB7BE400841B95 /* FavoriteMovie.swift */; };
+		31E3D3BA2C22CE0F003B1EDE /* WidgetSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E3D3B92C22CE0F003B1EDE /* WidgetSmall.swift */; };
+		31E3D3BC2C22D168003B1EDE /* WidgetMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E3D3BB2C22D168003B1EDE /* WidgetMedium.swift */; };
+		31E3D3BE2C22D1B0003B1EDE /* WidgetLarge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E3D3BD2C22D1B0003B1EDE /* WidgetLarge.swift */; };
 		31E8E3C32BFB7BE500841B95 /* FavoriteMovie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E8E3C22BFB7BE400841B95 /* FavoriteMovie.swift */; };
 		31F7C8C62BFF1B0700963FF5 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 31F7C8C52BFF1B0600963FF5 /* Localizable.xcstrings */; };
 		31F7C8C82BFF1F6400963FF5 /* LocaleIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F7C8C72BFF1F6400963FF5 /* LocaleIdentifier.swift */; };
@@ -158,6 +161,9 @@
 		31D75A0D2C20C3A1003C6519 /* TextModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextModifier.swift; sourceTree = "<group>"; };
 		31E0BE1F2C1CC2B900D26363 /* swiftui-movie-match.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "swiftui-movie-match.entitlements"; sourceTree = "<group>"; };
 		31E0BE202C1CC32700D26363 /* WidgetsExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WidgetsExtension.entitlements; sourceTree = "<group>"; };
+		31E3D3B92C22CE0F003B1EDE /* WidgetSmall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSmall.swift; sourceTree = "<group>"; };
+		31E3D3BB2C22D168003B1EDE /* WidgetMedium.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetMedium.swift; sourceTree = "<group>"; };
+		31E3D3BD2C22D1B0003B1EDE /* WidgetLarge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetLarge.swift; sourceTree = "<group>"; };
 		31E8E3C22BFB7BE400841B95 /* FavoriteMovie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteMovie.swift; sourceTree = "<group>"; };
 		31F7C8C52BFF1B0600963FF5 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		31F7C8C72BFF1F6400963FF5 /* LocaleIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocaleIdentifier.swift; sourceTree = "<group>"; };
@@ -284,6 +290,7 @@
 			isa = PBXGroup;
 			children = (
 				31D75A0F2C20C408003C6519 /* ViewModifier */,
+				31E3D3B82C22CDEE003B1EDE /* WidgetView */,
 				31E0BE202C1CC32700D26363 /* WidgetsExtension.entitlements */,
 				31D2E2972BFF780400C0AD63 /* WidgetsBundle.swift */,
 				31D2E2992BFF780400C0AD63 /* WidgetsLiveActivity.swift */,
@@ -301,6 +308,16 @@
 				31D75A0D2C20C3A1003C6519 /* TextModifier.swift */,
 			);
 			path = ViewModifier;
+			sourceTree = "<group>";
+		};
+		31E3D3B82C22CDEE003B1EDE /* WidgetView */ = {
+			isa = PBXGroup;
+			children = (
+				31E3D3B92C22CE0F003B1EDE /* WidgetSmall.swift */,
+				31E3D3BB2C22D168003B1EDE /* WidgetMedium.swift */,
+				31E3D3BD2C22D1B0003B1EDE /* WidgetLarge.swift */,
+			);
+			path = WidgetView;
 			sourceTree = "<group>";
 		};
 		31F7C8CB2BFF26FF00963FF5 /* Enums */ = {
@@ -630,9 +647,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31E3D3BC2C22D168003B1EDE /* WidgetMedium.swift in Sources */,
+				31E3D3BE2C22D1B0003B1EDE /* WidgetLarge.swift in Sources */,
 				31D75A0E2C20C3A1003C6519 /* TextModifier.swift in Sources */,
 				31025F262C1CD88D00A6BCE6 /* String+Ext.swift in Sources */,
 				31D2E29A2BFF780400C0AD63 /* WidgetsLiveActivity.swift in Sources */,
+				31E3D3BA2C22CE0F003B1EDE /* WidgetSmall.swift in Sources */,
 				31D2E29E2BFF780400C0AD63 /* AppIntent.swift in Sources */,
 				31E0BE212C1CC7C400D26363 /* FavoriteMovie.swift in Sources */,
 				31D75A0A2C20C0AB003C6519 /* Double+Ext.swift in Sources */,

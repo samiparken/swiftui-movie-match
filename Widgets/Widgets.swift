@@ -76,247 +76,40 @@ struct SimpleEntry: TimelineEntry {
 struct WidgetsEntryView : View {
   @Environment(\.widgetFamily) var widgetSize
   var entry: Provider.Entry
-    
+  
   //MARK: - BODY
   var body: some View {
     switch widgetSize {
       
-    //MARK: - SMALL SIZE
+      //MARK: - SMALL SIZE
     case .systemSmall:
-      if let uiImage = entry.moviePosterImage {
-        ZStack {
-          // Background
-          Image(uiImage: uiImage)
-            .resizable()
-            .scaledToFill()
-            .blur(radius: 10)
-            .frame(width: 165, height: 165) //small
-            .clipped()
-            .overlay(
-              Color.black.opacity(0.3) // dark layer
-            )
-                    
-          VStack (alignment:.center, spacing: 5) {
-            // Movie Title
-            Text(entry.latestFavoriteMovie?.title ?? "Movie Title")
-              .foregroundColor(Color.white)
-              .font(.footnote)
-              .fontWeight(.bold)
-              .shadow(radius: 1)
-              .lineLimit(2)
-              .truncationMode(.tail)
-              .frame(width: 145)
-              .lineSpacing(-7)
-            
-            // Movie poster
-            Image(uiImage: uiImage)
-              .resizable()
-              .scaledToFit()
-              .cornerRadius(10)
-              .frame(height: 115) // Set the desired frame size
-          }
-        }
-        .widgetURL(URL(string: "moviematch://moviedetail/\(entry.latestFavoriteMovie?.id ?? 0)"))
-
-      } else {
-        ZStack {
-          Image(K.Image.Logo.primaryFull)
-            .resizable()
-            .scaledToFill()
-            .blur(radius: 7) // Adjust the radius to control the blur intensity
-            .frame(width: 165, height: 165) // Set the desired frame size
-            .clipped() // Ensure the image doesn't overflow its frame
-            .overlay(
-              Color.black.opacity(0.3) // dark layer
-            )
-
-          Text("Tap to find favorite movies")
-            .foregroundColor(Color.white)
-            .font(.subheadline)
-            .fontWeight(.heavy)
-            .shadow(radius: 2)
-            .multilineTextAlignment(.center)
-        }
-        .widgetURL(URL(string: "moviematch://mainview"))
-      }
-      
-      
+      WidgetSmall(entry: entry)
       
       //MARK: - MEDIUM SIZE
     case .systemMedium:
-      if let uiImage = entry.moviePosterImage {
-        
-        ZStack {
-          // Background
-          Image(uiImage: uiImage)
-            .resizable()
-            .scaledToFill()
-            .blur(radius: 10)
-            .frame(width: 345, height: 165) //medium
-            .clipped()
-            .overlay(
-              Color.black.opacity(0.3) // dark layer
-            )
-                    
-          HStack (spacing: 17) {
-            // Movie poster
-            Image(uiImage: uiImage)
-              .resizable()
-              .scaledToFit()
-              .cornerRadius(10)
-              .frame(height: 125) // Set the desired frame size
-            
-            VStack (alignment: .leading, spacing: 6) {
-              // Movie Title
-              Text(entry.latestFavoriteMovie?.title ?? "Movie Title")
-                .foregroundColor(Color.white)
-                .font(.title3)
-                .fontWeight(.heavy)
-                .shadow(radius: 2)
-
-              // Movie Description
-              Text(entry.latestFavoriteMovie?.overview ?? "Movie description")
-                .foregroundColor(Color.white)
-                .font(.footnote)
-                .fontWeight(.medium)
-                .multilineTextAlignment(.leading)
-            }
-            .frame(width: 205)
-            .padding(.top, 18)
-            .padding(.bottom, 18)
-            
-          }
-        }
-        .widgetURL(URL(string: "moviematch://moviedetail/\(entry.latestFavoriteMovie?.id ?? 0)"))
-
-      } else {
-        ZStack {
-          Image(K.Image.Logo.primaryFull)
-            .resizable()
-            .scaledToFill()
-            .blur(radius: 7) // Adjust the radius to control the blur intensity
-            .frame(width: 345, height: 165) // Set the desired frame size
-            .clipped() // Ensure the image doesn't overflow its frame
-            .overlay(
-              Color.black.opacity(0.3) // dark layer
-            )
-
-          Text("Tap to find favorite movies")
-            .foregroundColor(Color.white)
-            .font(.title3)
-            .fontWeight(.heavy)
-            .shadow(radius: 2)
-        }
-        .widgetURL(URL(string: "moviematch://mainview"))
-      }
+      WidgetMedium(entry: entry)
       
-
-//MARK: - LARGE SIZE
+      //MARK: - LARGE SIZE
     case .systemLarge:
-      if let uiImage = entry.moviePosterImage {
-        
-        ZStack {
-          // Background
-          Image(uiImage: uiImage)
-            .resizable()
-            .scaledToFill()
-            .blur(radius: 10)
-            .frame(width: 345, height: 355) //large
-            .clipped()
-            .overlay(
-              Color.black.opacity(0.4) // dark layer
-            )
-                              
-          VStack (alignment: .center, spacing: 5) {
-            // Movie Title
-            Text(entry.latestFavoriteMovie?.title ?? "Movie Title")
-              .foregroundColor(Color.white)
-              .font(.title)
-              .fontWeight(.heavy)
-              .shadow(radius: 2)
-            
-            HStack {
-              Spacer()
-              
-              // Average Rate
-              Text("rate-label-string")
-                .modifier(WidgetTextLabelModifier())
-              Text(String(entry.latestFavoriteMovie?.voteAverage.rounded(toPlaces: 1) ?? 7.1) + " / 10")
-                .modifier(WidgetTextModifier())
-
-              Spacer()
-
-              // Release Date
-              Text("released-label-string")
-                .modifier(WidgetTextLabelModifier())
-              Text(entry.latestFavoriteMovie?.releaseDate ?? "2024-05-30")
-                .modifier(WidgetTextModifier())
-              
-              Spacer()
-            }
-            
-            HStack (alignment: .top, spacing: 17) {
-              // Movie poster
-              Image(uiImage: uiImage)
-                .resizable()
-                .scaledToFit()
-                .cornerRadius(10)
-                .frame(width: 140, height: 230)
-
-              // Movie Description
-              Text(entry.latestFavoriteMovie?.overview ?? "Movie description")
-                .foregroundColor(Color.white)
-                .font(.footnote)
-                .fontWeight(.medium)
-                .multilineTextAlignment(.leading)
-                .frame(width: 160, height: 230)
-            }
-          }
-          .padding(.top, 10)
-          .padding(.bottom, 10)
-          
-          
-        }
-        .widgetURL(URL(string: "moviematch://moviedetail/\(entry.latestFavoriteMovie?.id ?? 0)"))
-
-      } else {
-        ZStack {
-          Image(K.Image.Logo.primaryFull)
-            .resizable()
-            .scaledToFit()
-            .blur(radius: 7) // Adjust the radius to control the blur intensity
-            .frame(width: 345, height: 355) // large
-            .clipped() // Ensure the image doesn't overflow its frame
-            .overlay(
-              Color.black.opacity(0.3) // dark layer
-            )
-          
-          Text("Tap to find favorite movies")
-            .foregroundColor(Color.white)
-            .font(.title3)
-            .fontWeight(.heavy)
-            .shadow(radius: 2)
-        }
-        .widgetURL(URL(string: "moviematch://mainview"))
-      }
-
+      WidgetLarge(entry: entry)
       
+      //MARK: - DEFAULT
     default:
       VStack {
+        Spacer()
         Text("No support Extra Large")
           .foregroundColor(Color.black)
           .font(.title3)
           .fontWeight(.heavy)
           .shadow(radius: 2)
+        Spacer()
       }
-      
     }
+    
   }
 }
 
-
-
-//MARK: - WIDGET
+//MARK: - WIDGETS
 struct Widgets: Widget {
   let kind: String = "Widgets"
   

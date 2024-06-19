@@ -12,7 +12,7 @@ struct FavoriteHeaderView: View {
   var body: some View {
     ZStack(alignment: .center) {
 
-      // Back Button
+      // BACK Button
       HStack{
         HeaderBackButton(){
           navStack.removeLast()

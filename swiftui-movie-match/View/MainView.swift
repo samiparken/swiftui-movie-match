@@ -27,10 +27,6 @@ struct MainFeature {
     
     var numOfFavoriteMovies = 0
     var isLaunchScreenPresented = true
-    
-    //test
-    var count = 0
-    var numberFact: String?
   }
   
   //MARK: - Action
@@ -38,10 +34,6 @@ struct MainFeature {
     case saveMovieToFavorite
     case passMovie
     case offLaunchScreen
-    
-    // test
-    case numberFactButtonTapped
-    case numberFactResponse(String)
   }
   
   //MARK: - Reducer
@@ -59,21 +51,7 @@ struct MainFeature {
       case .offLaunchScreen:
         state.isLaunchScreenPresented = false
         return .none
-      
-        //test
-      case .numberFactButtonTapped:
-        return .run { [count = state.count] send in
-          let (data, _) = try await URLSession.shared.data(
-            from: URL(string: "http://numbersapi.com/\(count)/trivia")!
-          )
-          await send(
-            .numberFactResponse(String(decoding: data, as: UTF8.self))
-          )
-        }
-      case let .numberFactResponse(fact):
-        state.numberFact = fact
-        return .none
-        
+              
       }
     }
   }
@@ -223,8 +201,8 @@ struct MainView: View {
         Spacer()
         
         //MARK: - FOOTER VIEW
-        MainFooterView(store: Store(initialState: MainFooter.State()){
-          MainFooter()
+        MainFooterView(store: Store(initialState: MainFooterFeature.State()){
+          MainFooterFeature()
         }, navStack: $navStack)
         .opacity(dragState.isDragging ? 0.0 : 1.0)
         .animation(.default, value: dragState.isDragging)
@@ -258,10 +236,8 @@ struct MainView: View {
 //MARK: - PREVIEW
 #Preview {
   MainView(store: Store(initialState: MainFeature.State()) {
-    MainFeature()
-      ._printChanges()
+    MainFeature()._printChanges()
   },
            navStack: .constant([]),
            movieManager: MovieManager())
-  .modelContainer(for: FavoriteMovie.self, inMemory: true)
 }
