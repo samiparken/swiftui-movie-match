@@ -14,7 +14,7 @@ Discover and organize your favorite movies effortlessly. Swipe right to save a m
   - [Modulization](#modulization)
   - [Data Persistence](#data-persistence)
   - [Navigation Stack](#navigation-stack)
-  - [Deep Link](#deep-link)
+  - [Homescreen Widgets & Deep Link](#homescreen-widgets-&-deep-link)
 - [Tests](#tests)
 
 ## Skills
@@ -84,7 +84,7 @@ The app utilizes only two endpoints from The Movie Database (TMDb) API to meet t
 ### Navigation Stack
 The app uses SwiftUI's NavigationStack to manage view transitions and maintain view history. Additionally, TCA's navigation stack will be integrated to enhance state management and navigation.
 
-### Deep Link
+### Homescreen Widgets & Deep Link
 The app supports deep linking, allowing users to navigate directly from home screen widgets to the selected movie's details.
 
 ### Tests
