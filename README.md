@@ -14,7 +14,7 @@ Discover and organize your favorite movies effortlessly. Swipe right to save a m
   - [Modulization](#modulization)
   - [Data Persistence](#data-persistence)
   - [Navigation Stack](#navigation-stack)
-  - [Homescreen Widgets & Deep Link](#homescreen-widgets-&-deep-link)
+  - [Homescreen Widgets & Deep Link](#homescreen-widgets--deep-link)
 - [Tests](#tests)
 
 ## Skills
