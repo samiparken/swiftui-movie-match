@@ -14,8 +14,6 @@ struct SettingsFeature {
     var colorScheme: ColorScheme {
       get {
         switch appearanceMode {
-        case .light:
-          return .light
         case .dark:
           return .dark
         default:
@@ -37,17 +35,15 @@ struct SettingsFeature {
     case changeLanguage(String?)
     case closeSettingsView
   }
+  @Dependency(\.dismiss) var dismiss
   
   //MARK: - Reducer
   var body: some ReducerOf<Self> {
     Reduce { state, action in
       switch action {
+        
       case .refreshAppearanceMode:
         switch state.appearanceMode {
-        case .light:
-          //state.colorScheme = .light
-          state.selectedColor = .primaryColor
-          state.backgroundColor = Color.white
         case .dark:
           //state.colorScheme = .dark
           state.selectedColor = .tertiaryColor
@@ -89,7 +85,6 @@ struct SettingsFeature {
         return .none
                 
       case .closeSettingsView:
-
         return .none
         
       }
@@ -107,7 +102,6 @@ struct SettingsView: View {
   //MARK: - BODY
   var body: some View {
     VStack (alignment:.center, spacing: 0) {
-      //HeaderSwipeBar()
       
       //MARK: - HEADER
       ZStack {

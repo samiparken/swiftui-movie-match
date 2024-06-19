@@ -108,6 +108,11 @@ struct DetailCardView: View, Identifiable {
             .onTapGesture {
               isClicked.toggle()
             }
+            .onAppear {
+              DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                isClicked.toggle()
+              })
+            }
 
         case .failure:
           // Error: Show placeholder or error message
@@ -123,7 +128,7 @@ struct DetailCardView: View, Identifiable {
 
 struct Detail_Previews: PreviewProvider {
   static var previews: some View {
-    @State var isClicked: Bool = true
+    @State var isClicked: Bool = false
     DetailCardView(
       movieDetail: SampleData.movieDetail,
       isClicked: $isClicked)

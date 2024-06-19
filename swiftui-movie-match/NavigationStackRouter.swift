@@ -115,4 +115,5 @@ extension NavigationStackRouter {
 //MARK: - PREVIEW
 #Preview {
   NavigationStackRouter()
+    .modelContainer(for: FavoriteMovie.self, inMemory: true)
 }

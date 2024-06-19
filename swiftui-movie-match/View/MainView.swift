@@ -17,8 +17,6 @@ struct MainFeature {
     var colorScheme: ColorScheme {
       get {
         switch appearanceMode {
-        case .light:
-          return .light
         case .dark:
           return .dark
         default:
@@ -28,20 +26,14 @@ struct MainFeature {
     }
     
     var numOfFavoriteMovies = 0
-    
-    //test
-    var count = 0
-    var numberFact: String?
+    var isLaunchScreenPresented = true
   }
   
   //MARK: - Action
   enum Action {
     case saveMovieToFavorite
     case passMovie
-    
-    // test
-    case numberFactButtonTapped
-    case numberFactResponse(String)
+    case offLaunchScreen
   }
   
   //MARK: - Reducer
@@ -56,20 +48,10 @@ struct MainFeature {
       case .passMovie:
         return .none
         
-        //test
-      case .numberFactButtonTapped:
-        return .run { [count = state.count] send in
-          let (data, _) = try await URLSession.shared.data(
-            from: URL(string: "http://numbersapi.com/\(count)/trivia")!
-          )
-          await send(
-            .numberFactResponse(String(decoding: data, as: UTF8.self))
-          )
-        }
-      case let .numberFactResponse(fact):
-        state.numberFact = fact
+      case .offLaunchScreen:
+        state.isLaunchScreenPresented = false
         return .none
-        
+              
       }
     }
   }
@@ -88,7 +70,6 @@ struct MainView: View {
   //MARK: - PROPERTIES
   var movieManager = MovieManager()
   @GestureState private var dragState = DragState.inactive
-  @State private var lastCardIndex: Int = 1
   @State private var cardRemovalTransition = AnyTransition.trailingBottom
   @State private var isClicked: [Int: Bool] = [:]
   private let dragAreaThreshold: CGFloat = 65.0 // if it's less than 65 points, the card snaps back to its origianl place.
@@ -220,8 +201,8 @@ struct MainView: View {
         Spacer()
         
         //MARK: - FOOTER VIEW
-        MainFooterView(store: Store(initialState: MainFooter.State()){
-          MainFooter()
+        MainFooterView(store: Store(initialState: MainFooterFeature.State()){
+          MainFooterFeature()
         }, navStack: $navStack)
         .opacity(dragState.isDragging ? 0.0 : 1.0)
         .animation(.default, value: dragState.isDragging)
@@ -239,20 +220,24 @@ struct MainView: View {
       }
             
       //MARK: - LAUNCH SCREEN ANIMATION
-      if isLaunchScreenPresented {
-        LaunchScreenAnimationView(isPresented: $isLaunchScreenPresented)
+      if store.isLaunchScreenPresented {
+        LaunchScreenAnimationView(
+          store: Store(initialState: LaunchScreenAnimationFeature.State(
+          isPresented: store.isLaunchScreenPresented
+        )){
+         LaunchScreenAnimationFeature()
+        })
       }
     }
-          
+
   }
 }
-
 
 //MARK: - PREVIEW
 #Preview {
   MainView(store: Store(initialState: MainFeature.State()) {
-    MainFeature()
-      ._printChanges()
-  }, navStack: .constant([]), movieManager: MovieManager())
-  .modelContainer(for: FavoriteMovie.self, inMemory: true)
+    MainFeature()._printChanges()
+  },
+           navStack: .constant([]),
+           movieManager: MovieManager())
 }

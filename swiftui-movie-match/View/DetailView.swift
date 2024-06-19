@@ -15,7 +15,7 @@ struct DetailView: View {
   @State private var movieDetail: MovieDetail?
   @State private var isLoading = true
   @State private var isError = false
-  @State private var isClicked = true
+  @State private var isClicked = false
   var movieManager = MovieManager()
   let favoriteMovie: FavoriteMovie
   
@@ -58,7 +58,6 @@ struct DetailView: View {
       // TITLE
       HeaderTitleText(icon: "", text: "details-string")
     }
-    //.padding(.horizontal)
     .padding()
     
     VStack {
