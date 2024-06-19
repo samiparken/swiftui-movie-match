@@ -29,9 +29,9 @@ Discover and organize your favorite movies effortlessly. Swipe right to save a m
 ## DEMO
 .              |.|
 :-------------------------:|:-------------------------:
-![](/README/demo1.GIF)  |  ![](README/demo2.GIF)
-![](/README/demo3.GIF)  |  ![](/README/demo4.GIF)  
-![](/README/demo5.GIF)  |  ![](/README/demo6.GIF)
+![](/README/demo-1.GIF)  |  ![](/README/demo-2.GIF)
+![](/README/demo-3.GIF)  |  ![](/README/demo-4.GIF)  
+![](/README/demo-5.GIF)  |  ![](/README/demo-6.GIF)
 
 ## Dependencies
 - [swift-composable-architecture](https://github.com/pointfreeco/swift-composable-architecture) (`1.10.4 < 2.0.0`)
