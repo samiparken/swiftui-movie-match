@@ -2,7 +2,7 @@ import SwiftUI
 
 struct HeaderTitleText: View {
   @Environment(\.colorScheme) var colorScheme
-
+  
   let icon: String
   let text: LocalizedStringKey
   

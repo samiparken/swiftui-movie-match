@@ -12,6 +12,7 @@
 		31025F282C1CD9F400A6BCE6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FD8FC72BFA771E00F03252 /* Constants.swift */; };
 		31036C8D2BFA9C5F00604902 /* MainCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31036C8C2BFA9C5F00604902 /* MainCardView.swift */; };
 		31036C902BFA9DEC00604902 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31036C8F2BFA9DEC00604902 /* String+Ext.swift */; };
+		311A2DEB2C22ECD100D2FA93 /* NavRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311A2DEA2C22ECD100D2FA93 /* NavRoute.swift */; };
 		314D15492C1F2DFC0067F7AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 31FD8FA12BFA694F00F03252 /* Assets.xcassets */; };
 		3181D1F12BFB2CD800C40722 /* TextModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3181D1F02BFB2CD800C40722 /* TextModifier.swift */; };
 		3181D1F32BFB2CEC00C40722 /* ButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3181D1F22BFB2CEC00C40722 /* ButtonModifier.swift */; };
@@ -121,6 +122,7 @@
 /* Begin PBXFileReference section */
 		31036C8C2BFA9C5F00604902 /* MainCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCardView.swift; sourceTree = "<group>"; };
 		31036C8F2BFA9DEC00604902 /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
+		311A2DEA2C22ECD100D2FA93 /* NavRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavRoute.swift; sourceTree = "<group>"; };
 		3181D1F02BFB2CD800C40722 /* TextModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextModifier.swift; sourceTree = "<group>"; };
 		3181D1F22BFB2CEC00C40722 /* ButtonModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonModifier.swift; sourceTree = "<group>"; };
 		3181D1F42BFB2D0700C40722 /* SymbolModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolModifier.swift; sourceTree = "<group>"; };
@@ -289,9 +291,8 @@
 		31D2E2962BFF780400C0AD63 /* Widgets */ = {
 			isa = PBXGroup;
 			children = (
-				31D75A0F2C20C408003C6519 /* ViewModifier */,
-				31E3D3B82C22CDEE003B1EDE /* WidgetView */,
 				31E0BE202C1CC32700D26363 /* WidgetsExtension.entitlements */,
+				31E3D3B82C22CDEE003B1EDE /* WidgetView */,
 				31D2E2972BFF780400C0AD63 /* WidgetsBundle.swift */,
 				31D2E2992BFF780400C0AD63 /* WidgetsLiveActivity.swift */,
 				31D2E29B2BFF780400C0AD63 /* Widgets.swift */,
@@ -316,6 +317,7 @@
 				31E3D3B92C22CE0F003B1EDE /* WidgetSmall.swift */,
 				31E3D3BB2C22D168003B1EDE /* WidgetMedium.swift */,
 				31E3D3BD2C22D1B0003B1EDE /* WidgetLarge.swift */,
+				31D75A0F2C20C408003C6519 /* ViewModifier */,
 			);
 			path = WidgetView;
 			sourceTree = "<group>";
@@ -327,6 +329,7 @@
 				31F7C8C72BFF1F6400963FF5 /* LocaleIdentifier.swift */,
 				31B677532BFD0AB2005223DC /* AppearanceMode+Ext.swift */,
 				31F7C8C92BFF26AF00963FF5 /* Language.swift */,
+				311A2DEA2C22ECD100D2FA93 /* NavRoute.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -706,6 +709,7 @@
 				31FD8FC82BFA771E00F03252 /* Constants.swift in Sources */,
 				31FD8FCF2BFA800500F03252 /* Endpoint.swift in Sources */,
 				3181D1F52BFB2D0700C40722 /* SymbolModifier.swift in Sources */,
+				311A2DEB2C22ECD100D2FA93 /* NavRoute.swift in Sources */,
 				31B677502BFCFCC4005223DC /* SettingsView.swift in Sources */,
 				31B677422BFC7B1D005223DC /* MiniMovieCardButton.swift in Sources */,
 			);

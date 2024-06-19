@@ -4,10 +4,13 @@ import ComposableArchitecture
 
 @main
 struct swiftui_movie_matchApp: App {
-    
+  
   var body: some Scene {
     WindowGroup {
-      NavigationStackRouter()
+      NavigationStackRouter(
+        store: Store(initialState: RootFeature.State()) {
+          RootFeature()
+        })
     }
   }
 }

@@ -10,14 +10,34 @@ import SwiftData
 import Observation
 import ComposableArchitecture
 
-enum NavRoute {
-  case mainView
-  case favoriteView
-  case settingsView
-  case detailView
+@Reducer
+struct RootFeature {
+  //MARK: - State
+  @ObservableState
+  struct State: Equatable {
+        
+  }
+  
+  //MARK: - Action
+  enum Action {
+    
+  }
+  
+  //MARK: - Reducer
+  var body: some ReducerOf<Self> {
+    Reduce { state, action in
+      switch action {
+      default:
+        return .none
+      }
+    }
+  }
 }
 
 struct NavigationStackRouter: View {
+  //MARK: - TCA store
+  @Bindable var store: StoreOf<RootFeature>
+  
   //MARK: - Navigation Stack
   @State var navStack = [NavRoute]()
   
@@ -35,6 +55,11 @@ struct NavigationStackRouter: View {
   
   //MARK: - PROPERTIES
   private var movieManager = MovieManager()
+  
+  //MARK: - INIT
+  init(store: StoreOf<RootFeature>) {
+    self.store = store
+  }
   
   //MARK: - BODY
   var body: some View {
@@ -62,17 +87,22 @@ struct NavigationStackRouter: View {
                        store: Store(initialState: SettingsFeature.State()) { SettingsFeature() })
           .navigationBarBackButtonHidden()
           
-        //MARK: - FAVORITE VIEW
+          //MARK: - FAVORITE VIEW
         case .favoriteView:
-          FavoriteView(navStack: $navStack, movieManager: movieManager)
-            .modelContainer(sharedModelContainer)
-            .navigationBarBackButtonHidden()
+          FavoriteView(store: Store(initialState: FavoriteFeature.State()){
+            FavoriteFeature()
+          }, navStack: $navStack, movieManager: movieManager)
+          .modelContainer(sharedModelContainer)
+          .navigationBarBackButtonHidden()
           
         //MARK: - DETAIL VIEW
         case .detailView:
           let movie = movieManager.selectedFavoriteMovie ?? SampleData.favoriteMovie
           
-          DetailView(navStack: $navStack,
+          DetailView(store: Store(initialState: DetailFeature.State()){
+            DetailFeature()
+          }, 
+                     navStack: $navStack,
                      movieManager: movieManager,
                      favoriteMovie: movie)
           .modelContainer(sharedModelContainer)
@@ -114,6 +144,9 @@ extension NavigationStackRouter {
 
 //MARK: - PREVIEW
 #Preview {
-  NavigationStackRouter()
-    .modelContainer(for: FavoriteMovie.self, inMemory: true)
+  NavigationStackRouter(
+    store: Store(initialState: RootFeature.State()) {
+    RootFeature()
+  })
+  .modelContainer(for: FavoriteMovie.self, inMemory: true)
 }

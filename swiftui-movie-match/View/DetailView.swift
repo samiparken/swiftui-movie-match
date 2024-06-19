@@ -1,8 +1,36 @@
 import SwiftUI
 import SwiftData
 import Observation
+import ComposableArchitecture
+
+@Reducer
+struct DetailFeature {
+  //MARK: - State
+  @ObservableState
+  struct State: Equatable {
+
+  }
+  
+  //MARK: - Action
+  enum Action {
+    
+  }
+  
+  //MARK: - Reducer
+  var body: some ReducerOf<Self> {
+    Reduce { state, action in
+      switch action {
+      default:
+        return .none
+      }
+    }
+  }
+}
 
 struct DetailView: View {
+  //MARK: - TCA store
+  @Bindable var store: StoreOf<DetailFeature>
+
   //MARK: - Navigation Stack
   @Binding var navStack: [NavRoute]
   
@@ -33,9 +61,11 @@ struct DetailView: View {
   }
   
   //MARK: - INIT
-  init(navStack: Binding<[NavRoute]>,
+  init(store: StoreOf<DetailFeature>,
+       navStack: Binding<[NavRoute]>,
        movieManager: MovieManager,
        favoriteMovie: FavoriteMovie) {
+    self.store = store
     self._navStack = navStack
     self.movieManager = movieManager
     self.favoriteMovie = favoriteMovie
@@ -129,8 +159,12 @@ struct DetailView: View {
 //MARK: - PREVIEW
 struct DetailView_Previews: PreviewProvider {
   static var previews: some View {
-    DetailView(navStack: .constant([]),
-               movieManager: MovieManager(),
-               favoriteMovie: SampleData.favoriteMovie)
+    DetailView(
+      store: Store(initialState: DetailFeature.State()){
+        DetailFeature()
+      },
+       navStack: .constant([]),
+       movieManager: MovieManager(),
+       favoriteMovie: SampleData.favoriteMovie)
   }
 }
