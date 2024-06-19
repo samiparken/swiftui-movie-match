@@ -24,7 +24,7 @@ Discover and organize your favorite movies effortlessly. Swipe right to save a m
 - Light/Dark mode support, language preference
 - Examples of Unit Tests and UI Tests
 - Small, Medium, and Large Homescreen Widgets
-- Navigation Stack and Deep Link supports
+- Navigation Stack and Deep Link support
 
 ## DEMO
 .              |.|
