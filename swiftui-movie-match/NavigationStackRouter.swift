@@ -62,17 +62,22 @@ struct NavigationStackRouter: View {
                        store: Store(initialState: SettingsFeature.State()) { SettingsFeature() })
           .navigationBarBackButtonHidden()
           
-        //MARK: - FAVORITE VIEW
+          //MARK: - FAVORITE VIEW
         case .favoriteView:
-          FavoriteView(navStack: $navStack, movieManager: movieManager)
-            .modelContainer(sharedModelContainer)
-            .navigationBarBackButtonHidden()
+          FavoriteView(store: Store(initialState: FavoriteFeature.State()){
+            FavoriteFeature()
+          }, navStack: $navStack, movieManager: movieManager)
+          .modelContainer(sharedModelContainer)
+          .navigationBarBackButtonHidden()
           
         //MARK: - DETAIL VIEW
         case .detailView:
           let movie = movieManager.selectedFavoriteMovie ?? SampleData.favoriteMovie
           
-          DetailView(navStack: $navStack,
+          DetailView(store: Store(initialState: DetailFeature.State()){
+            DetailFeature()
+          }, 
+                     navStack: $navStack,
                      movieManager: movieManager,
                      favoriteMovie: movie)
           .modelContainer(sharedModelContainer)
