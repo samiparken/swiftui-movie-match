@@ -289,9 +289,8 @@
 		31D2E2962BFF780400C0AD63 /* Widgets */ = {
 			isa = PBXGroup;
 			children = (
-				31D75A0F2C20C408003C6519 /* ViewModifier */,
-				31E3D3B82C22CDEE003B1EDE /* WidgetView */,
 				31E0BE202C1CC32700D26363 /* WidgetsExtension.entitlements */,
+				31E3D3B82C22CDEE003B1EDE /* WidgetView */,
 				31D2E2972BFF780400C0AD63 /* WidgetsBundle.swift */,
 				31D2E2992BFF780400C0AD63 /* WidgetsLiveActivity.swift */,
 				31D2E29B2BFF780400C0AD63 /* Widgets.swift */,
@@ -316,6 +315,7 @@
 				31E3D3B92C22CE0F003B1EDE /* WidgetSmall.swift */,
 				31E3D3BB2C22D168003B1EDE /* WidgetMedium.swift */,
 				31E3D3BD2C22D1B0003B1EDE /* WidgetLarge.swift */,
+				31D75A0F2C20C408003C6519 /* ViewModifier */,
 			);
 			path = WidgetView;
 			sourceTree = "<group>";
