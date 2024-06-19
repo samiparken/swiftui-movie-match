@@ -15,7 +15,8 @@ Discover and organize your favorite movies effortlessly. Swipe right to save a m
 .              |.|
 :-------------------------:|:-------------------------:
 ![](/README/demo1.GIF)  |  ![](README/demo2.GIF)
-![](/README/demo3.GIF)  |![](/README/demo4.GIF)  
+![](/README/demo3.GIF)  |  ![](/README/demo4.GIF)  
+![](/README/demo5.GIF)  |  ![](/README/demo6.GIF)
 
 ## Installation
 1. Clone the repository
